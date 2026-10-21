@@ -1,0 +1,17 @@
+{
+  "name": "cbme-course-reflection",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/poll.test.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "11.1.5",
+    "qrcode-generator": "2.0.4"
+  }
+}

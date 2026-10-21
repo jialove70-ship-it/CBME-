@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="poll-api-origin" content="https://cbme-ai-jia.netlify.app">
   <meta name="theme-color" content="#153f3d">
-  <meta name="description" content="以 HTML 演講互動提問開場，依第三屆臺灣 CBME 醫學教育週七堂議程順序分享心得：未來醫師、精準教育、評量資料、信任、日常應用、教育生態與未來方向。5–10 分鐘分享，Microsoft YaHei 字型。">
+  <meta name="description" content="以手機現場投票與全場即時統計開場，依第三屆臺灣 CBME 醫學教育週七堂議程順序分享心得：未來醫師、精準教育、評量資料、信任、日常應用、教育生態與未來方向。5–10 分鐘分享，Microsoft YaHei 字型。">
   <title>AI × CBME｜七堂課的心得分享</title>
   <style>
     :root{--paper:#f7f5ef;--ink:#203b38;--muted:#5d6e68;--line:#d4dbd2;--green:#153f3d;--mint:#e5ecdf;--orange:#a74b2b;--font:"Microsoft YaHei","微軟雅黑","Microsoft JhengHei",sans-serif}
@@ -30,6 +31,18 @@
     @media(max-width:740px){.opening-layout,.share-overview{grid-template-columns:1fr;gap:27px}.hero .opening-question{font-size:clamp(29px,7.8vw,42px)}.opening-kicker{font-size:11px;margin-bottom:12px}.opening-layout .intro{font-size:16px}.audience-panel{padding:20px}.audience-choices button{font-size:16px;padding:12px 14px}.audience-reply{min-height:0}.reply-title{font-size:16px}.audience-actions{gap:12px}.share-overview{margin-top:35px;padding-top:28px}.overview-intro h2{font-size:26px}.overview-intro>p:last-child{font-size:15px}}
     @media(prefers-reduced-motion:reduce){.audience-choices button{transition:none}}
     @media print{.opening-layout .intro,.audience-panel{display:none}.opening-layout{display:block}.hero .opening-question{font-size:24pt}.share-overview{grid-template-columns:1.2fr 1fr;gap:25px;margin-top:22px;padding-top:18px}.overview-intro h2{font-size:19pt}.overview-intro>p:last-child{font-size:10pt}.opening-kicker{font-size:9pt}}
+
+    :root{--blue:#2459a7;--poll-bg:#f0f4f9;--poll-ink:#1f3049;--poll-muted:#5c6b80}
+    .hero{background:var(--poll-bg);padding:35px 0 45px}.live-header{border-bottom:3px solid var(--blue);padding-bottom:20px;margin-bottom:20px}.live-eyebrow{font-size:12px;color:var(--blue);letter-spacing:.13em;font-weight:700;margin-bottom:7px}.hero .live-question{font-size:clamp(27px,3vw,42px);line-height:1.5;color:var(--poll-ink)}.live-question span{color:var(--blue)}.live-description{color:var(--poll-muted);font-size:15px;margin-top:8px}.live-session{display:grid;grid-template-columns:1fr 135px;gap:25px;align-items:center;margin-bottom:20px}.room-summary{display:flex;align-items:center;gap:13px;flex-wrap:wrap;color:var(--poll-ink);font-size:14px}.room-code{font-size:25px;letter-spacing:.15em;font-weight:700;color:var(--blue);line-height:1.3}.live-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:11px}.live-controls label{font-size:13px;color:var(--poll-muted)}.live-controls input{font:inherit;font-size:14px;width:112px;letter-spacing:.1em;text-transform:uppercase;padding:7px 9px;border:1px solid #bdcadb;border-radius:6px;background:white}.live-btn{font:inherit;font-size:13px;padding:8px 13px;border:1px solid #bdcadb;border-radius:7px;color:var(--blue);background:#fff;cursor:pointer;line-height:1.5}.live-btn:hover{background:#e6eef9;border-color:var(--blue)}.live-btn:disabled{cursor:default;opacity:.55}.live-link-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}.live-link{font-size:12px;color:var(--blue);max-width:100%;overflow-wrap:anywhere}.live-feedback{font-size:12px;color:var(--poll-muted);min-height:23px;margin-top:4px}.live-qr{background:white;border:1px solid #dbe4ef;border-radius:9px;padding:6px;text-align:center;line-height:0}.live-qr svg{display:block;width:120px;height:120px;max-width:100%;margin:auto}.live-qr small{display:block;line-height:1.6;font-size:11px;color:var(--poll-muted);margin-top:4px}.live-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.live-card{background:white;border:1px solid #dae3ef;border-radius:14px;padding:25px 27px;box-shadow:0 4px 15px #27456b06;color:var(--poll-ink)}.live-card h2{font-size:20px;margin-bottom:4px;line-height:1.5}.live-card .card-sub{font-size:12px;color:var(--poll-muted);margin-bottom:15px}.vote-options{border:0;padding:0;margin:0;display:grid;gap:10px;min-width:0}.vote-option{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid #d6e0ed;border-radius:8px;cursor:pointer;font-size:16px;line-height:1.55}.vote-option:has(input:checked){border-color:var(--blue);background:#edf3ff;color:#174a98}.vote-option input{accent-color:var(--blue);width:18px;height:18px;margin:0;flex-shrink:0}.vote-option:has(input:disabled){cursor:default}.vote-submit{width:100%;font-size:15px;font-weight:700;color:white;background:var(--blue);border:0;border-radius:8px;padding:11px 15px;cursor:pointer;margin-top:16px}.vote-submit:disabled{opacity:.55;cursor:default}.vote-status{font-size:13px;line-height:1.7;min-height:23px;margin-top:10px;color:var(--blue)}.vote-rule{font-size:11px;color:var(--poll-muted);line-height:1.7;margin-top:8px}.results-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.connection{font-size:11px;color:var(--poll-muted);display:flex;align-items:center;gap:6px}.connection:before{content:'';width:7px;height:7px;border-radius:50%;background:#a1a9b7}.connection[data-state=connected]:before{background:#2f8b66}.connection[data-state=offline]:before{background:#b57530}.vote-total{display:flex;align-items:baseline;gap:9px;margin:13px 0 18px}.vote-total strong{font-size:47px;line-height:1;color:var(--blue);font-variant-numeric:tabular-nums}.vote-total span{font-size:13px;color:var(--poll-muted)}.result-row+.result-row{margin-top:15px}.result-label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px}.result-label output{white-space:nowrap;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}.result-bar{height:9px;background:#e9eef6;border-radius:10px;overflow:hidden;margin-top:7px}.result-fill{display:block;background:var(--blue);width:0;height:100%;border-radius:10px;transition:width .25s}.result-row:nth-child(2) .result-fill{background:#4384c1}.result-row:nth-child(3) .result-fill{background:#7caccd}.results-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid #e2e8f0;padding-top:13px;margin-top:20px}.results-time{font-size:11px;color:var(--poll-muted)}.results-actions{display:flex;gap:7px}.results-actions .live-btn{font-size:11px;padding:5px 9px}.results-note{font-size:11px;color:var(--poll-muted);min-height:20px;margin-top:8px}.share-overview{margin-top:40px}.live-phone-note{display:none}.live-card button:focus-visible,.live-controls button:focus-visible,.live-controls input:focus-visible,.vote-option:focus-within{outline:3px solid #80abe8;outline-offset:3px}
+    body[data-poll-view=vote] .top,body[data-poll-view=vote] .share-overview,body[data-poll-view=vote] .opening,body[data-poll-view=vote] .course,body[data-poll-view=vote] .closing,body[data-poll-view=vote] .references,body[data-poll-view=vote] #new-room,body[data-poll-view=vote] .live-qr,body[data-poll-view=vote] .live-link-row{display:none}body[data-poll-view=vote] .live-session{grid-template-columns:1fr}body[data-poll-view=vote] .live-phone-note{display:block;font-size:13px;color:var(--blue);margin-top:8px}body[data-poll-view=vote] .live-grid{grid-template-columns:1fr;max-width:650px;margin:auto}body[data-poll-view=vote] .wrap{max-width:850px}
+    @media(max-width:740px){.hero{padding-top:25px}.live-header{padding-bottom:17px;margin-bottom:17px}.hero .live-question{font-size:29px}.live-description{font-size:14px}.live-session{grid-template-columns:1fr 105px;gap:15px}.live-qr svg{width:90px;height:90px}.live-qr small{font-size:10px}.room-code{font-size:22px}.live-grid{grid-template-columns:1fr;gap:16px}.live-card{padding:21px}.live-controls{gap:7px}.live-controls input{width:100px}.live-btn{font-size:12px;padding:7px 10px}.live-link-row{gap:8px}.vote-total strong{font-size:43px}.live-card h2{font-size:19px}.vote-option{font-size:16px;padding:13px}.live-feedback{line-height:1.6}.live-description br{display:none}}
+    @media(prefers-reduced-motion:reduce){.result-fill{transition:none}}
+    @media print{.live-session,.live-grid,.live-description,.live-phone-note{display:none}.hero .live-question{font-size:24pt}.hero{background:white;padding:15px 0}.live-header{border-color:#555}}
+
+
+    .hero{padding-top:20px}.live-header{padding-bottom:12px;margin-bottom:12px}.live-eyebrow{margin-bottom:3px}.hero .live-question{font-size:clamp(26px,2.5vw,36px)}.hero .live-question span{color:var(--blue)}.live-description{font-size:14px;margin-top:4px}.live-session{grid-template-columns:1fr 102px;margin-bottom:16px;gap:20px}.live-qr svg{width:90px;height:90px}.live-qr small{font-size:10px}.live-feedback:empty{display:none}.live-feedback{min-height:0}.live-card{padding:20px 24px}.live-card h2{font-size:19px}.live-card .card-sub{margin-bottom:11px}.vote-options{gap:8px}.vote-option{padding:9px 12px;font-size:15px}.vote-submit{padding:9px 13px;margin-top:12px}.vote-status{margin-top:6px}.vote-total{margin:10px 0 14px}.vote-total strong{font-size:42px}.result-row+.result-row{margin-top:12px}.results-footer{margin-top:15px;padding-top:10px}.live-link-row{margin-top:7px}.live-controls{margin-top:8px}.room-code{font-size:23px}
+    @media(max-width:740px){.hero{padding-top:23px}.hero .live-question{font-size:28px}.live-session{grid-template-columns:1fr 100px;gap:12px}.live-card{padding:20px}.vote-option{padding:12px;font-size:16px}.live-grid{gap:17px}}
+
   </style>
 </head>
 <body id="top">
@@ -37,28 +50,19 @@
   <header class="top"><div class="wrap top-inner"><a class="brand" href="#top">AI <b>×</b> CBME ／ 課程心得</a><nav aria-label="七堂課程導覽"><a href="#course-1">01 未來醫師</a><a href="#course-2">02 精準教育</a><a href="#course-3">03 評量資料</a><a href="#course-4">04 信任與 AI</a><a href="#course-5">05 日常應用</a><a href="#course-6">06 教育生態</a><a href="#course-7">07 未來方向</a></nav></div></header>
   <main id="main">
     <div class="hero"><div class="wrap">
-      <div class="hero-meta"><p class="eyebrow">2026.07.25 · 中國醫藥大學附設醫院<br>第三屆臺灣 CBME 醫學教育週</p><span class="duration">七堂議程，依序分享 ／ 5–10 分鐘</span></div>
-
-      <div class="hero-layout opening-layout">
-        <div><p class="eyebrow opening-kicker">先來一個現場互動</p><h1 class="opening-question">現場有人在用<br><span>HTML 網頁</span>進行演講嗎？</h1><p class="intro">你可以舉手回應，也可以選一個最接近你的答案。今天，我們就用這個網頁開始分享。</p></div>
-        <div class="audience-panel" aria-label="HTML 演講互動開場">
-          <p class="audience-title">你用過 HTML 網頁演講嗎？</p>
-          <div class="audience-choices" role="group" aria-label="選擇你的 HTML 演講經驗">
-            <button type="button" data-answer="used" aria-pressed="false" aria-controls="audience-reply">有，我用過</button>
-            <button type="button" data-answer="curious" aria-pressed="false" aria-controls="audience-reply">還沒，想試試</button>
-            <button type="button" data-answer="first" aria-pressed="false" aria-controls="audience-reply">今天第一次看到</button>
-          </div>
-          <div class="audience-reply" id="audience-reply" role="status" aria-live="polite" aria-atomic="true"><p class="reply-title" id="reply-title">點選一個答案，開始今天的分享。</p><p class="reply-body" id="reply-body">這份心得，就是用 HTML 網頁呈現。先從一個提問，打開今天的對話。</p></div>
-          <div class="audience-actions"><a class="text-link" href="#share-agenda">看看今天的分享 <span aria-hidden="true">↓</span></a><button class="reset-choice" type="button" id="reset-choice" disabled>重新選擇</button></div>
-        </div>
-      </div>
+      <section aria-labelledby="live-question">
+        <div class="live-header"><p class="live-eyebrow">AI × CBME · 現場互動投票</p><h1 class="live-question" id="live-question">現場有人在用 <span>HTML 網頁</span>進行演講嗎？</h1><p class="live-description">掃描 QR code，選擇最接近你的答案。讓今天的分享，從大家的經驗開始。</p><p class="live-phone-note">你已進入觀眾投票頁，請確認場次代碼與講者畫面相同。</p></div>
+        <div class="live-session"><div><div class="room-summary"><span>目前場次</span><strong id="room-code" class="room-code">------</strong><span id="room-mode">講者畫面 · 每 3 秒同步結果</span></div><form id="room-form" class="live-controls"><label for="room-input">加入場次</label><input id="room-input" type="text" minlength="6" maxlength="6" pattern="[A-Za-z2-9]{6}" placeholder="6 位代碼" autocomplete="off" spellcheck="false" aria-label="六位場次代碼" required><button class="live-btn" type="submit">加入</button><button id="new-room" class="live-btn" type="button">建立新場次</button><button id="copy-link" class="live-btn" type="button">複製投票連結</button></form><div class="live-link-row"><a class="live-link" id="vote-link" href="#">手機投票連結</a></div><p class="live-feedback" id="room-feedback" role="status" aria-live="polite"></p></div><div class="live-qr"><div id="poll-qr" role="img" aria-label="掃描此 QR code 加入目前場次"></div><small>手機掃碼投票</small></div></div>
+        <div class="live-grid"><form class="live-card" id="poll-form"><h2>選擇你的答案</h2><p class="card-sub">你用過 HTML 網頁演講嗎？</p><fieldset class="vote-options" id="vote-options" aria-label="HTML 演講經驗"><label class="vote-option"><input type="radio" name="choice" value="used" required><span>有，我用過</span></label><label class="vote-option"><input type="radio" name="choice" value="curious"><span>還沒，想試試</span></label><label class="vote-option"><input type="radio" name="choice" value="first"><span>今天第一次看到</span></label></fieldset><button class="vote-submit" id="vote-submit" type="submit" disabled>送出我的一票</button><p class="vote-status" id="vote-status" role="status" aria-live="polite">正在連接投票場次…</p><p class="vote-rule">同一瀏覽器每場限投一票，送出後無法更改。使用匿名識別碼，無需填寫姓名或登入。</p></form>
+        <section class="live-card" aria-labelledby="results-title"><div class="results-top"><h2 id="results-title">全場即時結果</h2><span class="connection" id="connection" data-state="connecting">連線中</span></div><div class="vote-total" aria-live="polite" aria-atomic="true"><strong id="vote-total">—</strong><span>人已投票</span></div><div id="result-rows"><div class="result-row"><div class="result-label"><span>有，我用過</span><output id="result-used">— 票 · —%</output></div><div class="result-bar" role="progressbar" aria-label="有，我用過的得票比例" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="bar-used" class="result-fill"></span></div></div><div class="result-row"><div class="result-label"><span>還沒，想試試</span><output id="result-curious">— 票 · —%</output></div><div class="result-bar" role="progressbar" aria-label="還沒，想試試的得票比例" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="bar-curious" class="result-fill"></span></div></div><div class="result-row"><div class="result-label"><span>今天第一次看到</span><output id="result-first">— 票 · —%</output></div><div class="result-bar" role="progressbar" aria-label="今天第一次看到的得票比例" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="bar-first" class="result-fill"></span></div></div></div><div class="results-footer"><span class="results-time" id="results-time">尚未取得全場結果</span><div class="results-actions"><button class="live-btn" id="refresh-results" type="button">更新結果</button><button class="live-btn" id="export-results" type="button" disabled>下載統計 CSV</button></div></div><p class="results-note" id="results-note" role="status" aria-live="polite">票數會依此場次的有效投票彙整。</p></section></div>
+      </section>
       <div class="share-overview" id="share-agenda"><div class="overview-intro"><p class="eyebrow">今天的分享</p><h2>AI 時代的醫學教育<br>七堂課的心得</h2><p>依照當天議程，從未來醫師需要的能力，談到精準教育、評量、信任與日常應用，再一起思考台灣 CBME 的未來方向。</p></div>
       <ol class="agenda-index" aria-label="依議程順序的七堂課"><li><a href="#course-1"><span>01</span><strong>未來醫師的能力</strong><i aria-hidden="true">↗</i></a></li><li><a href="#course-2"><span>02</span><strong>精準醫學教育</strong><i aria-hidden="true">↗</i></a></li><li><a href="#course-3"><span>03</span><strong>評量系統與資料科學</strong><i aria-hidden="true">↗</i></a></li><li><a href="#course-4"><span>04</span><strong>信任與人工智慧</strong><i aria-hidden="true">↗</i></a></li><li><a href="#course-5"><span>05</span><strong>日常教學與臨床應用</strong><i aria-hidden="true">↗</i></a></li><li><a href="#course-6"><span>06</span><strong>CBME 教育生態系統</strong><i aria-hidden="true">↗</i></a></li><li><a href="#course-7"><span>07</span><strong>台灣 CBME 的未來方向</strong><i aria-hidden="true">↗</i></a></li></ol></div>
       <p class="opening"><b>開場</b>這次課程讓我最想帶回來的問題是：AI 進入醫學教育之後，我們如何讓學員學得更好，也讓病人得到更好的照護？以下依七堂課的順序，分享我的心得。</p>
     </div></div>
     <section class="course" id="course-1" aria-labelledby="course-1-title"><div class="wrap">
       <div class="course-head"><span class="number">01</span><div><p class="course-meta">第一堂 · 09:20–10:00<span class="speaker">Yang C. Fann</span></p><h2 id="course-1-title">重塑 AI 時代的未來醫師：對能力導向醫學教育的啟示</h2></div><span class="time">心得分享 · 約 1 分鐘</span></div>
-      <div class="indented"><p class="takeaway">未來醫師，需要臨床與 AI 雙重素養</p><div class="thoughts"><div><span class="label">課程重點</span><p>教材提出臨床專業與 AI 素養並進。醫師需要理解 AI 的限制、辨識偏誤，判斷建議是否適合眼前病人，並持續承擔同理溝通、倫理決策與照護責任。</p></div><div class="reflection"><span class="label">我的心得</span><p>這堂課讓我重新思考「會使用 AI」的意義。我希望學員能說明自己為什麼接受或修正 AI 建議，並把病人的處境與偏好納入判斷。</p></div></div><p class="carry">教學可以多問一句：「這個 AI 建議，為什麼適合這位病人？」</p></div>
+      <div class="indented"><p class="takeaway">未來醫師，需要臨床與 AI 雙重素養</p><div class="thoughts"><div><span class="label">課程重點</span><p>課程提出臨床專業與 AI 能力並進，醫師仍須判斷建議是否適合眼前病人。機構也要建立使用政策、查核與復原流程，以真實世界證據持續監測成效與風險。</p></div><div class="reflection"><span class="label">我的心得</span><p>我帶走的提醒是，AI 素養不能只靠個人熟練工具。學員要能解釋為何接受或修正建議，機構也要接住查核責任；最後仍要回看，是否真正改善病人照護。</p></div></div><p class="carry">教學可以多問一句：「這個 AI 建議，為什麼適合這位病人？」</p></div>
     </div></section>
 <section class="course" id="course-2" aria-labelledby="course-2-title"><div class="wrap">
       <div class="course-head"><span class="number">02</span><div><p class="course-meta">第二堂 · 10:00–10:40<span class="speaker">Jesse B. Rafel</span></p><h2 id="course-2-title">AI 時代的精準醫學教育：願景、基礎建設與實踐策略</h2></div><span class="time">心得分享 · 約 1 分鐘</span></div>
@@ -70,15 +74,15 @@
     </div></section>
 <section class="course dark" id="course-4" aria-labelledby="course-4-title"><div class="wrap">
       <div class="course-head"><span class="number">04</span><div><p class="course-meta">第四堂 · 11:40–12:20<span class="speaker">Brian Gin</span></p><h2 id="course-4-title">臨床教育實踐中的信任與人工智慧</h2></div><span class="time">心得分享 · 約 1 分鐘</span></div>
-      <div class="indented"><p class="takeaway">學員使用 AI 時，督導責任仍要清楚</p><div class="thoughts"><div><span class="label">課程重點</span><p>課程區分「讓學員在 AI 協助下工作」與「把學員交給 AI」。信任與授權牽涉任務、情境、學員能力，以及教師與病人之間的責任關係。</p></div><div class="reflection"><span class="label">我的心得</span><p>我帶走的提醒是：不能只用 AI 答得多好來決定如何授權。當學員使用 AI 時，我仍需要知道他能否查核、能否解釋自己的判斷，以及何時要尋求協助。</p></div></div><p class="carry">先問清楚：AI 做哪一步？誰來查核？誰承擔責任？</p></div>
+      <div class="indented"><p class="takeaway">讓 AI 成為觀察學習的鏡頭，支持人與人之間的信任</p><div class="thoughts"><div><span class="label">課程重點</span><p>課程以 AI 虛擬病人與模擬學員產生學習證據，提出先進行 AI–AI 測試，再由專家、進階學員到新手的分階段驗證。AI 提供觀察視角，人類教師仍負責督導與授權。</p></div><div class="reflection"><span class="label">我的心得</span><p>我最有感的是「新手最後」。不能把驗證責任全部留給最缺乏經驗的學員。我想先確認工具能否辨識能力差異，再逐步導入，讓教師用 AI 資料支持自己的判斷。</p></div></div><p class="carry">先驗證工具，再逐步導入；讓 AI 的觀察，接回教師的督導與責任。</p></div>
     </div></section>
 <section class="course" id="course-5" aria-labelledby="course-5-title"><div class="wrap">
       <div class="course-head"><span class="number">05</span><div><p class="course-meta">第五堂 · 13:20–14:40 · 前線論壇<span class="speaker">Ming-Jung Ho · Cheng-Heng Liu · Wei-Chun Wang</span></p><h2 id="course-5-title">AI 於日常教學與臨床實務中的應用</h2></div><span class="time">心得分享 · 約 1 分鐘</span></div>
-      <div class="indented"><p class="takeaway">把 AI 放進流程，保留學員思考的時刻</p><div class="thoughts"><div><span class="label">課程重點</span><p>下午論壇將 AI 分工、模擬病人、數位 OSCE 與核心技能維持放進日常教學。病房查房範例清楚安排 AI、學員及教師在查房前、中、後的工作。</p></div><div class="reflection"><span class="label">我的心得</span><p>我最想帶回現場的是一個小改變：讓 AI 協助摘要與整理，讓學員先提出自己的評估與計畫，讓教師直接觀察並追問理由。也保留有目的的無 AI 練習。</p></div></div><div class="workflow" aria-label="課程中的病房查房分工示例"><div><span>查房前</span><strong>核對資料</strong><p>AI 摘要與標示變化<br>學員核對、教師確認來源</p></div><div><span>查房中</span><strong>說明判斷</strong><p>學員提出評估與計畫<br>教師直接觀察並追問理由</p></div><div><span>查房後</span><strong>連回學習</strong><p>AI 協助整理學習證據<br>師生討論回饋與下一步</p></div></div><p class="carry">省下整理的時間之後，要有意識地留給推理與回饋。</p></div>
+      <div class="indented"><p class="takeaway">把 AI 放進流程，保留學員思考的時刻</p><div class="thoughts"><div><span class="label">課程重點</span><p>下午論壇依序談到 AI 工作流程分工、模擬病人與數位 OSCE，再談核心技能維持。任務可分為交付、增強、監督與保留。病房查房範例清楚安排 AI、學員及教師在查房前、中、後的工作。</p></div><div class="reflection"><span class="label">我的心得</span><p>我最想帶回現場的是一個小改變：讓 AI 協助摘要與整理，讓學員先提出自己的評估與計畫，讓教師直接觀察並追問理由。也保留有目的的無 AI 練習。</p></div></div><div class="workflow" aria-label="課程中的病房查房分工示例"><div><span>查房前</span><strong>核對資料</strong><p>AI 摘要與標示變化<br>學員核對、教師確認來源</p></div><div><span>查房中</span><strong>說明判斷</strong><p>學員提出評估與計畫<br>教師直接觀察並追問理由</p></div><div><span>查房後</span><strong>連回學習</strong><p>AI 協助整理學習證據<br>師生討論回饋與下一步</p></div></div><p class="carry">省下整理的時間之後，要有意識地留給推理與回饋。</p></div>
     </div></section>
 <section class="course soft" id="course-6" aria-labelledby="course-6-title"><div class="wrap">
       <div class="course-head"><span class="number">06</span><div><p class="course-meta">第六堂 · 15:00–15:40<span class="speaker">Eric S. Holmboe</span></p><h2 id="course-6-title">將 AI 整合進能力導向醫學教育生態系統</h2></div><span class="time">心得分享 · 約 1 分鐘</span></div>
-      <div class="indented"><p class="takeaway">把效率、學習與病人照護一起考慮</p><div class="thoughts"><div><span class="label">課程重點</span><p>醫學教育是教師、學員、病人、工作環境與技術彼此影響的生態系統。AI 整合需兼顧倫理、人工查核、刻意練習，以及師生共同學習。</p></div><div class="reflection"><span class="label">我的心得</span><p>這堂課幫我把前面的內容串起來。導入 AI 時，我想同時看見工作流程、學員成長與病人需求，並明確安排人的查核責任。教師也可以和學員一起學習如何面對不確定性。</p></div></div><p class="carry">每一個工具的改變，都要回頭看對學習與照護的影響。</p></div>
+      <div class="indented"><p class="takeaway">把效率、學習與病人照護一起考慮</p><div class="thoughts"><div><span class="label">課程重點</span><p>醫學教育是教師、學員、病人、工作環境與技術彼此影響的生態系統。AI 整合需兼顧倫理、人工查核、刻意練習與師生共同學習，也要避免學員尚未學會，就把工作交給 AI。</p></div><div class="reflection"><span class="label">我的心得</span><p>這堂課幫我把前面的內容串起來。導入 AI 時，我想同時看見工作流程、學員成長與病人需求，並明確安排人的查核責任。教師也可以和學員一起學習如何面對不確定性。</p></div></div><p class="carry">每一個工具的改變，都要回頭看對學習與照護的影響。</p></div>
     </div></section>
 <section class="course" id="course-7" aria-labelledby="course-7-title"><div class="wrap">
       <div class="course-head"><span class="number">07</span><div><p class="course-meta">第七堂 · 15:40–16:20 · 綜合座談<span class="speaker">所有講者及與會貴賓</span></p><h2 id="course-7-title">從對話到方向：共同形塑台灣能力導向醫學教育的未來</h2></div><span class="time">心得分享 · 約 1 分鐘</span></div>
@@ -91,33 +95,199 @@
     <p class="source-note">「課程重點」為課程內容的整理轉述；「我的心得」及未來試行方向為分享用反思。講者與時段依正式議程標示。</p><div class="foot"><span>台中 CBME 課程心得分享 · 依議程順序 · Microsoft YaHei</span><a href="#top">回到頁首 ↑</a></div>
   </div></footer>
 
-  <script>
-  (() => {
-    const choices=[...document.querySelectorAll('[data-answer]')];
-    const title=document.getElementById('reply-title');
-    const body=document.getElementById('reply-body');
-    const reset=document.getElementById('reset-choice');
-    const initial={title:title.textContent,body:body.textContent};
-    const responses={
-      used:{title:'歡迎待會分享你的使用經驗。',body:'今天也一起看看：除了呈現內容，網頁還可以怎麼幫助現場提問與交流？'},
-      curious:{title:'那就從這份分享開始體驗。',body:'這份心得，就是用 HTML 網頁呈現。你剛才的點選，已經成為今天開場的一部分。'},
-      first:{title:'今天，就一起試試這種分享方式。',body:'一個網頁，也能放進提問、課程導覽與心得。接下來，讓我們把這份好奇帶進 AI 與醫學教育。'}
-    };
-    choices.forEach(choice=>choice.addEventListener('click',()=>{
-      choices.forEach(button=>button.setAttribute('aria-pressed',String(button===choice)));
-      const response=responses[choice.dataset.answer];
-      title.textContent=response.title;
-      body.textContent=response.body;
-      reset.disabled=false;
-    }));
-    reset.addEventListener('click',()=>{
-      choices.forEach(button=>button.setAttribute('aria-pressed','false'));
-      title.textContent=initial.title;
-      body.textContent=initial.body;
-      reset.disabled=true;
-      choices[0].focus();
-    });
-  })();
-  </script>
+<script src="vendor/qrcode.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const labels = { used: '有，我用過', curious: '還沒，想試試', first: '今天第一次看到' };
+  const validRoom = value => /^[A-Z2-9]{6}$/.test(value);
+  const params = new URLSearchParams(location.search);
+  const phone = params.get('view') === 'vote';
+  const pollOrigin = location.hostname === 'jialove70-ship-it.github.io' ? document.querySelector('meta[name="poll-api-origin"]').content : location.origin;
+  document.body.dataset.pollView = phone ? 'vote' : 'presenter';
+  if (phone) $('room-mode').textContent = '觀眾投票頁';
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const newCode = () => [...crypto.getRandomValues(new Uint8Array(6))].map(n => alphabet[n % alphabet.length]).join('');
+  const readSaved = key => { try { return localStorage.getItem(key); } catch { return null; } };
+  const save = (key, value) => { try { localStorage.setItem(key, value); } catch {} };
+  let voterId = readSaved('cbme-voter-v1');
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(voterId || '')) {
+    voterId = crypto.randomUUID();
+    save('cbme-voter-v1', voterId);
+  }
+  let room, voteUrl, savedChoice = null, snapshot = null, connected = false, pending = false;
+  let timer = null, activeRead = null, generation = 0;
+  const radios = [...document.querySelectorAll('input[name="choice"]')];
+  function updateForm() {
+    $('vote-options').disabled = Boolean(savedChoice) || pending;
+    $('vote-submit').disabled = !connected || pending || Boolean(savedChoice) || !radios.some(radio => radio.checked);
+    $('vote-submit').textContent = savedChoice ? '已完成投票' : pending ? '送出中…' : '送出我的一票';
+    if (savedChoice) $('vote-status').textContent = '已收到你的一票：' + labels[savedChoice] + '。謝謝參與！';
+  }
+  function setConnection(state) {
+    connected = state === 'connected';
+    $('connection').dataset.state = state;
+    $('connection').textContent = connected ? '已同步' : state === 'offline' ? '連線中斷' : '連線中';
+    updateForm();
+  }
+  async function fetchJson(path, options = {}) {
+    const response = await fetch(pollOrigin + '/.netlify/functions/' + path, { cache: 'no-store', ...options });
+    const type = response.headers.get('content-type') || '';
+    if (!type.includes('application/json')) throw new Error('投票服務未連線。請使用已部署的 Netlify 網址。');
+    return { response, data: await response.json() };
+  }
+  function renderResults(data) {
+    const values = Object.keys(labels).map(choice => data.counts?.[choice]);
+    if (data.room !== room || !values.every(n => Number.isSafeInteger(n) && n >= 0) ||
+        !Number.isSafeInteger(data.total) || values.reduce((a,b) => a+b,0) !== data.total || !Number.isFinite(Date.parse(data.updatedAt))) {
+      throw new Error('統計資料尚未就緒，請稍後更新。');
+    }
+    snapshot = data;
+    $('vote-total').textContent = data.total.toLocaleString('zh-TW');
+    for (const choice of Object.keys(labels)) {
+      const count = data.counts[choice];
+      const pct = data.total ? count / data.total * 100 : 0;
+      $('result-' + choice).textContent = count + ' 票 · ' + (pct % 1 ? pct.toFixed(1) : pct.toFixed(0)) + '%';
+      $('bar-' + choice).style.width = pct + '%';
+      $('bar-' + choice).parentElement.setAttribute('aria-valuenow', pct.toFixed(1));
+    }
+    $('results-time').textContent = '更新於 ' + new Date(data.updatedAt).toLocaleTimeString('zh-TW', { hour12: false });
+    $('results-note').textContent = phone ? '這是最近一次取得的全場結果，點「更新結果」可查看最新票數。' :
+      data.total ? '每 3 秒同步本場次結果；百分比四捨五入至小數點一位。' : '等待大家的第一票。掃描上方 QR code 即可參與。';
+    $('export-results').disabled = false;
+    setConnection('connected');
+    if (!savedChoice && !pending) $('vote-status').textContent = '選擇答案後，按「送出我的一票」。';
+  }
+  async function refreshResults() {
+    if (activeRead || document.hidden) return;
+    const thisGeneration = generation;
+    const controller = new AbortController();
+    activeRead = controller;
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    $('refresh-results').disabled = true;
+    try {
+      const { response, data } = await fetchJson('results?room=' + encodeURIComponent(room), { signal: controller.signal });
+      if (thisGeneration !== generation) return;
+      if (!response.ok) throw new Error(data.message || '暫時無法讀取統計，請稍後更新。');
+      renderResults(data);
+    } catch (error) {
+      if (thisGeneration !== generation) return;
+      setConnection('offline');
+      $('results-note').textContent = snapshot ? '暫時無法同步；畫面保留上次結果，請稍後更新。' : '尚未連接全場統計。請確認網路及 Netlify 投票服務後重試。';
+      if (!savedChoice && !pending) $('vote-status').textContent = '目前無法連接投票服務，請稍後按「更新結果」。';
+    } finally {
+      clearTimeout(timeout);
+      if (thisGeneration === generation) { activeRead = null; $('refresh-results').disabled = false; }
+    }
+  }
+  function schedule() {
+    clearInterval(timer);
+    timer = null;
+    if (!phone && !document.hidden) timer = setInterval(refreshResults, 3000);
+  }
+  function changeRoom(code, initial = false) {
+    if (!validRoom(code)) return;
+    generation += 1;
+    activeRead?.abort();
+    activeRead = null;
+    room = code;
+    snapshot = null;
+    pending = false;
+    savedChoice = readSaved('cbme-vote-v1:' + room);
+    if (!Object.hasOwn(labels, savedChoice)) savedChoice = null;
+    radios.forEach(radio => { radio.checked = radio.value === savedChoice; });
+    $('room-code').textContent = room;
+    $('room-input').value = room;
+    const currentUrl = new URL(location.href);
+    currentUrl.searchParams.set('room', room);
+    if (!phone) currentUrl.searchParams.delete('view');
+    history.replaceState(null, '', currentUrl);
+    const mobileUrl = new URL(pollOrigin === location.origin ? location.pathname : '/', pollOrigin);
+    mobileUrl.searchParams.set('room', room);
+    mobileUrl.searchParams.set('view', 'vote');
+    voteUrl = mobileUrl.href;
+    $('vote-link').href = voteUrl;
+    $('vote-link').textContent = voteUrl;
+    $('poll-qr').replaceChildren();
+    if (typeof qrcode === 'function') {
+      const qr = qrcode(0, 'M');
+      qr.addData(voteUrl);
+      qr.make();
+      $('poll-qr').innerHTML = qr.createSvgTag({ cellSize: 4, margin: 12, scalable: true });
+    } else $('poll-qr').textContent = '請使用投票連結';
+    $('vote-total').textContent = '—';
+    for (const choice of Object.keys(labels)) {
+      $('result-' + choice).textContent = '— 票 · —%';
+      $('bar-' + choice).style.width = '0%';
+      $('bar-' + choice).parentElement.setAttribute('aria-valuenow', '0');
+    }
+    $('results-time').textContent = '尚未取得全場結果';
+    $('results-note').textContent = '正在讀取這個場次的有效投票…';
+    $('vote-status').textContent = '正在連接投票場次…';
+    $('export-results').disabled = true;
+    $('room-feedback').textContent = initial ? '' : '已切換至場次 ' + room + '，請讓觀眾使用這個場次的 QR code。';
+    setConnection('connecting');
+    refreshResults();
+    schedule();
+  }
+  $('room-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const code = $('room-input').value.trim().toUpperCase();
+    if (validRoom(code)) changeRoom(code);
+    else $('room-feedback').textContent = '請輸入六位英文字母或數字 2–9 的場次代碼。';
+  });
+  $('room-input').addEventListener('input', () => { $('room-input').value = $('room-input').value.toUpperCase(); });
+  $('new-room').addEventListener('click', () => changeRoom(newCode()));
+  $('copy-link').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(voteUrl); $('room-feedback').textContent = '已複製手機投票連結，可貼到群組或聊天室。'; }
+    catch { $('room-feedback').textContent = '請長按或選取上方投票連結進行複製。'; }
+  });
+  radios.forEach(radio => radio.addEventListener('change', updateForm));
+  $('refresh-results').addEventListener('click', refreshResults);
+  $('poll-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const choice = radios.find(radio => radio.checked)?.value;
+    if (!choice || pending || savedChoice || !connected) return;
+    const submittedRoom = room;
+    const submittedGeneration = generation;
+    pending = true;
+    $('vote-status').textContent = '正在送出你的一票…';
+    updateForm();
+    try {
+      const { response, data } = await fetchJson('vote', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ room: submittedRoom, voterId, choice }), signal: AbortSignal.timeout(8000) });
+      if ((response.status === 201 || response.status === 409) && data.room === submittedRoom && Object.hasOwn(labels, data.choice)) {
+        save('cbme-vote-v1:' + submittedRoom, data.choice);
+        if (submittedGeneration !== generation) return;
+        savedChoice = data.choice;
+        radios.forEach(radio => { radio.checked = radio.value === savedChoice; });
+        await refreshResults();
+      } else throw new Error(data.message || '投票尚未完成，請重新送出。');
+    } catch (error) {
+      if (submittedGeneration === generation) $('vote-status').textContent = '未能確認送出結果，請重新送出。同一票不會重複計算。';
+    } finally {
+      if (submittedGeneration === generation) { pending = false; updateForm(); }
+    }
+  });
+  $('export-results').addEventListener('click', () => {
+    if (!snapshot) return;
+    const lines = [['場次', '選項', '票數', '百分比', '統計時間'], ...Object.entries(labels).map(([choice,label]) =>
+      [room, label, snapshot.counts[choice], (snapshot.total ? snapshot.counts[choice] / snapshot.total * 100 : 0).toFixed(1) + '%', snapshot.updatedAt]),
+      [room, '總計', snapshot.total, snapshot.total ? '100%' : '0%', snapshot.updatedAt]];
+    const csv = '\ufeff' + lines.map(line => line.map(value => '"' + String(value).replaceAll('"', '""') + '"').join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url; link.download = 'CBME-投票統計-' + room + '.csv'; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  document.addEventListener('visibilitychange', () => { schedule(); if (!document.hidden && !phone) refreshResults(); });
+  window.addEventListener('online', refreshResults);
+  const initialRoom = (params.get('room') || '').toUpperCase();
+  changeRoom(validRoom(initialRoom) ? initialRoom : newCode(), true);
+  if (params.has('room') && !validRoom(initialRoom)) $('room-feedback').textContent = '連結中的場次代碼無效，已建立新場次；請向講者確認代碼。';
+});
+
+</script>
 </body>
 </html>
