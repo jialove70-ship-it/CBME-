@@ -2,6 +2,8 @@
 
 2026 年 7 月 25 日第三屆臺灣 CBME 醫學教育週的七堂課心得，適合 5–10 分鐘分享。全頁優先使用 Microsoft YaHei（微軟雅黑），提供手機版與列印樣式。
 
+第二頁標示分享者「蘇怡嘉｜教研部／藥學部」。七堂課後新增「把心得帶回工作現場」，以教研部的評量回饋、藥學部的模擬教學及分階段試行整理個人行動方向；此頁列印時獨立成頁。
+
 - GitHub Pages：https://jialove70-ship-it.github.io/CBME-/
 - Netlify：https://cbme-ai-jia.netlify.app/
 
