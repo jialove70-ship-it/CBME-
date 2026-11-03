@@ -14,15 +14,15 @@
   --focus: #2454cf;
   --gutter: clamp(1.125rem, 4.25vw, 3.75rem);
   --measure: 72rem;
-  --serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
-  --sans: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+  --serif: "Microsoft YaHei", "微软雅黑", "Microsoft JhengHei", "PingFang TC", "Noto Serif TC", serif;
+  --sans: "Microsoft YaHei", "微软雅黑", "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
   font-family: var(--sans);
   font-synthesis: none;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 6.75rem; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-size: 1rem; line-height: 1.8; overflow-wrap: anywhere; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--site-header-height, 7.8rem) + .65rem); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-size: clamp(1.075rem, 1.01rem + .37vw, 1.2rem); line-height: 1.75; overflow-wrap: anywhere; }
 [hidden] { display: none !important; }
 img, picture { display: block; max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -35,17 +35,17 @@ a:hover { color: var(--navy-deep); }
 h1, h2, h3, h4, p, ul, ol, dl, figure, blockquote { margin-block-start: 0; }
 h1, h2, h3, h4 { color: var(--navy-deep); font-weight: 750; line-height: 1.35; text-wrap: balance; }
 h1, h2 { font-family: var(--serif); }
-h1 { font-size: clamp(2.25rem, 5.6vw, 5.1rem); letter-spacing: -.045em; }
-h2 { margin-block-end: .7rem; font-size: clamp(1.85rem, 3.45vw, 3rem); letter-spacing: -.025em; }
-h3 { margin-block-end: .6rem; font-size: clamp(1.14rem, 1.8vw, 1.45rem); }
-h4 { margin-block-end: .45rem; font-size: 1.03rem; }
+h1 { font-size: clamp(2.35rem, 5.7vw, 5.2rem); letter-spacing: -.04em; }
+h2 { margin-block-end: .7rem; font-size: clamp(1.95rem, 3.55vw, 3.1rem); letter-spacing: -.025em; }
+h3 { margin-block-end: .6rem; font-size: clamp(1.24rem, 1.95vw, 1.58rem); }
+h4 { margin-block-end: .45rem; font-size: 1.12rem; }
 p { margin-block-end: .8rem; }
 ul, ol { padding-inline-start: 1.35rem; }
 li + li { margin-block-start: .3rem; }
 dt { font-weight: 750; }
 dd { margin-inline-start: 0; margin-block-end: .55rem; }
 strong { font-weight: 750; }
-small { font-size: .84em; }
+small { font-size: .9em; }
 hr { border: 0; border-block-start: 1px solid var(--line); margin-block: 2.25rem; }
 code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .container, .wrap { width: min(var(--measure), calc(100% - 2 * var(--gutter))); margin-inline: auto; }
@@ -70,13 +70,14 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
   justify-content: space-between;
   gap: clamp(.7rem, 3vw, 2rem);
 }
+.site-header:has(.page-toolbar) > .header-inner { min-height: 3.5rem; }
 .site-brand, .brand {
   display: inline-flex;
   align-items: center;
   gap: .55rem;
   min-height: 2.75rem;
   color: var(--navy-deep);
-  font-size: .94rem;
+  font-size: 1rem;
   font-weight: 800;
   line-height: 1.45;
   letter-spacing: .055em;
@@ -89,12 +90,73 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
   align-items: center;
   justify-content: flex-end;
   gap: .15rem clamp(.55rem, 1.6vw, 1.45rem);
-  font-size: .88rem;
+  font-size: .94rem;
 }
 .site-header nav :is(ol, ul), .site-nav :is(ol, ul) { display: flex; flex-wrap: wrap; align-items: center; gap: inherit; margin: 0; padding: 0; list-style: none; }
 .site-header nav li + li { margin: 0; }
 .site-header nav a, .site-nav a { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--muted); text-decoration: none; }
 .site-header nav a:hover, .site-nav a:hover, .site-nav a[aria-current="location"] { color: var(--royal); text-decoration: underline; }
+.site-header > .page-toolbar {
+  display: block;
+  min-height: 0;
+  padding-block: .33rem .5rem;
+  border-block-start: 1px solid var(--line);
+}
+.page-nav {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  width: min(100%, 44rem);
+  min-width: 0;
+  gap: .45rem;
+  margin: 0;
+}
+.page-nav label {
+  color: var(--navy-deep);
+  font-size: .98rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+.page-nav #page-select {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding-block: .35rem;
+  padding-inline-start: .55rem;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.page-nav :is(.page-arrow, .page-go) {
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: .3rem .54rem;
+  border: 1px solid #718bb8;
+  border-radius: .34rem;
+  font-size: .98rem;
+  font-weight: 750;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.page-nav .page-arrow { background: var(--surface); color: var(--navy-deep); font-size: 1.22rem; }
+.page-nav .page-arrow:hover:not(:disabled) { border-color: var(--royal); background: var(--blue-wash); }
+.page-nav .page-arrow:disabled { opacity: .52; }
+.page-nav .page-go { border-color: var(--royal); background: var(--royal); color: var(--surface); }
+.page-nav .page-go:hover { border-color: var(--navy-deep); background: var(--navy-deep); }
+.page-current {
+  min-inline-size: 4.25ch;
+  color: var(--muted);
+  font-size: .94rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  text-align: center;
+  white-space: nowrap;
+}
+#slide-39 { min-block-size: calc(100vh - var(--site-header-height, 7.8rem) - 1rem); }
 
 .hero {
   position: relative;
@@ -120,7 +182,7 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .eyebrow, .kicker, .chapter-kicker, .section-kicker {
   margin-block-end: .65rem;
   color: var(--royal);
-  font-size: .78rem;
+  font-size: .88rem;
   font-weight: 800;
   line-height: 1.5;
   letter-spacing: .13em;
@@ -132,7 +194,7 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
   min-height: 1.6rem;
 }
 .hero .eyebrow::before, .hero .kicker::before { width: 1.55rem; height: 1px; background: currentColor; content: ""; }
-.lead, .hero-description { max-width: 49ch; color: var(--muted); font-size: clamp(1.06rem, 1.9vw, 1.27rem); line-height: 1.75; }
+.lead, .hero-description { max-width: 49ch; color: var(--muted); font-size: clamp(1.14rem, 2vw, 1.36rem); line-height: 1.7; }
 .hero-actions, .form-actions, .button-row, .exercise-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem .8rem; margin-block: 1.35rem .35rem; }
 .button, .btn, .hero-actions a, .exercise button, button[type="submit"], .room-controls button, .room-share button, button.exercise-submit {
   display: inline-flex;
@@ -145,7 +207,7 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
   border-radius: .35rem;
   background: var(--royal);
   color: var(--surface);
-  font-size: .94rem;
+  font-size: 1.04rem;
   font-weight: 750;
   line-height: 1.4;
   text-align: center;
@@ -180,7 +242,7 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .hero-aside :is(.eyebrow,.kicker,.muted,.subtle), .hero-panel :is(.eyebrow,.kicker,.muted,.subtle) { color: #bbd3ff; }
 .hero-aside li small, .hero-panel li small { color: #bbd3ff; }
 .hero-aside :focus-visible, .hero-panel :focus-visible { outline-color: #a9c9ff; }
-.hero-aside h2, .hero-panel h2 { font-size: clamp(1.45rem, 2.55vw, 2.05rem); }
+.hero-aside h2, .hero-panel h2 { font-size: clamp(1.56rem, 2.65vw, 2.15rem); }
 .hero-aside :last-child, .hero-panel :last-child { margin-block-end: 0; }
 .hero-aside ol, .hero-panel ol { padding-inline-start: 1.25rem; }
 .hero-aside li::marker, .hero-panel li::marker { color: #b5ceff; font-weight: 750; }
@@ -211,8 +273,8 @@ code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 }
 a.outline-card:hover, .outline-card:focus-within, .outline-grid > li > a:hover { border-color: #7192cc; border-block-start-color: var(--royal); background: #eff5ff; color: var(--navy-deep); }
 .outline-card a { color: var(--navy); }
-.outline-card h3, .outline-card strong, .outline-grid > li > a strong { margin: .1rem 0 .15rem; color: var(--navy-deep); font-size: 1rem; font-weight: 800; line-height: 1.45; }
-.outline-card p, .outline-card small, .outline-grid > li > a small { margin: 0; color: var(--muted); font-size: .865rem; line-height: 1.6; }
+.outline-card h3, .outline-card strong, .outline-grid > li > a strong { margin: .1rem 0 .15rem; color: var(--navy-deep); font-size: 1.08rem; font-weight: 800; line-height: 1.45; }
+.outline-card p, .outline-card small, .outline-grid > li > a small { margin: 0; color: var(--muted); font-size: .96rem; line-height: 1.55; }
 .outline-number, .outline-index, .outline-num, .chapter-number, .chapter-index, .chapter-no { color: var(--royal); font-variant-numeric: tabular-nums; font-weight: 800; }
 .chapter { border-block-start: 1px solid var(--line); }
 .chapter:nth-of-type(even) { background: #ffffff8c; }
@@ -244,7 +306,7 @@ a.outline-card:hover, .outline-card:focus-within, .outline-grid > li > a:hover {
   border-radius: 99rem;
   background: var(--blue-wash);
   color: var(--navy-deep);
-  font-size: .8rem;
+  font-size: .9rem;
   font-weight: 750;
   line-height: 1.45;
 }
@@ -257,8 +319,8 @@ a.outline-card:hover, .outline-card:focus-within, .outline-grid > li > a:hover {
   border-radius: .42rem;
   background: var(--surface);
 }
-table { width: 100%; border-collapse: collapse; color: var(--ink); font-size: .945rem; line-height: 1.62; text-align: start; }
-caption { padding: .65rem .9rem; color: var(--muted); font-size: .88rem; text-align: start; }
+table { width: 100%; border-collapse: collapse; color: var(--ink); font-size: 1.03rem; line-height: 1.6; text-align: start; }
+caption { padding: .65rem .9rem; color: var(--muted); font-size: .98rem; text-align: start; }
 th, td { padding: .65rem clamp(.55rem, 1.55vw, 1rem); border-block-end: 1px solid var(--line); text-align: start; vertical-align: top; }
 thead th, table > tbody > tr:first-child > th:not([scope="row"]) { background: var(--blue-wash); color: var(--navy-deep); font-weight: 800; }
 tbody th { font-weight: 750; }
@@ -297,7 +359,7 @@ textarea { min-height: 6.8rem; resize: vertical; }
 input[type="radio"], input[type="checkbox"] { width: 1.05rem; height: 1.05rem; accent-color: var(--navy); }
 label:has(input[type="radio"], input[type="checkbox"]) { display: flex; min-height: 2.65rem; align-items: center; gap: .55rem; cursor: pointer; }
 .form-actions, .exercise-actions { margin-block: .35rem 0; }
-.field-help, .help-text { margin: 0; font-size: .845rem; line-height: 1.5; }
+.field-help, .help-text { margin: 0; font-size: .96rem; line-height: 1.55; }
 .exercise-result, .result-panel, .exercise-output, .feedback-panel {
   min-width: 0;
   padding: 1rem 1.12rem;
@@ -357,7 +419,7 @@ label:has(input[type="radio"], input[type="checkbox"]) { display: flex; min-heig
   letter-spacing: .12em;
   line-height: 1.4;
 }
-.live-status, .submission-status { color: var(--muted); font-size: .9rem; line-height: 1.55; }
+.live-status, .submission-status { color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .live-status:not(:empty), .submission-status:not(:empty) {
   margin-block: .65rem;
   padding: .55rem .7rem;
@@ -395,7 +457,7 @@ label:has(input[type="radio"], input[type="checkbox"]) { display: flex; min-heig
   font-variant-numeric: tabular-nums;
   line-height: 1.15;
 }
-.stat-list { margin-block: .65rem 0; padding-inline-start: 1.15rem; color: var(--muted); font-size: .92rem; }
+.stat-list { margin-block: .65rem 0; padding-inline-start: 1.15rem; color: var(--muted); font-size: 1.02rem; }
 .stat-list strong { color: var(--navy-deep); font-variant-numeric: tabular-nums; }
 .stat-list:is(dl, .list-unstyled) { padding-inline-start: 0; }
 .stat-list:is(dl, .list-unstyled) dt { color: var(--navy-deep); }
@@ -417,7 +479,7 @@ details > :last-child { margin-block-end: 0; }
   border-block-start: 1px solid #36568b;
   background: var(--navy-deep);
   color: #e2edff;
-  font-size: .91rem;
+  font-size: 1rem;
 }
 .site-footer :is(h2,h3,h4, strong, a) { color: var(--surface); }
 .site-footer a:hover { color: #a9c9ff; }
@@ -429,22 +491,38 @@ details > :last-child { margin-block-end: 0; }
   .outline-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 49rem) {
-  html { scroll-padding-top: 1.25rem; }
-  .site-header { position: relative; }
-  .header-inner, .site-header > .container, .site-header > .wrap { align-items: flex-start; flex-direction: column; gap: 0; padding-block: .3rem .28rem; }
-  .site-header nav, .site-nav { max-width: 100%; justify-content: flex-start; }
+  .site-header > .header-inner, .site-header:has(.page-toolbar) > .header-inner { align-items: center; flex-direction: row; gap: .65rem; min-height: 3.05rem; }
+  .site-header .site-brand { flex: 0 0 auto; }
+  .site-header :is(nav, .site-nav) {
+    flex: 1 1 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-inline: .16rem;
+    scrollbar-width: thin;
+    overscroll-behavior-inline: contain;
+    white-space: nowrap;
+  }
+  .site-header :is(nav, .site-nav) :is(ul, ol) { flex-wrap: nowrap; }
+  .site-header :is(nav, .site-nav) a { flex: 0 0 auto; }
+  .site-header :is(nav, .site-nav) a:focus-visible { outline-offset: -2px; }
   .hero-inner, .exercise-grid { grid-template-columns: minmax(0, 1fr); }
   .hero h1 { max-width: 20ch; }
   .hero-aside, .hero-panel { max-width: 39rem; }
 }
 @media (max-width: 36rem) {
-  h1 { font-size: clamp(2rem, 9vw, 3rem); }
-  h2 { font-size: clamp(1.62rem, 7vw, 2.25rem); }
+  .page-nav { grid-template-columns: auto minmax(0, 1fr) auto auto auto; }
+  .page-nav > label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+  .page-nav #page-select { padding-inline-end: .2rem; }
+  h1 { font-size: clamp(2.2rem, 9.4vw, 3.12rem); }
+  h2 { font-size: clamp(1.76rem, 7.35vw, 2.35rem); }
   .hero { padding-block: 2.8rem 2.6rem; }
   .outline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .outline-card, .outline-grid > li > a { min-height: 7.5rem; padding: .78rem; }
   .chapter-grid, .card-grid, .form-grid { grid-template-columns: minmax(0, 1fr); }
-  :is(.field, .exercise-form) input, :is(.field, .exercise-form) textarea, :is(.field, .exercise-form) select { font-size: 1rem; }
+  :is(.field, .exercise-form) input, :is(.field, .exercise-form) textarea, :is(.field, .exercise-form) select { font-size: 1.075rem; }
   .room-controls > form { flex-basis: 100%; }
   .room-controls :is(label, .field, input, select) { flex: 1 1 100%; width: 100%; max-width: none; }
   .room-controls button, .room-share button, button.exercise-submit { max-width: 100%; }
@@ -452,6 +530,10 @@ details > :last-child { margin-block-end: 0; }
   th, td { padding-block: .55rem; }
 }
 @media (max-width: 22rem) {
+  .page-nav { gap: .28rem; }
+  .page-nav label, .page-current { font-size: .88rem; }
+  .page-nav :is(.page-arrow, .page-go) { padding-inline: .35rem; }
+  .page-nav #page-select { padding-inline-start: .35rem; }
   .outline-grid { grid-template-columns: minmax(0, 1fr); }
   .outline-card, .outline-grid > li > a { min-height: auto; }
 }
@@ -460,6 +542,7 @@ details > :last-child { margin-block-end: 0; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 @media print {
+  #slide-39 { min-block-size: 0; }
   body, .hero, .site-footer, .chapter:nth-of-type(even) { background: #fff; color: #222; }
   .site-header, .skip-link, .skip, .hero-actions, .form-actions, .exercise-actions, .site-footer nav, .room-controls, .room-share, .exercise-submit { display: none; }
   .container, .wrap { width: 100%; }
@@ -476,9 +559,14 @@ details > :last-child { margin-block-end: 0; }
 .slide{padding:1.6rem 0 1.85rem;border-top:1px solid var(--line);scroll-margin-top:.5rem}.slide-number{font-size:.74rem;letter-spacing:.14em;color:var(--royal);font-weight:750;margin-bottom:.25rem}.slide h3{font-size:clamp(1.25rem,2.2vw,1.7rem)}.slide-lead{color:var(--muted);font-size:1.03rem}.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem 2.25rem;margin:.75rem 0 0}.fact-grid>div{border-inline-start:2px solid var(--line);padding-inline-start:1rem}.fact-grid dd{margin-bottom:0;color:var(--muted)}.path-list{margin:.8rem 0 1rem;border-top:1px solid var(--line)}.path-list>div{display:grid;grid-template-columns:minmax(10rem,1fr) 3fr;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}.stat-line{display:flex;flex-wrap:wrap;gap:1rem 2rem;margin:1.25rem 0}.stat-line>div{min-width:13rem;border-inline-start:3px solid var(--royal);padding-inline-start:.85rem}.stat-line strong,.stat-line span{display:block}.stat-line strong{font-size:1.6rem;color:var(--navy)}.stat-line span{font-size:.9rem;color:var(--muted)}.hero-title-secondary{display:block;font-size:.57em;letter-spacing:0;margin-top:.38em}.hero-aside ol{padding-left:1.25rem}.hero-aside li+li{margin-top:.7rem}.hero-aside small{display:block;color:var(--muted)}.hero-aside{align-self:center}.source-extra{margin-top:2rem}.footer-meta{font-size:.88rem}.exercise-slide{margin-top:.5rem}@media(max-width:620px){.fact-grid,.path-list>div{grid-template-columns:1fr}.path-list>div{gap:.2rem}.hero-title-secondary{font-size:.66em}}@media print{.slide{break-inside:avoid}}
 
 .classroom-code-line{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.classroom-qr{width:116px;max-width:100%;flex:none;line-height:0}.classroom-qr svg{display:block;width:100%;height:auto}.room-share-text{min-width:0}.student-link{display:block;overflow-wrap:anywhere;font-size:.86rem}.stat-breakdown{font-size:.88rem;margin-top:.6rem}.stat-breakdown summary{cursor:pointer;color:var(--navy)}.stat-breakdown p{margin:.4rem 0 0}.stats-time{margin:.45rem 0 1rem;font-size:.85rem;color:var(--muted)}.hero-actions .button{white-space:normal}@media print{.live-classroom,.exercise-submit{display:none!important}}
+.slide-number{font-size:.9rem}.slide h3{font-size:clamp(1.4rem,2.35vw,1.85rem)}.slide-lead{font-size:1.08rem}.student-link,.stat-breakdown,.stats-time,.footer-meta{font-size:.96rem}
 </style></head><body id="top">
-<a class="skip-link" href="#main">跳到課程內容</a><header class="site-header"><div class="container header-inner"><a class="site-brand" href="#top"><span class="brand-mark" aria-hidden="true">研</span>醫療研究入門</a><nav class="site-nav" aria-label="快速導覽"><a href="#outline">課程大綱</a><a href="#slide-11">PICOT</a><a href="#slide-21">設計測驗</a><a href="#slide-36">研究草案</a><a href="#classroom">即時統計</a></nav></div></header>
-<main id="main"><section class="hero"><div class="container hero-inner"><div class="hero-copy"><p class="eyebrow">研究方法工作坊 · 一頁式講義</p><h1>從臨床問題<br>到研究設計<span class="hero-title-secondary">醫療人員的研究入門</span></h1><p class="lead">把一個照護疑問寫成可以執行的研究草案。用出院衛教與再住院的教學案例，練習寫 PICOT、辨認研究設計，以及規劃世代研究。</p><div class="hero-actions"><a class="button" href="#outline">開始閱讀</a><a class="button button-secondary" href="#slide-11">開始練習</a></div></div><aside class="hero-aside" aria-label="三個課堂練習"><p class="eyebrow">課堂練習</p><ol><li><a href="#slide-11">PICOT 練習</a><small>原簡報第 11 頁</small></li><li><a href="#slide-21">研究設計測驗</a><small>原簡報第 21 頁</small></li><li><a href="#slide-36">研究草案</a><small>原簡報第 36 頁</small></li></ol><p class="muted">案例與數字皆為教學假設。練習欄位請使用虛構或去識別化的資訊。</p></aside></div></section>
+<a class="skip-link" href="#main">跳到課程內容</a><header class="site-header" id="lesson-header"><div class="container header-inner"><a class="site-brand" href="#top"><span class="brand-mark" aria-hidden="true">研</span>醫療研究入門</a><nav class="site-nav" aria-label="快速導覽"><a href="#outline">課程大綱</a><a href="#slide-11">PICOT</a><a href="#slide-21">設計測驗</a><a href="#slide-36">研究草案</a><a href="#classroom">即時統計</a></nav></div><div class="container page-toolbar"><form class="page-nav" id="page-navigation" aria-label="原簡報頁碼導覽">
+<button type="button" class="page-arrow" id="page-previous" aria-label="上一頁" title="上一頁" disabled>←</button>
+<label for="page-select">跳到</label><select id="page-select" aria-label="選擇頁碼"><option value="1">01 · 首頁</option><option value="2">02 · 課程大綱</option><option value="3">03 · 臨床工作中的研究起點</option><option value="4">04 · 各職類／單位曾提出的研究計畫</option><option value="5">05 · 貫穿課程的教學案例</option><option value="6">06 · PICOT：讓研究問題可以回答</option><option value="7">07 · 衛教案例的 PICOT</option><option value="8">08 · 一句完整的研究問題</option><option value="9">09 · 值得做，也需要做得到</option><option value="10">10 · 資料能否回答這個問題？</option><option value="11">11 · 練習一：把臨床疑問寫成 PICOT</option><option value="12">12 · 觀察性研究的特徵與時間方向</option><option value="13">13 · 研究問題決定設計方向</option><option value="14">14 · 研究問題決定設計方向：時間軸圖解</option><option value="15">15 · 隨機試驗與世代研究</option><option value="16">16 · 隨機試驗與世代研究的時間軸</option><option value="17">17 · 世代與病例對照：選人的起點不同</option><option value="18">18 · 世代與病例對照的時間軸</option><option value="19">19 · 世代研究的前瞻與回溯</option><option value="20">20 · 前瞻與回溯世代研究的時間軸</option><option value="21">21 · 練習二：這是哪一種研究設計？</option><option value="22">22 · 世代研究的六個設計問題</option><option value="23">23 · 研究對象與比較組</option><option value="24">24 · 操作型定義：每個人都能照規則判定</option><option value="25">25 · 追蹤起點：兩組從相同時點開始比較</option><option value="26">26 · 追蹤規則與資料可見範圍</option><option value="27">27 · 收資料前的小規模可行性檢查</option><option value="28">28 · 分析計畫先寫清楚要比較什麼</option><option value="29">29 · 混雜：兩組在衛教前就可能不同</option><option value="30">30 · 常見偏差與設計上的提醒</option><option value="31">31 · 分組在出院時確認，兩組從出院日追蹤</option><option value="32">32 · 效果有多大：相對與絕對差異</option><option value="33">33 · 結果解讀的三個問題</option><option value="34">34 · 一頁研究計畫的基本內容</option><option value="35">35 · 研究啟動前的基本準備</option><option value="36">36 · 練習三：完成你的研究草案</option><option value="37">37 · 帶走一個問題，也帶走一份草案</option><option value="38">38 · 參考文獻</option><option value="39">39 · 2027 年研究實作課程預告</option></select><button type="submit" class="page-go">前往</button>
+<button type="button" class="page-arrow" id="page-next" aria-label="下一頁" title="下一頁">→</button><span class="page-current" id="page-current" aria-label="目前第 1 頁，共 39 頁">1 / 39</span>
+</form></div></header>
+<main id="main"><section class="hero" id="slide-1" aria-labelledby="title-1"><div class="container hero-inner"><div class="hero-copy"><p class="eyebrow">研究方法工作坊 · 一頁式講義</p><h1 id="title-1">從臨床問題<br>到研究設計<span class="hero-title-secondary">醫療人員的研究入門</span></h1><p class="lead">把一個照護疑問寫成可以執行的研究草案。用出院衛教與再住院的教學案例，練習寫 PICOT、辨認研究設計，以及規劃世代研究。</p><div class="hero-actions"><a class="button" href="#outline">開始閱讀</a><a class="button button-secondary" href="#slide-11">開始練習</a></div></div><aside class="hero-aside" aria-label="三個課堂練習"><p class="eyebrow">課堂練習</p><ol><li><a href="#slide-11">PICOT 練習</a><small>原簡報第 11 頁</small></li><li><a href="#slide-21">研究設計測驗</a><small>原簡報第 21 頁</small></li><li><a href="#slide-36">研究草案</a><small>原簡報第 36 頁</small></li></ol><p class="muted">案例與數字皆為教學假設。練習欄位請使用虛構或去識別化的資訊。</p></aside></div></section>
 <section class="section" id="classroom" aria-labelledby="classroom-title"><div class="container live-classroom">
 <header class="section-header"><p class="eyebrow">課堂模式</p><h2 id="classroom-title">全班即時統計</h2><p>同一場次的學員作答後，按「送出並更新全班統計」。講者畫面約每 3 秒更新。</p></header>
 <div class="classroom-code-line"><span>目前場次</span><strong class="room-code" id="current-room">—</strong></div>
@@ -489,7 +577,7 @@ details > :last-child { margin-block-end: 0; }
 <p class="live-status" id="classroom-status">正在準備統計…</p><p id="stats-time" class="stats-time"></p>
 <div class="stats-grid" id="classroom-stats"></div>
 <p class="field-help">第 11、36 頁只統計各欄位是否完成；文字草稿留在裝置上。第 21 頁統計所選答案與各題正答率。</p>
-</div></section><section class="section" id="outline"><div class="container"><header class="section-header"><p class="eyebrow">原簡報 02 頁</p><h2>課程大綱</h2></header><div class="outline-grid"><a class="outline-card" href="#picot"><span class="chapter-kicker">章節 01</span><h3>臨床問題與 PICOT</h3><p>先把照護疑問寫成能回答的問題。</p></a><a class="outline-card" href="#design"><span class="chapter-kicker">章節 02</span><h3>選擇研究設計</h3><p>用選人方式和事件順序辨認設計。</p></a><a class="outline-card" href="#cohort"><span class="chapter-kicker">章節 03</span><h3>規劃世代研究</h3><p>把對象、暴露、結果與追蹤規則說清楚。</p></a><a class="outline-card" href="#interpret"><span class="chapter-kicker">章節 04</span><h3>偏差與結果解讀</h3><p>先檢查比較是否可信，再解讀差異。</p></a><a class="outline-card" href="#protocol"><span class="chapter-kicker">章節 05</span><h3>完成研究草案</h3><p>把問題、方法與可行性寫成一頁計畫。</p></a></div></div></section>
+</div></section><section class="section" id="outline" aria-labelledby="title-2"><div class="container" id="slide-2"><header class="section-header"><p class="eyebrow">原簡報 02 頁</p><h2 id="title-2">課程大綱</h2></header><div class="outline-grid"><a class="outline-card" href="#picot"><span class="chapter-kicker">章節 01</span><h3>臨床問題與 PICOT</h3><p>先把照護疑問寫成能回答的問題。</p></a><a class="outline-card" href="#design"><span class="chapter-kicker">章節 02</span><h3>選擇研究設計</h3><p>用選人方式和事件順序辨認設計。</p></a><a class="outline-card" href="#cohort"><span class="chapter-kicker">章節 03</span><h3>規劃世代研究</h3><p>把對象、暴露、結果與追蹤規則說清楚。</p></a><a class="outline-card" href="#interpret"><span class="chapter-kicker">章節 04</span><h3>偏差與結果解讀</h3><p>先檢查比較是否可信，再解讀差異。</p></a><a class="outline-card" href="#protocol"><span class="chapter-kicker">章節 05</span><h3>完成研究草案</h3><p>把問題、方法與可行性寫成一頁計畫。</p></a></div></div></section>
 <section class="chapter section" id="picot" aria-labelledby="picot-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 01 · 原簡報 03–11 頁</p><h2 id="picot-title">臨床問題與 PICOT</h2><p class="lead">先把照護疑問寫成能回答的問題。</p></header><article class="slide" id="slide-3" aria-labelledby="title-3"><p class="slide-number">原簡報 03 頁</p><h3 id="title-3">臨床工作中的研究起點</h3><p class="slide-lead">反覆遇到的照護疑問，可以成為研究題目</p><p class="slide-lead">先問：答案會改變哪一個臨床決策？</p><dl class="fact-grid"><div><dt>病人安全</dt><dd>哪些病人容易跌倒、發生用藥問題或照護相關感染？</dd></div><div><dt>治療與照護</dt><dd>不同衛教、復健或營養介入，後續結果有何差異？</dd></div><div><dt>工作流程</dt><dd>檢驗報告、會診或照護轉銜的等待時間能否改善？</dd></div><div><dt>病人經驗</dt><dd>病人真的理解照護計畫嗎？哪些障礙影響執行？</dd></div></dl></article><article class="slide" id="slide-4" aria-labelledby="title-4"><p class="slide-number">原簡報 04 頁</p><h3 id="title-4">各職類／單位曾提出的研究計畫</h3><div class="table-wrap" tabindex="0" role="region" aria-label="研究題型與規劃設計表格"><table><thead><tr><th scope="col">研究主題</th><th scope="col">規劃設計</th></tr></thead><tbody><tr><td>乳癌放療技術：腫瘤控制與長期安全性</td><td>世代研究</td></tr><tr><td>阻塞性結腸癌：造口橋接與緊急切除</td><td>世代研究</td></tr><tr><td>醫療輔導介入與住院兒童焦慮變化</td><td>單組前後測</td></tr><tr><td>肺囊蟲感染與定植：qPCR 閾值與診斷效能</td><td>SR／MA</td></tr><tr><td>營養評估量表預測長者全因死亡</td><td>SR／MA</td></tr><tr><td>認知訓練對心衰竭患者認知功能的影響</td><td>SR／MA</td></tr><tr><td>認知／記憶訓練對成人認知功能的影響</td><td>SR／MA</td></tr></tbody></table></div><p class="muted">這些是計畫題型與規劃設計示例，沒有提供已完成的研究結果。SR／MA 指系統性文獻回顧與統合分析。</p></article><article class="slide" id="slide-5" aria-labelledby="title-5"><p class="slide-number">原簡報 05 頁</p><h3 id="title-5">貫穿課程的教學案例</h3><blockquote class="callout"><strong>加強出院衛教，會讓病人比較少再住院嗎？</strong><p>「加強」包含哪些內容？與哪一種照護比較？觀察哪一次再住院？要追蹤多久？</p></blockquote><p class="muted">貫穿課程的假設案例，未提供實際成效資料。</p></article><article class="slide" id="slide-6" aria-labelledby="title-6"><p class="slide-number">原簡報 06 頁</p><h3 id="title-6">PICOT：讓研究問題可以回答</h3><p class=slide-lead>針對比較效果或關聯的問題，逐項補齊研究條件</p><div class="table-wrap" tabindex="0" role="region" aria-label="PICOT：讓研究問題可以回答表格"><table><thead><tr><th scope="col">元素</th><th scope="col">要回答的問題</th></tr></thead><tbody><tr><td>P　Population</td><td>研究哪些人？在哪個場域？</td></tr><tr><td>I／E　Intervention／Exposure</td><td>接受什麼介入，或處於何種暴露？</td></tr><tr><td>C　Comparison</td><td>與誰比較？比較組是否合理？</td></tr><tr><td>O　Outcome</td><td>以什麼結果判斷差異？</td></tr><tr><td>T　Time</td><td>從何時開始？觀察多久？</td></tr></tbody></table></div></article><article class="slide" id="slide-7" aria-labelledby="title-7"><p class="slide-number">原簡報 07 頁</p><h3 id="title-7">衛教案例的 PICOT</h3><p class=slide-lead>只取得本院資料時，問題與結論都需限定「院內」再住院</p><div class="table-wrap" tabindex="0" role="region" aria-label="衛教案例的 PICOT表格"><table><thead><tr><th scope="col">元素</th><th scope="col">本課的研究條件</th></tr></thead><tbody><tr><td>P</td><td>某院成人內科住院後返家的病人</td></tr><tr><td>I／E</td><td>出院前完成標準化強化衛教，並有執行紀錄</td></tr><tr><td>C</td><td>同一時期接受一般出院衛教的病人</td></tr><tr><td>O</td><td>首次院內非計畫性再住院</td></tr><tr><td>T</td><td>自出院起追蹤 30 天</td></tr></tbody></table></div></article><article class="slide" id="slide-8" aria-labelledby="title-8"><p class="slide-number">原簡報 08 頁</p><h3 id="title-8">一句完整的研究問題</h3><p class=slide-lead>研究目的：比較兩組 30 天再住院風險，並處理治療前差異</p><p>某院成人內科出院返家病人中，出院前接受強化衛教者，相較於同時期接受一般衛教者，其出院後 30 天院內非計畫性再住院風險是否不同？</p></article><article class="slide" id="slide-9" aria-labelledby="title-9"><p class="slide-number">原簡報 09 頁</p><h3 id="title-9">值得做，也需要做得到</h3><p class="slide-lead">先查文獻與盤點資料，再縮小研究範圍</p><dl class="fact-grid"><div><dt>臨床重要性</dt><dd>結果能否改善照護決策，或回答病人的需求？</dd></div><div><dt>知識缺口</dt><dd>文獻已知道什麼？哪些族群、場域或結果仍不清楚？</dd></div><div><dt>資料與規模</dt><dd>有足夠對象、事件與必要欄位嗎？</dd></div><div><dt>時間與倫理</dt><dd>人力、期限、資料權限與審查程序是否可行？</dd></div></dl></article><article class="slide" id="slide-10" aria-labelledby="title-10"><p class="slide-number">原簡報 10 頁</p><h3 id="title-10">資料能否回答這個問題？</h3><p class=slide-lead>本課案例：先確認衛教內容、執行日期及再住院資料能否連結</p><div class="table-wrap" tabindex="0" role="region" aria-label="資料能否回答這個問題？表格"><table><thead><tr><th scope="col">資料來源</th><th scope="col">可能取得</th><th scope="col">優先確認</th></tr></thead><tbody><tr><td>電子病歷</td><td>病況、檢驗、照護與日期</td><td>紀錄一致性、缺值、跨院事件</td></tr><tr><td>申報資料</td><td>就醫、處方與醫療利用</td><td>代碼定義、臨床細節與可用期間</td></tr><tr><td>登錄資料</td><td>疾病特徵與追蹤結果</td><td>收案範圍、更新與完整程度</td></tr><tr><td>問卷／<br>前瞻收集</td><td>功能、理解、生活品質</td><td>量表效度、填答與追蹤負擔</td></tr></tbody></table></div></article><article class="slide exercise-slide" id="slide-11" aria-labelledby="title-11"><p class="slide-number">原簡報 11 頁</p><h3 id="title-11">練習一：把臨床疑問寫成 PICOT</h3><div id="exercise-11"></div><noscript><p>可用自己的臨床疑問，也可帶入出院衛教案例。 依序寫出對象、介入或暴露、比較、結果和時間。 開啟 JavaScript 即可操作練習。</p></noscript></article></div></section><section class="chapter section" id="design" aria-labelledby="design-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 02 · 原簡報 12–21 頁</p><h2 id="design-title">選擇研究設計</h2><p class="lead">用選人方式和事件順序辨認設計。</p></header><article class="slide" id="slide-12" aria-labelledby="title-12"><p class="slide-number">原簡報 12 頁</p><h3 id="title-12">觀察性研究的特徵與時間方向</h3><div class="path-list"><div><strong>橫斷研究</strong><span>在同一時點測量暴露與結果。</span></div><div><strong>前瞻性世代</strong><span>現在界定群體與暴露，再觀察後續結果。</span></div><div><strong>回溯性世代</strong><span>用既有資料重建過去的暴露與其後結果。</span></div><div><strong>病例對照</strong><span>先選病例與同來源對照，再回查先前暴露。</span></div></div><p class="callout">世代研究觀察實際暴露，不由研究者分派。時間 0 是個人追蹤起點，需先定義事件、截止與設限規則。</p></article><article class="slide" id="slide-13" aria-labelledby="title-13"><p class="slide-number">原簡報 13 頁</p><h3 id="title-13">研究問題決定設計方向</h3><p class=slide-lead>若要理解經驗、看法與障礙，可考慮質性研究</p><div class="table-wrap" tabindex="0" role="region" aria-label="研究問題決定設計方向表格"><table><thead><tr><th scope="col">想知道什麼？</th><th scope="col">常見設計</th><th scope="col">例子</th></tr></thead><tbody><tr><td>某時點有多少人？</td><td>橫斷研究</td><td>出院時有多少人理解用藥？</td></tr><tr><td>暴露後發生什麼？</td><td>世代研究</td><td>兩組病人的後續再住院風險</td></tr><tr><td>罕見結果與<br>何種暴露相關？</td><td>病例對照研究</td><td>嚴重事件病例與對照的過去暴露</td></tr><tr><td>分派介入後效果如何？</td><td>隨機對照試驗</td><td>隨機分派兩種衛教策略</td></tr></tbody></table></div></article><article class="slide" id="slide-14" aria-labelledby="title-14"><p class="slide-number">原簡報 14 頁</p><h3 id="title-14">研究問題決定設計方向：時間軸圖解</h3><div class="path-list"><div><strong>橫斷研究</strong><span>抽取群體 → 同時測量暴露與結果</span></div><div><strong>世代研究</strong><span>界定來源群體 → 依實際暴露分組 → 比較後續結果</span></div><div><strong>病例對照</strong><span>依結果選病例和同來源對照 → 回查先前暴露</span></div><div><strong>隨機對照試驗</strong><span>符合條件者 → 隨機分派介入或對照 → 追蹤結果</span></div></div><p class="muted">回查是查閱過去資料，事件的時間順序沒有反轉。</p></article><article class="slide" id="slide-15" aria-labelledby="title-15"><p class="slide-number">原簡報 15 頁</p><h3 id="title-15">隨機試驗與世代研究</h3><p class=slide-lead>兩種設計都需要明確的對象、結果與追蹤規則</p><div class="table-wrap" tabindex="0" role="region" aria-label="隨機試驗與世代研究表格"><table><thead><tr><th scope="col">比較項目</th><th scope="col">隨機對照試驗</th><th scope="col">觀察性世代研究</th></tr></thead><tbody><tr><td>如何分組</td><td>研究採隨機方式分派策略</td><td>依實際介入或暴露形成組別</td></tr><tr><td>本課案例</td><td>隨機分派強化或一般衛教</td><td>觀察已接受不同衛教的病人</td></tr><tr><td>主要考量</td><td>可行性、依從性與追蹤</td><td>組間原有差異與測量品質</td></tr></tbody></table></div></article><article class="slide" id="slide-16" aria-labelledby="title-16"><p class="slide-number">原簡報 16 頁</p><h3 id="title-16">隨機試驗與世代研究的時間軸</h3><div class="path-list"><div><strong>隨機對照試驗</strong><span>符合條件者 → 隨機分派 → 介入組／對照組 → 觀察結果</span></div><div><strong>觀察性世代</strong><span>符合條件者 → 依實際暴露分組 → 暴露組／比較組 → 觀察結果</span></div></div><p class="muted">同一設計內，兩組使用一致的追蹤起點、結果定義與追蹤規則。</p></article><article class="slide" id="slide-17" aria-labelledby="title-17"><p class="slide-number">原簡報 17 頁</p><h3 id="title-17">世代與病例對照：選人的起點不同</h3><p class=slide-lead>「回溯性」描述資料時間，不能單憑它判定研究設計</p><div class="table-wrap" tabindex="0" role="region" aria-label="世代與病例對照：選人的起點不同表格"><table><thead><tr><th scope="col">比較項目</th><th scope="col">世代研究</th><th scope="col">病例對照研究</th></tr></thead><tbody><tr><td>先選誰</td><td>界定來源群體，再區分暴露</td><td>依結果選病例，再取合適對照</td></tr><tr><td>再比較什麼</td><td>後續結果的發生情形</td><td>之前的暴露情形</td></tr><tr><td>常見優點</td><td>可研究同一暴露的多種結果</td><td>罕見結果時通常較有效率</td></tr></tbody></table></div></article><article class="slide" id="slide-18" aria-labelledby="title-18"><p class="slide-number">原簡報 18 頁</p><h3 id="title-18">世代與病例對照的時間軸</h3><div class="path-list"><div><strong>世代：從暴露開始</strong><span>界定來源群體 → 依暴露分組 → 追蹤後續結果。</span></div><div><strong>病例對照：依結果選人</strong><span>選病例與同來源對照 → 回查兩組先前暴露。</span></div></div><p class="muted">對照也可能有暴露。回查資料不改變暴露在先、結果在後的事件順序。</p></article><article class="slide" id="slide-19" aria-labelledby="title-19"><p class="slide-number">原簡報 19 頁</p><h3 id="title-19">世代研究的前瞻與回溯</h3><p class=slide-lead>共同邏輯：界定群體與暴露，再比較其後的結果</p><p>資料已存在，仍須保留「暴露先於結果」的時間順序</p><div class="table-wrap" tabindex="0" role="region" aria-label="世代研究的前瞻與回溯表格"><table><thead><tr><th scope="col">設計</th><th scope="col">資料如何取得</th><th scope="col">規劃時需注意</th></tr></thead><tbody><tr><td>前瞻性世代</td><td>現在收案，之後追蹤</td><td>測量可先規劃<br>但需人力與等待</td></tr><tr><td>回溯性世代</td><td>從既有紀錄重建過去的追蹤</td><td>較快取得資料<br>但受既有紀錄限制</td></tr></tbody></table></div></article><article class="slide" id="slide-20" aria-labelledby="title-20"><p class="slide-number">原簡報 20 頁</p><h3 id="title-20">前瞻與回溯世代研究的時間軸</h3><div class="path-list"><div><strong>前瞻性世代</strong><span>現在啟動研究與收案，在個人時間 0 確定暴露，再追蹤未來結果。</span></div><div><strong>回溯性世代</strong><span>現在啟動研究，利用舊紀錄重建過去的時間 0、暴露與其後結果。</span></div></div><p class="muted">研究啟動日期與受試者追蹤起點是兩件事。</p></article><article class="slide exercise-slide" id="slide-21" aria-labelledby="title-21"><p class="slide-number">原簡報 21 頁</p><h3 id="title-21">練習二：這是哪一種研究設計？</h3><div id="exercise-21"></div><noscript><p>先看怎麼選人，再看何時測量。 判斷各情境先怎麼選人，再看測量的時間。 開啟 JavaScript 即可操作練習。</p></noscript></article></div></section><section class="chapter section" id="cohort" aria-labelledby="cohort-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 03 · 原簡報 22–28 頁</p><h2 id="cohort-title">規劃世代研究</h2><p class="lead">把對象、暴露、結果與追蹤規則說清楚。</p></header><article class="slide" id="slide-22" aria-labelledby="title-22"><p class="slide-number">原簡報 22 頁</p><h3 id="title-22">世代研究的六個設計問題</h3><p class="slide-lead">六個元素：對象、暴露、結果、起點、追蹤、混雜因素</p><dl class="fact-grid"><div><dt>研究對象</dt><dd>誰符合資格？兩組是否來自相同來源？</dd></div><div><dt>暴露與結果</dt><dd>如何定義衛教？如何判定再住院？</dd></div><div><dt>起點與追蹤</dt><dd>何時開始比較？何時停止觀察？</dd></div><div><dt>組間可比較性</dt><dd>哪些治療前差異，可能影響結果？</dd></div></dl></article><article class="slide" id="slide-23" aria-labelledby="title-23"><p class="slide-number">原簡報 23 頁</p><h3 id="title-23">研究對象與比較組</h3><p class=slide-lead>不因追蹤中「有沒有回診」或「是否存活」決定誰能納入</p><div class="table-wrap" tabindex="0" role="region" aria-label="研究對象與比較組表格"><table><thead><tr><th scope="col">項目</th><th scope="col">衛教案例的示範規則</th></tr></thead><tbody><tr><td>來源群體</td><td>同一醫院、同一期間的成人內科出院病人</td></tr><tr><td>納入條件</td><td>年滿 18 歲，出院返家，符合預先設定的照護條件</td></tr><tr><td>分析單位</td><td>每人研究期間內第一次符合資格的出院</td></tr><tr><td>比較組</td><td>同時期符合相同條件、接受一般衛教者</td></tr></tbody></table></div></article><article class="slide" id="slide-24" aria-labelledby="title-24"><p class="slide-number">原簡報 24 頁</p><h3 id="title-24">操作型定義：每個人都能照規則判定</h3><p class=slide-lead>「沒有紀錄」先標示為未知，再檢查原因與處理方式</p><div class="table-wrap" tabindex="0" role="region" aria-label="操作型定義：每個人都能照規則判定表格"><table><thead><tr><th scope="col">概念</th><th scope="col">操作型定義示範</th></tr></thead><tbody><tr><td>強化出院衛教</td><td>出院前完成指定內容、回述確認，且有日期與紀錄</td></tr><tr><td>一般出院衛教</td><td>有一般衛教紀錄，未接受強化方案</td></tr><tr><td>主要結果</td><td>出院後 30 天內，首次院內非計畫性再住院</td></tr><tr><td>基線因素</td><td>衛教開始前已知的病情、既往住院與照顧支持</td></tr></tbody></table></div></article><article class="slide" id="slide-25" aria-labelledby="title-25"><p class="slide-number">原簡報 25 頁</p><h3 id="title-25">追蹤起點：兩組從相同時點開始比較</h3><p class=slide-lead>本例的起點定為出院時，研究對象是已出院返家的病人</p><p>若問題改為「從開始衛教起的效果」，需重新設定資格與起點</p><div class="table-wrap" tabindex="0" role="region" aria-label="追蹤起點：兩組從相同時點開始比較表格"><table><thead><tr><th scope="col">出院之前</th><th scope="col">出院當下
 Time zero</th><th scope="col">出院之後</th></tr></thead><tbody><tr><td>取得衛教前的病況<br>記錄衛教內容與日期</td><td>確認納入資格<br>確認已接受的衛教組別<br>開始追蹤</td><td>追蹤 30 天<br>辨識首次再住院<br>記錄死亡與資料中斷</td></tr></tbody></table></div></article><article class="slide" id="slide-26" aria-labelledby="title-26"><p class="slide-number">原簡報 26 頁</p><h3 id="title-26">追蹤規則與資料可見範圍</h3><p class="slide-lead">短追蹤也需有完整規則；選定追蹤策略後才能規劃分析</p><dl class="fact-grid"><div><dt>追蹤期間</dt><dd>所有人採用相同起點與 30 天觀察窗</dd></div><div><dt>結果發生</dt><dd>記錄首次院內非計畫性再住院的日期</dd></div><div><dt>資料可見範圍</dt><dd>確認何時真正無法持續觀察，未回診不等於失訪</dd></div><div><dt>死亡</dt><dd>死亡會阻止之後再住院，需預先規劃競爭風險處理</dd></div></dl></article><article class="slide" id="slide-27" aria-labelledby="title-27"><p class="slide-number">原簡報 27 頁</p><h3 id="title-27">收資料前的小規模可行性檢查</h3><p class="slide-lead">試查仍須在適當授權與機構規範內進行</p><dl class="fact-grid"><div><dt>欄位存在嗎？</dt><dd>暴露、結果與日期能否由不同人一致判定？</dd></div><div><dt>缺漏集中在哪裡？</dt><dd>哪一組、哪個時期或哪種病人缺得較多？</dd></div><div><dt>事件夠嗎？</dt><dd>除了總人數，也要估計主要結果的事件數</dd></div><div><dt>取得資料合法嗎？</dt><dd>確認審查程序、資料授權與保管方式</dd></div></dl></article><article class="slide" id="slide-28" aria-labelledby="title-28"><p class="slide-number">原簡報 28 頁</p><h3 id="title-28">分析計畫先寫清楚要比較什麼</h3><p class="slide-lead">主要問題與主要結果先設定，再決定統計方法</p><dl class="fact-grid"><div><dt>主要比較</dt><dd>強化與一般衛教組的 30 天院內再住院風險</dd></div><div><dt>描述資料</dt><dd>兩組有多少人？基線特徵與資料缺漏如何？</dd></div><div><dt>處理混雜</dt><dd>預先列出衛教前的重要因素，選擇適當調整方法</dd></div><div><dt>呈現結果</dt><dd>效果大小、信賴區間，以及必要的敏感度分析</dd></div></dl></article></div></section><section class="chapter section" id="interpret" aria-labelledby="interpret-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 04 · 原簡報 29–33 頁</p><h2 id="interpret-title">偏差與結果解讀</h2><p class="lead">先檢查比較是否可信，再解讀差異。</p></header><article class="slide" id="slide-29" aria-labelledby="title-29"><p class="slide-number">原簡報 29 頁</p><h3 id="title-29">混雜：兩組在衛教前就可能不同</h3><p class="slide-lead">結果有差異時，先問：除了衛教，還有哪些可能解釋？</p><p class="callout">病況較複雜者，可能更常接受強化衛教，也可能原本就更容易再住院。</p><dl class="fact-grid"><div><dt>需要思考的因素</dt><dd>衛教前病情、既往住院、健康識能、照顧者支持</dd></div><div><dt>可以採取的方法</dt><dd>合適比較組、限制、分層、配對或迴歸調整</dd></div><div><dt>仍有的限制</dt><dd>未量測混雜與測量錯誤，不會因統計調整自動消失</dd></div></dl></article><article class="slide" id="slide-30" aria-labelledby="title-30"><p class="slide-number">原簡報 30 頁</p><h3 id="title-30">常見偏差與設計上的提醒</h3><p class=slide-lead>增加樣本數可提高精確度，仍需另外處理系統性偏差</p><div class="table-wrap" tabindex="0" role="region" aria-label="常見偏差與設計上的提醒表格"><table><thead><tr><th scope="col">問題</th><th scope="col">案例中的情境</th><th scope="col">設計提醒</th></tr></thead><tbody><tr><td>選擇偏差</td><td>只納入完成回診者</td><td>以起點時的規則納入</td></tr><tr><td>資訊偏差</td><td>兩組衛教紀錄詳細度不同</td><td>採一致定義並查核紀錄</td></tr><tr><td>失訪相關偏差</td><td>高風險病人較常失聯</td><td>記錄失訪原因與組間差異</td></tr></tbody></table></div></article><article class="slide" id="slide-31" aria-labelledby="title-31"><p class="slide-number">原簡報 31 頁</p><h3 id="title-31">分組在出院時確認，兩組從出院日追蹤</h3><div class="path-list"><div><strong>出院前</strong><span>確認病人接受標準化加強衛教，或一般出院衛教。</span></div><div><strong>出院日 · 時間 0</strong><span>兩組都從出院日開始追蹤。</span></div><div><strong>出院後第 30 天</strong><span>比較期間內首次本院非計畫性再住院。</span></div></div><p class="callout">例如：加強衛教組病人在第 3 天於本院非計畫性再住院，仍屬原組，這次事件照常計入。</p></article><article class="slide" id="slide-32" aria-labelledby="title-32"><p class="slide-number">原簡報 32 頁</p><h3 id="title-32">效果有多大：相對與絕對差異</h3><div class="table-wrap" tabindex="0" role="region" aria-label="相對與絕對差異表格"><table><thead><tr><th scope="col">教學假設</th><th scope="col">觀察人數</th><th scope="col">30 天再住院</th><th scope="col">風險</th></tr></thead><tbody><tr><td>加強衛教</td><td>100</td><td>10</td><td>10%</td></tr><tr><td>一般衛教</td><td>100</td><td>20</td><td>20%</td></tr></tbody></table></div><div class="stat-line"><div><strong>0.50</strong><span>相對風險 RR = 10% ÷ 20%</span></div><div><strong>−10 個百分點</strong><span>風險差 = 10% − 20%</span></div></div><p class="callout">假設每人皆完成 30 天觀察，且無競爭事件。這是教學數據；未調整的差異不能直接解讀為衛教造成的效果。</p></article><article class="slide" id="slide-33" aria-labelledby="title-33"><p class="slide-number">原簡報 33 頁</p><h3 id="title-33">結果解讀的三個問題</h3><p class="slide-lead">p 值不能告訴我們效果大小，也不能證明因果關係</p><dl class="fact-grid"><div><dt>效果多大？</dt><dd>同時看相對效果、絕對差異與臨床意義</dd></div><div><dt>估計多精確？</dt><dd>看信賴區間的寬度，以及涵蓋哪些可能效果</dd></div><div><dt>設計可信嗎？</dt><dd>檢查可比較性、時間順序、缺值與偏差</dd></div></dl></article></div></section><section class="chapter section" id="protocol" aria-labelledby="protocol-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 05 · 原簡報 34–37 頁</p><h2 id="protocol-title">完成研究草案</h2><p class="lead">把問題、方法與可行性寫成一頁計畫。</p></header><article class="slide" id="slide-34" aria-labelledby="title-34"><p class="slide-number">原簡報 34 頁</p><h3 id="title-34">一頁研究計畫的基本內容</h3><p class=slide-lead>研究計畫先說明為何與如何做，分析計畫再細化統計規則</p><div class="table-wrap" tabindex="0" role="region" aria-label="一頁研究計畫的基本內容表格"><table><thead><tr><th scope="col">欄位</th><th scope="col">需要寫清楚的內容</th></tr></thead><tbody><tr><td>背景與問題</td><td>臨床重要性、文獻缺口、主要研究問題</td></tr><tr><td>設計與資料</td><td>設計類型、場域、期間、資料來源</td></tr><tr><td>研究定義</td><td>對象、暴露、比較組、主要結果</td></tr><tr><td>時間與分析</td><td>追蹤起點、追蹤規則、混雜與分析方向</td></tr><tr><td>執行與倫理</td><td>審查、資料權限、分工、時程與可行性</td></tr></tbody></table></div></article><article class="slide" id="slide-35" aria-labelledby="title-35"><p class="slide-number">原簡報 35 頁</p><h3 id="title-35">研究啟動前的基本準備</h3><p class="slide-lead">既有病歷研究的審查需求，應由機構程序判定</p><dl class="fact-grid"><div><dt>研究與資料審查</dt><dd>確認適用的倫理審查、同意程序及資料使用核准</dd></div><div><dt>資料保護</dt><dd>限用必要欄位，規劃去識別化、權限與保存方式</dd></div><div><dt>合作與分工</dt><dd>先與臨床、資料管理及方法夥伴確認可行性</dd></div></dl></article><article class="slide exercise-slide" id="slide-36" aria-labelledby="title-36"><p class="slide-number">原簡報 36 頁</p><h3 id="title-36">練習三：完成你的研究草案</h3><div id="exercise-36"></div><noscript><p>接續 PICOT，補齊能讓同事看懂的研究方法。 寫下設計與理由、資料來源、追蹤起點及主要結果，再說明偏差和因應做法。 開啟 JavaScript 即可操作練習。</p></noscript></article><article class="slide" id="slide-37" aria-labelledby="title-37"><p class="slide-number">原簡報 37 頁</p><h3 id="title-37">帶走一個問題，也帶走一份草案</h3><p class=slide-lead>課後任務：帶著一頁草案，與臨床及方法夥伴討論</p><p>問題清楚，才知道需要哪些資料</p><p>設計合適，才知道結果能回答什麼</p><p>比較可信，才有解釋差異的基礎</p><p>你的題目，下一步最需要確認什麼？</p></article></div></section><section class="section source-extra" aria-label="參考文獻與課程預告"><div class="container"><article class="slide" id="slide-38" aria-labelledby="title-38"><p class="slide-number">原簡報 38 頁</p><h3 id="title-38">參考文獻</h3><dl class="fact-grid"><div><dt>PICOT 與研究問題</dt><dd>Riva JJ, et al. J Can Chiropr Assoc. 2012;56:167–171. PMID: 22997465</dd></div><div><dt>研究設計</dt><dd>Jackson BR, Griffin PM. CDC Field Epidemiology Manual. 2024.</dd></div><div><dt>追蹤起點與不朽時間偏差</dt><dd>Hernán MA, et al. J Clin Epidemiol. 2016;79:70–75. PMID: 27237061</dd></div><div><dt>因果推論</dt><dd>Hernán MA, Robins JM. Causal Inference: What If. 2020.</dd></div><div><dt>P 值的解讀</dt><dd>Wasserstein RL, Lazar NA. Am Stat. 2016;70:129–133.</dd></div><div><dt>觀察性研究報告</dt><dd>STROBE Initiative. STROBE Statement. strobe-statement.org</dd></div><div><dt>研究參與者保護</dt><dd>ICMJE Recommendations. Protection of Research Participants.</dd></div><div><dt>HR 的解讀</dt><dd>Hernán MA. Epidemiology. 2010;21:13–15. PMID: 20010207</dd></div></dl><p class="muted">原課程教材：謝幸㚬（Miyuki Hsieh），高榮研究方法工作坊《Cohort Study》。</p></article><article class="slide" id="slide-39" aria-labelledby="title-39"><p class="slide-number">原簡報 39 頁</p><h3 id="title-39">2027 年研究實作課程預告</h3><p class="slide-lead">原簡報預告共 10 堂，實際安排以主辦通知為準。</p><div class="table-wrap" tabindex="0" role="region" aria-label="課程預告表格"><table><thead><tr><th scope="col">課程主題</th><th scope="col">內容重點</th><th scope="col">堂數</th></tr></thead><tbody><tr><td>AI 理論與實作</td><td>AI Agent 理論與應用、機器學習與深度學習<br>SHAP、valproic acid 案例示範</td><td>3</td></tr><tr><td>世代研究與研究計畫書</td><td>世代研究基礎、protocol 撰寫</td><td>4</td></tr><tr><td>醫院資料庫分析</td><td>資料擷取與案例分析</td><td>1</td></tr><tr><td>教學資料分析</td><td>教學資料應用與分析</td><td>1</td></tr><tr><td>論文寫作</td><td>研究成果整理與論文撰寫</td><td>1</td></tr></tbody></table></div></article></div></section></main>
 <footer class="site-footer"><div class="container footer-inner"><p class="footer-meta">從臨床問題到研究設計 · 醫療人員的研究入門</p><a href="#top">回到頂端 ↑</a></div></footer><script>/*qrcode-generator 2.0.4
@@ -3371,6 +3459,93 @@ var qrcode = function() {
     document.addEventListener("DOMContentLoaded", initialize, { once: true });
   } else {
     initialize();
+  }
+})();
+</script><script>(() => {
+  'use strict';
+  const form = document.getElementById('page-navigation');
+  if (!form) return;
+  const select = document.getElementById('page-select');
+  const previous = document.getElementById('page-previous');
+  const next = document.getElementById('page-next');
+  const indicator = document.getElementById('page-current');
+  const header = document.getElementById('lesson-header');
+  const pages = Array.from(select.options, option => document.getElementById('slide-' + option.value));
+  if (pages.some(page => !page)) return;
+
+  let active = 1;
+  let selectionPending = false;
+  let frame = 0;
+  let headerHeight = 0;
+
+  function show(page) {
+    active = page;
+    if (!selectionPending) select.value = String(page);
+    indicator.textContent = `${page} / ${pages.length}`;
+    indicator.setAttribute('aria-label', `目前第 ${page} 頁，共 ${pages.length} 頁`);
+    previous.disabled = page === 1;
+    next.disabled = page === pages.length;
+  }
+
+  function readPosition() {
+    frame = 0;
+    const threshold = headerHeight + 46;
+    let page = 1;
+    for (const [index, target] of pages.entries()) {
+      if (target.getBoundingClientRect().top > threshold) break;
+      page = index + 1;
+    }
+    if (page !== active || (!selectionPending && select.value !== String(page))) show(page);
+  }
+
+  function schedulePosition() {
+    if (!frame) frame = requestAnimationFrame(readPosition);
+  }
+
+  function measureHeader() {
+    headerHeight = Math.ceil(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--site-header-height', `${headerHeight}px`);
+    schedulePosition();
+  }
+
+  function jump(page) {
+    if (!Number.isInteger(page) || page < 1 || page > pages.length) return;
+    const target = pages[page - 1];
+    const url = new URL(location.href);
+    url.hash = target.id;
+    if (url.href !== location.href) history.replaceState(null, '', url);
+    selectionPending = false;
+    // Instant jumps keep adjacent-page controls in sync, even on a very long handout.
+    target.scrollIntoView({block:'start',behavior:'instant'});
+    const title = document.getElementById('title-' + page);
+    if (title) {
+      title.tabIndex = -1;
+      title.focus({preventScroll:true});
+    }
+    show(page);
+  }
+
+  select.addEventListener('change', () => { selectionPending = select.value !== String(active); });
+  form.addEventListener('submit', event => { event.preventDefault(); jump(Number(select.value)); });
+  previous.addEventListener('click', () => jump(active - 1));
+  next.addEventListener('click', () => jump(active + 1));
+  window.addEventListener('scroll', schedulePosition, {passive:true});
+  window.addEventListener('resize', measureHeader);
+  window.addEventListener('hashchange', () => { selectionPending = false; schedulePosition(); });
+  if ('ResizeObserver' in window) new ResizeObserver(measureHeader).observe(header);
+  show(1);
+  measureHeader();
+
+  const initialHash = location.hash;
+  const initialTarget = document.getElementById(initialHash.slice(1));
+  if (initialTarget) {
+    const alignInitialLink = () => {
+      if (location.hash !== initialHash) return;
+      initialTarget.scrollIntoView({block:'start',behavior:'instant'});
+      schedulePosition();
+    };
+    if (document.readyState === 'complete') requestAnimationFrame(alignInitialLink);
+    else window.addEventListener('load', alignInitialLink, {once:true});
   }
 })();
 </script></body></html>
