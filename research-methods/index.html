@@ -1,0 +1,3376 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="醫療人員研究入門：從 PICOT 到世代研究與一頁草案，附三個課堂練習與全班即時統計。"><meta name="theme-color" content="#10254b"><title>從臨床問題到研究設計｜醫療人員的研究入門</title><style>:root {
+  color-scheme: light;
+  --paper: #f4f7fc;
+  --surface: #ffffff;
+  --ink: #172743;
+  --muted: #4c5c75;
+  --navy: #183764;
+  --navy-deep: #10254b;
+  --blue-wash: #e5efff;
+  --line: #ccd9ed;
+  --royal: #214fc2;
+  --blue-tint: #edf3ff;
+  --focus: #2454cf;
+  --gutter: clamp(1.125rem, 4.25vw, 3.75rem);
+  --measure: 72rem;
+  --serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+  --sans: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+  font-family: var(--sans);
+  font-synthesis: none;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 6.75rem; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-size: 1rem; line-height: 1.8; overflow-wrap: anywhere; }
+[hidden] { display: none !important; }
+img, picture { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .65; }
+a { color: var(--royal); text-decoration-thickness: .075em; text-underline-offset: .24em; }
+a:hover { color: var(--navy-deep); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+::selection { background: #dceaff; color: var(--navy-deep); }
+h1, h2, h3, h4, p, ul, ol, dl, figure, blockquote { margin-block-start: 0; }
+h1, h2, h3, h4 { color: var(--navy-deep); font-weight: 750; line-height: 1.35; text-wrap: balance; }
+h1, h2 { font-family: var(--serif); }
+h1 { font-size: clamp(2.25rem, 5.6vw, 5.1rem); letter-spacing: -.045em; }
+h2 { margin-block-end: .7rem; font-size: clamp(1.85rem, 3.45vw, 3rem); letter-spacing: -.025em; }
+h3 { margin-block-end: .6rem; font-size: clamp(1.14rem, 1.8vw, 1.45rem); }
+h4 { margin-block-end: .45rem; font-size: 1.03rem; }
+p { margin-block-end: .8rem; }
+ul, ol { padding-inline-start: 1.35rem; }
+li + li { margin-block-start: .3rem; }
+dt { font-weight: 750; }
+dd { margin-inline-start: 0; margin-block-end: .55rem; }
+strong { font-weight: 750; }
+small { font-size: .84em; }
+hr { border: 0; border-block-start: 1px solid var(--line); margin-block: 2.25rem; }
+code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.container, .wrap { width: min(var(--measure), calc(100% - 2 * var(--gutter))); margin-inline: auto; }
+.muted, .subtle, .help-text, .field-help { color: var(--muted); }
+.muted, .subtle { max-width: 66ch; }
+.skip-link, .skip { position: fixed; z-index: 20; inset: .65rem auto auto var(--gutter); padding: .65rem 1rem; transform: translateY(-180%); background: var(--surface); }
+.skip-link:focus, .skip:focus { transform: translateY(0); }
+.sr-only, .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.site-header {
+  position: sticky;
+  z-index: 10;
+  inset-block-start: 0;
+  background: rgba(244, 247, 252, .96);
+  border-block-end: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+.header-inner, .site-header > .container, .site-header > .wrap {
+  min-height: 4.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(.7rem, 3vw, 2rem);
+}
+.site-brand, .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 2.75rem;
+  color: var(--navy-deep);
+  font-size: .94rem;
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: .055em;
+  text-decoration: none;
+}
+.brand-mark { display: inline-grid; width: 1.95rem; height: 1.95rem; place-items: center; background: var(--royal); color: var(--surface); border-radius: .25rem; }
+.site-header nav, .site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .15rem clamp(.55rem, 1.6vw, 1.45rem);
+  font-size: .88rem;
+}
+.site-header nav :is(ol, ul), .site-nav :is(ol, ul) { display: flex; flex-wrap: wrap; align-items: center; gap: inherit; margin: 0; padding: 0; list-style: none; }
+.site-header nav li + li { margin: 0; }
+.site-header nav a, .site-nav a { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--muted); text-decoration: none; }
+.site-header nav a:hover, .site-nav a:hover, .site-nav a[aria-current="location"] { color: var(--royal); text-decoration: underline; }
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(3.6rem, 9vw, 8rem) clamp(3.65rem, 8vw, 7rem);
+  background: radial-gradient(ellipse at 91% 12%, #dbe9ff 0, transparent 55%), var(--paper);
+  border-block-end: 1px solid var(--line);
+}
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0, transparent calc(12.5% - 1px), rgba(52, 93, 163, .065) calc(12.5% - 1px), rgba(52, 93, 163, .065) 12.5%);
+  content: "";
+  pointer-events: none;
+}
+.hero-inner { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(17rem, 1fr); align-items: center; gap: clamp(2rem, 6vw, 5.8rem); }
+.hero-copy { min-width: 0; }
+.hero h1 { max-width: 16ch; margin-block: .55rem 1.4rem; }
+.hero h1 :is(span, em), .hero h1 .accent { color: var(--royal); }
+.hero h1 em { font-style: normal; }
+.eyebrow, .kicker, .chapter-kicker, .section-kicker {
+  margin-block-end: .65rem;
+  color: var(--royal);
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: .13em;
+}
+.hero .eyebrow, .hero .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  min-height: 1.6rem;
+}
+.hero .eyebrow::before, .hero .kicker::before { width: 1.55rem; height: 1px; background: currentColor; content: ""; }
+.lead, .hero-description { max-width: 49ch; color: var(--muted); font-size: clamp(1.06rem, 1.9vw, 1.27rem); line-height: 1.75; }
+.hero-actions, .form-actions, .button-row, .exercise-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem .8rem; margin-block: 1.35rem .35rem; }
+.button, .btn, .hero-actions a, .exercise button, button[type="submit"], .room-controls button, .room-share button, button.exercise-submit {
+  display: inline-flex;
+  min-height: 2.85rem;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .55rem 1.12rem;
+  border: 1px solid var(--royal);
+  border-radius: .35rem;
+  background: var(--royal);
+  color: var(--surface);
+  font-size: .94rem;
+  font-weight: 750;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .16s ease, border-color .16s ease, color .16s ease;
+}
+.button:hover, .btn:hover, .hero-actions a:hover, .exercise button:hover, button[type="submit"]:hover, .room-controls button:hover, .room-share button:hover, button.exercise-submit:hover { border-color: var(--navy-deep); background: var(--navy-deep); color: var(--surface); }
+.button.button-secondary, .button-secondary, .btn-secondary, .button.secondary, .exercise button[type="reset"], .exercise button.secondary, .hero-actions .button-secondary {
+  border-color: #718bb8;
+  background: transparent;
+  color: var(--navy);
+}
+.button.button-secondary:hover, .button-secondary:hover, .btn-secondary:hover, .button.secondary:hover, .exercise button[type="reset"]:hover, .exercise button.secondary:hover, .hero-actions .button-secondary:hover { background: var(--blue-wash); border-color: var(--navy); color: var(--navy-deep); }
+.hero-aside, .hero-panel {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.35rem, 3.3vw, 2.5rem);
+  overflow: hidden;
+  border-radius: .45rem;
+  background: repeating-linear-gradient(0deg, transparent 0 35px, #fff1 35px 36px), linear-gradient(130deg, var(--navy), var(--navy-deep));
+  color: #e6efff;
+  box-shadow: 0 14px 34px #10254b20;
+}
+.hero-aside::after, .hero-panel::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: .28rem;
+  background: #76a6ff;
+  content: "";
+}
+.hero-aside :is(h2,h3,h4, a, strong), .hero-panel :is(h2,h3,h4, a, strong) { color: #ffffff; }
+.hero-aside :is(.eyebrow,.kicker,.muted,.subtle), .hero-panel :is(.eyebrow,.kicker,.muted,.subtle) { color: #bbd3ff; }
+.hero-aside li small, .hero-panel li small { color: #bbd3ff; }
+.hero-aside :focus-visible, .hero-panel :focus-visible { outline-color: #a9c9ff; }
+.hero-aside h2, .hero-panel h2 { font-size: clamp(1.45rem, 2.55vw, 2.05rem); }
+.hero-aside :last-child, .hero-panel :last-child { margin-block-end: 0; }
+.hero-aside ol, .hero-panel ol { padding-inline-start: 1.25rem; }
+.hero-aside li::marker, .hero-panel li::marker { color: #b5ceff; font-weight: 750; }
+
+.section, .chapter { padding-block: clamp(2.65rem, 6.3vw, 5.25rem); }
+.section-header, .chapter-header, .section-heading, .chapter-heading { max-width: 52rem; margin-block-end: clamp(1.4rem, 3.8vw, 2.7rem); }
+.section-header > p:last-child, .chapter-header > p:last-child, .section-heading > p:last-child, .chapter-heading > p:last-child { margin-block-end: 0; }
+.section-header > p:not(.eyebrow,.kicker), .chapter-header > p:not(.eyebrow,.kicker,.chapter-kicker) { color: var(--muted); }
+.outline-grid, .chapter-grid, .card-grid, .exercise-grid { display: grid; gap: clamp(.75rem, 1.7vw, 1.3rem); min-width: 0; }
+.outline-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 0; margin: 0; list-style: none; }
+.outline-grid > li + li { margin: 0; }
+.outline-card, .outline-grid > li > a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 9.25rem;
+  min-width: 0;
+  height: 100%;
+  gap: .2rem;
+  padding: 1rem .95rem 1.1rem;
+  border: 1px solid var(--line);
+  border-block-start: 3px solid #6e95e3;
+  border-radius: .38rem;
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color .16s ease, border-color .16s ease;
+}
+a.outline-card:hover, .outline-card:focus-within, .outline-grid > li > a:hover { border-color: #7192cc; border-block-start-color: var(--royal); background: #eff5ff; color: var(--navy-deep); }
+.outline-card a { color: var(--navy); }
+.outline-card h3, .outline-card strong, .outline-grid > li > a strong { margin: .1rem 0 .15rem; color: var(--navy-deep); font-size: 1rem; font-weight: 800; line-height: 1.45; }
+.outline-card p, .outline-card small, .outline-grid > li > a small { margin: 0; color: var(--muted); font-size: .865rem; line-height: 1.6; }
+.outline-number, .outline-index, .outline-num, .chapter-number, .chapter-index, .chapter-no { color: var(--royal); font-variant-numeric: tabular-nums; font-weight: 800; }
+.chapter { border-block-start: 1px solid var(--line); }
+.chapter:nth-of-type(even) { background: #ffffff8c; }
+.chapter-header .chapter-number, .chapter-header .chapter-index, .chapter-header .chapter-no { display: inline-block; margin-block-end: .5rem; font-family: var(--serif); font-size: clamp(2rem, 4.5vw, 3.8rem); line-height: 1; }
+.chapter-grid, .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.chapter-grid > *, .card-grid > *, .exercise-grid > * { min-width: 0; }
+.card, .content-card, .example-card, .method-card {
+  min-width: 0;
+  padding: clamp(1rem, 2.45vw, 1.65rem);
+  border: 1px solid var(--line);
+  border-radius: .45rem;
+  background: var(--surface);
+}
+.card :last-child, .content-card :last-child, .example-card :last-child, .method-card :last-child { margin-block-end: 0; }
+.callout, .note, .takeaway, .key-point, .learning-note, blockquote {
+  margin: 1.25rem 0;
+  padding: .9rem 1.15rem;
+  border-inline-start: .25rem solid #507ac7;
+  border-radius: 0 .35rem .35rem 0;
+  background: var(--blue-wash);
+  color: var(--navy-deep);
+}
+.callout :last-child, .note :last-child, .takeaway :last-child, .key-point :last-child, blockquote :last-child { margin-block-end: 0; }
+.callout.caution, .callout.warning, .note.warning { border-inline-start-color: var(--royal); background: var(--blue-tint); color: #293e75; }
+.tag, .pill, .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .15rem .53rem;
+  border-radius: 99rem;
+  background: var(--blue-wash);
+  color: var(--navy-deep);
+  font-size: .8rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.table-wrap, .table-scroll, .table-responsive {
+  max-width: 100%;
+  margin-block: 1.2rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: .42rem;
+  background: var(--surface);
+}
+table { width: 100%; border-collapse: collapse; color: var(--ink); font-size: .945rem; line-height: 1.62; text-align: start; }
+caption { padding: .65rem .9rem; color: var(--muted); font-size: .88rem; text-align: start; }
+th, td { padding: .65rem clamp(.55rem, 1.55vw, 1rem); border-block-end: 1px solid var(--line); text-align: start; vertical-align: top; }
+thead th, table > tbody > tr:first-child > th:not([scope="row"]) { background: var(--blue-wash); color: var(--navy-deep); font-weight: 800; }
+tbody th { font-weight: 750; }
+tbody tr:nth-child(even) { background: #eaf2ff90; }
+tbody tr:last-child > :is(td,th) { border-block-end: 0; }
+:is(.table-wrap, .table-scroll, .table-responsive) table:has(tr > :nth-child(4)) { min-width: 34rem; }
+
+.exercise, .practice, .workshop {
+  margin-block: clamp(1.4rem, 3.4vw, 2.45rem) 0;
+  padding: clamp(1.05rem, 2.8vw, 2rem);
+  border: 1px solid #adc2e4;
+  border-radius: .52rem;
+  background: #edf3fe;
+}
+.exercise-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+.exercise-form, .form-grid { display: grid; gap: .82rem 1rem; min-width: 0; }
+.form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.field { display: grid; gap: .32rem; min-width: 0; align-content: start; }
+.field.full, .field.full-width, .field-wide, .form-grid > fieldset, .form-grid > .form-actions { grid-column: 1 / -1; }
+.field label, label.field, .exercise label:not(:has(input[type="radio"], input[type="checkbox"])), legend { color: var(--navy-deep); font-weight: 750; }
+fieldset { min-width: 0; margin: 0; padding: .75rem .8rem .85rem; border: 1px solid #adc2e4; border-radius: .35rem; }
+legend { padding-inline: .25rem; }
+input:not([type="checkbox"], [type="radio"], [type="submit"], [type="reset"], [type="button"], [type="range"], [type="color"]), select, textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.8rem;
+  padding: .55rem .7rem;
+  border: 1px solid #718bb8;
+  border-radius: .34rem;
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1.48;
+}
+textarea { min-height: 6.8rem; resize: vertical; }
+:is(input, textarea)::placeholder { color: #5a6881; opacity: 1; }
+input[type="radio"], input[type="checkbox"] { width: 1.05rem; height: 1.05rem; accent-color: var(--navy); }
+label:has(input[type="radio"], input[type="checkbox"]) { display: flex; min-height: 2.65rem; align-items: center; gap: .55rem; cursor: pointer; }
+.form-actions, .exercise-actions { margin-block: .35rem 0; }
+.field-help, .help-text { margin: 0; font-size: .845rem; line-height: 1.5; }
+.exercise-result, .result-panel, .exercise-output, .feedback-panel {
+  min-width: 0;
+  padding: 1rem 1.12rem;
+  border: 1px solid #c0d0eb;
+  border-inline-start: .24rem solid #5e84ce;
+  border-radius: .35rem;
+  background: var(--surface);
+}
+.exercise-result :last-child, .result-panel :last-child, .exercise-output :last-child, .feedback-panel :last-child { margin-block-end: 0; }
+:is(.exercise-result, .result-panel, .exercise-output, .feedback-panel)[data-state="error"], .exercise-error, .error-message { color: #303b76; border-inline-start-color: var(--royal); }
+.exercise-error, .error-message { font-weight: 700; }
+.live-classroom {
+  padding: clamp(1.2rem, 4vw, 3.7rem);
+  border: 1px solid var(--line);
+  border-radius: .62rem;
+  background: linear-gradient(135deg, #edf4ff, var(--paper) 58%);
+}
+.live-classroom:has(> .container, > .wrap) { padding-inline: 0; border-inline: 0; border-radius: 0; }
+.live-classroom :is(.section-header, .section-heading) { margin-block-end: 1.45rem; }
+.room-controls, .room-controls form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: .75rem;
+  min-width: 0;
+}
+.room-controls { margin-block: 1.05rem; }
+.room-controls :is(label, .field) { display: grid; gap: .3rem; min-width: 0; color: var(--navy-deep); font-weight: 750; }
+.room-controls > :is(input, select), .room-controls form > :is(input, select) { flex: 1 1 9rem; max-width: 16rem; }
+.room-controls > form { flex: 1 1 15rem; }
+.room-share {
+  display: grid;
+  gap: .65rem;
+  min-width: 0;
+  margin-block: .85rem;
+  padding: clamp(.85rem, 2.5vw, 1.25rem);
+  border: 1px solid #adc2e4;
+  border-radius: .4rem;
+  background: var(--surface);
+}
+.room-share p { margin-block-end: 0; }
+.room-share :is(a, input, code) { min-width: 0; overflow-wrap: anywhere; }
+.room-share :is(img, svg) { display: block; max-width: 100%; height: auto; }
+.room-share button { justify-self: start; }
+.room-code {
+  display: inline-block;
+  max-width: 100%;
+  padding: .2rem .55rem;
+  border: 1px solid #adc2e4;
+  border-radius: .3rem;
+  background: var(--blue-wash);
+  color: var(--navy-deep);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: clamp(1rem, 2.3vw, 1.35rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+.live-status, .submission-status { color: var(--muted); font-size: .9rem; line-height: 1.55; }
+.live-status:not(:empty), .submission-status:not(:empty) {
+  margin-block: .65rem;
+  padding: .55rem .7rem;
+  border-inline-start: .2rem solid #5e84ce;
+  border-radius: 0 .3rem .3rem 0;
+  background: var(--blue-tint);
+}
+.live-status[data-state="error"], .submission-status[data-state="error"] { border-inline-start-color: var(--royal); color: #303b76; font-weight: 750; }
+.live-status[data-state="success"], .submission-status[data-state="success"] { color: var(--navy-deep); font-weight: 750; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
+  align-items: start;
+  gap: clamp(.75rem, 1.9vw, 1.25rem);
+  margin-block: 1.15rem 0;
+  padding: 0;
+  list-style: none;
+}
+.stats-card {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(.9rem, 2.4vw, 1.4rem);
+  border: 1px solid var(--line);
+  border-block-start: .2rem solid #6e95e3;
+  border-radius: .42rem;
+  background: var(--surface);
+}
+.stats-card :is(h3, h4) { margin-block-end: .42rem; }
+.stats-card p:last-child, .stats-card .stat-list:last-child { margin-block-end: 0; }
+.stat-count {
+  display: inline-block;
+  color: var(--navy-deep);
+  font-size: clamp(1.65rem, 3.4vw, 2.35rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+.stat-list { margin-block: .65rem 0; padding-inline-start: 1.15rem; color: var(--muted); font-size: .92rem; }
+.stat-list strong { color: var(--navy-deep); font-variant-numeric: tabular-nums; }
+.stat-list:is(dl, .list-unstyled) { padding-inline-start: 0; }
+.stat-list:is(dl, .list-unstyled) dt { color: var(--navy-deep); }
+.exercise-submit:not(button) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .55rem .8rem;
+  margin-block: .9rem 0;
+}
+.exercise-submit .submission-status { flex: 1 1 15rem; margin-block: 0; }
+details { margin-block: .7rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: .34rem; background: var(--surface); }
+summary { min-height: 2rem; color: var(--navy-deep); font-weight: 750; cursor: pointer; }
+details[open] summary { margin-block-end: .5rem; }
+details > :last-child { margin-block-end: 0; }
+
+.site-footer, footer.site-footer {
+  padding-block: 2.5rem;
+  border-block-start: 1px solid #36568b;
+  background: var(--navy-deep);
+  color: #e2edff;
+  font-size: .91rem;
+}
+.site-footer :is(h2,h3,h4, strong, a) { color: var(--surface); }
+.site-footer a:hover { color: #a9c9ff; }
+.site-footer :focus-visible { outline-color: #a9c9ff; }
+.site-footer .muted, .site-footer .subtle { color: #c9dcff; }
+.site-footer p:last-child { margin: 0; }
+
+@media (max-width: 65rem) {
+  .outline-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 49rem) {
+  html { scroll-padding-top: 1.25rem; }
+  .site-header { position: relative; }
+  .header-inner, .site-header > .container, .site-header > .wrap { align-items: flex-start; flex-direction: column; gap: 0; padding-block: .3rem .28rem; }
+  .site-header nav, .site-nav { max-width: 100%; justify-content: flex-start; }
+  .hero-inner, .exercise-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero h1 { max-width: 20ch; }
+  .hero-aside, .hero-panel { max-width: 39rem; }
+}
+@media (max-width: 36rem) {
+  h1 { font-size: clamp(2rem, 9vw, 3rem); }
+  h2 { font-size: clamp(1.62rem, 7vw, 2.25rem); }
+  .hero { padding-block: 2.8rem 2.6rem; }
+  .outline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .outline-card, .outline-grid > li > a { min-height: 7.5rem; padding: .78rem; }
+  .chapter-grid, .card-grid, .form-grid { grid-template-columns: minmax(0, 1fr); }
+  :is(.field, .exercise-form) input, :is(.field, .exercise-form) textarea, :is(.field, .exercise-form) select { font-size: 1rem; }
+  .room-controls > form { flex-basis: 100%; }
+  .room-controls :is(label, .field, input, select) { flex: 1 1 100%; width: 100%; max-width: none; }
+  .room-controls button, .room-share button, button.exercise-submit { max-width: 100%; }
+  .stats-grid { grid-template-columns: minmax(0, 1fr); }
+  th, td { padding-block: .55rem; }
+}
+@media (max-width: 22rem) {
+  .outline-grid { grid-template-columns: minmax(0, 1fr); }
+  .outline-card, .outline-grid > li > a { min-height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+@media print {
+  body, .hero, .site-footer, .chapter:nth-of-type(even) { background: #fff; color: #222; }
+  .site-header, .skip-link, .skip, .hero-actions, .form-actions, .exercise-actions, .site-footer nav, .room-controls, .room-share, .exercise-submit { display: none; }
+  .container, .wrap { width: 100%; }
+  .hero, .section, .chapter { padding-block: 1rem; }
+  .hero-aside, .hero-panel, .site-footer :is(h2,h3,h4,strong,a) { background: #fff; color: #222; box-shadow: none; }
+  .hero-aside :is(h2,h3,h4,strong,a), .hero-panel :is(h2,h3,h4,strong,a) { color: #222; }
+  .hero-aside :is(.eyebrow,.kicker,.muted,.subtle), .hero-panel :is(.eyebrow,.kicker,.muted,.subtle), .site-footer :is(.muted,.subtle) { color: #444; }
+  .hero::before, .hero-aside::after, .hero-panel::after { display: none; }
+  .table-wrap, .table-scroll, .table-responsive { overflow: visible; }
+  .exercise, .card, .outline-card, .callout, .table-wrap, .stats-card { break-inside: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+}
+
+.slide{padding:1.6rem 0 1.85rem;border-top:1px solid var(--line);scroll-margin-top:.5rem}.slide-number{font-size:.74rem;letter-spacing:.14em;color:var(--royal);font-weight:750;margin-bottom:.25rem}.slide h3{font-size:clamp(1.25rem,2.2vw,1.7rem)}.slide-lead{color:var(--muted);font-size:1.03rem}.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem 2.25rem;margin:.75rem 0 0}.fact-grid>div{border-inline-start:2px solid var(--line);padding-inline-start:1rem}.fact-grid dd{margin-bottom:0;color:var(--muted)}.path-list{margin:.8rem 0 1rem;border-top:1px solid var(--line)}.path-list>div{display:grid;grid-template-columns:minmax(10rem,1fr) 3fr;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}.stat-line{display:flex;flex-wrap:wrap;gap:1rem 2rem;margin:1.25rem 0}.stat-line>div{min-width:13rem;border-inline-start:3px solid var(--royal);padding-inline-start:.85rem}.stat-line strong,.stat-line span{display:block}.stat-line strong{font-size:1.6rem;color:var(--navy)}.stat-line span{font-size:.9rem;color:var(--muted)}.hero-title-secondary{display:block;font-size:.57em;letter-spacing:0;margin-top:.38em}.hero-aside ol{padding-left:1.25rem}.hero-aside li+li{margin-top:.7rem}.hero-aside small{display:block;color:var(--muted)}.hero-aside{align-self:center}.source-extra{margin-top:2rem}.footer-meta{font-size:.88rem}.exercise-slide{margin-top:.5rem}@media(max-width:620px){.fact-grid,.path-list>div{grid-template-columns:1fr}.path-list>div{gap:.2rem}.hero-title-secondary{font-size:.66em}}@media print{.slide{break-inside:avoid}}
+
+.classroom-code-line{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.classroom-qr{width:116px;max-width:100%;flex:none;line-height:0}.classroom-qr svg{display:block;width:100%;height:auto}.room-share-text{min-width:0}.student-link{display:block;overflow-wrap:anywhere;font-size:.86rem}.stat-breakdown{font-size:.88rem;margin-top:.6rem}.stat-breakdown summary{cursor:pointer;color:var(--navy)}.stat-breakdown p{margin:.4rem 0 0}.stats-time{margin:.45rem 0 1rem;font-size:.85rem;color:var(--muted)}.hero-actions .button{white-space:normal}@media print{.live-classroom,.exercise-submit{display:none!important}}
+</style></head><body id="top">
+<a class="skip-link" href="#main">跳到課程內容</a><header class="site-header"><div class="container header-inner"><a class="site-brand" href="#top"><span class="brand-mark" aria-hidden="true">研</span>醫療研究入門</a><nav class="site-nav" aria-label="快速導覽"><a href="#outline">課程大綱</a><a href="#slide-11">PICOT</a><a href="#slide-21">設計測驗</a><a href="#slide-36">研究草案</a><a href="#classroom">即時統計</a></nav></div></header>
+<main id="main"><section class="hero"><div class="container hero-inner"><div class="hero-copy"><p class="eyebrow">研究方法工作坊 · 一頁式講義</p><h1>從臨床問題<br>到研究設計<span class="hero-title-secondary">醫療人員的研究入門</span></h1><p class="lead">把一個照護疑問寫成可以執行的研究草案。用出院衛教與再住院的教學案例，練習寫 PICOT、辨認研究設計，以及規劃世代研究。</p><div class="hero-actions"><a class="button" href="#outline">開始閱讀</a><a class="button button-secondary" href="#slide-11">開始練習</a></div></div><aside class="hero-aside" aria-label="三個課堂練習"><p class="eyebrow">課堂練習</p><ol><li><a href="#slide-11">PICOT 練習</a><small>原簡報第 11 頁</small></li><li><a href="#slide-21">研究設計測驗</a><small>原簡報第 21 頁</small></li><li><a href="#slide-36">研究草案</a><small>原簡報第 36 頁</small></li></ol><p class="muted">案例與數字皆為教學假設。練習欄位請使用虛構或去識別化的資訊。</p></aside></div></section>
+<section class="section" id="classroom" aria-labelledby="classroom-title"><div class="container live-classroom">
+<header class="section-header"><p class="eyebrow">課堂模式</p><h2 id="classroom-title">全班即時統計</h2><p>同一場次的學員作答後，按「送出並更新全班統計」。講者畫面約每 3 秒更新。</p></header>
+<div class="classroom-code-line"><span>目前場次</span><strong class="room-code" id="current-room">—</strong></div>
+<form class="room-controls" id="room-form"><div class="field"><label for="join-room">加入場次</label><input id="join-room" autocomplete="off" maxlength="6" placeholder="六位英數碼" spellcheck="false"></div><button type="submit" class="button button-secondary">加入</button><button type="button" class="button button-secondary" id="new-classroom">建立新場次</button><button type="button" class="button button-secondary" id="refresh-classroom">更新統計</button></form>
+<p class="submission-status" id="join-feedback" role="status"></p>
+<div class="room-share" id="classroom-share" hidden><div class="classroom-qr" id="classroom-qr" role="img" aria-label="學員加入場次的 QR code"></div><div class="room-share-text"><p><strong>分享學員連結</strong> · 掃碼或開啟連結即可加入</p><a class="student-link" id="student-link"></a><button type="button" class="button button-secondary" id="copy-classroom">複製學員連結</button></div></div>
+<p id="offline-classroom" hidden><a href="https://clinical-research-starter-jia.netlify.app/">開啟線上版使用全班統計</a></p>
+<p class="live-status" id="classroom-status">正在準備統計…</p><p id="stats-time" class="stats-time"></p>
+<div class="stats-grid" id="classroom-stats"></div>
+<p class="field-help">第 11、36 頁只統計各欄位是否完成；文字草稿留在裝置上。第 21 頁統計所選答案與各題正答率。</p>
+</div></section><section class="section" id="outline"><div class="container"><header class="section-header"><p class="eyebrow">原簡報 02 頁</p><h2>課程大綱</h2></header><div class="outline-grid"><a class="outline-card" href="#picot"><span class="chapter-kicker">章節 01</span><h3>臨床問題與 PICOT</h3><p>先把照護疑問寫成能回答的問題。</p></a><a class="outline-card" href="#design"><span class="chapter-kicker">章節 02</span><h3>選擇研究設計</h3><p>用選人方式和事件順序辨認設計。</p></a><a class="outline-card" href="#cohort"><span class="chapter-kicker">章節 03</span><h3>規劃世代研究</h3><p>把對象、暴露、結果與追蹤規則說清楚。</p></a><a class="outline-card" href="#interpret"><span class="chapter-kicker">章節 04</span><h3>偏差與結果解讀</h3><p>先檢查比較是否可信，再解讀差異。</p></a><a class="outline-card" href="#protocol"><span class="chapter-kicker">章節 05</span><h3>完成研究草案</h3><p>把問題、方法與可行性寫成一頁計畫。</p></a></div></div></section>
+<section class="chapter section" id="picot" aria-labelledby="picot-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 01 · 原簡報 03–11 頁</p><h2 id="picot-title">臨床問題與 PICOT</h2><p class="lead">先把照護疑問寫成能回答的問題。</p></header><article class="slide" id="slide-3" aria-labelledby="title-3"><p class="slide-number">原簡報 03 頁</p><h3 id="title-3">臨床工作中的研究起點</h3><p class="slide-lead">反覆遇到的照護疑問，可以成為研究題目</p><p class="slide-lead">先問：答案會改變哪一個臨床決策？</p><dl class="fact-grid"><div><dt>病人安全</dt><dd>哪些病人容易跌倒、發生用藥問題或照護相關感染？</dd></div><div><dt>治療與照護</dt><dd>不同衛教、復健或營養介入，後續結果有何差異？</dd></div><div><dt>工作流程</dt><dd>檢驗報告、會診或照護轉銜的等待時間能否改善？</dd></div><div><dt>病人經驗</dt><dd>病人真的理解照護計畫嗎？哪些障礙影響執行？</dd></div></dl></article><article class="slide" id="slide-4" aria-labelledby="title-4"><p class="slide-number">原簡報 04 頁</p><h3 id="title-4">各職類／單位曾提出的研究計畫</h3><div class="table-wrap" tabindex="0" role="region" aria-label="研究題型與規劃設計表格"><table><thead><tr><th scope="col">研究主題</th><th scope="col">規劃設計</th></tr></thead><tbody><tr><td>乳癌放療技術：腫瘤控制與長期安全性</td><td>世代研究</td></tr><tr><td>阻塞性結腸癌：造口橋接與緊急切除</td><td>世代研究</td></tr><tr><td>醫療輔導介入與住院兒童焦慮變化</td><td>單組前後測</td></tr><tr><td>肺囊蟲感染與定植：qPCR 閾值與診斷效能</td><td>SR／MA</td></tr><tr><td>營養評估量表預測長者全因死亡</td><td>SR／MA</td></tr><tr><td>認知訓練對心衰竭患者認知功能的影響</td><td>SR／MA</td></tr><tr><td>認知／記憶訓練對成人認知功能的影響</td><td>SR／MA</td></tr></tbody></table></div><p class="muted">這些是計畫題型與規劃設計示例，沒有提供已完成的研究結果。SR／MA 指系統性文獻回顧與統合分析。</p></article><article class="slide" id="slide-5" aria-labelledby="title-5"><p class="slide-number">原簡報 05 頁</p><h3 id="title-5">貫穿課程的教學案例</h3><blockquote class="callout"><strong>加強出院衛教，會讓病人比較少再住院嗎？</strong><p>「加強」包含哪些內容？與哪一種照護比較？觀察哪一次再住院？要追蹤多久？</p></blockquote><p class="muted">貫穿課程的假設案例，未提供實際成效資料。</p></article><article class="slide" id="slide-6" aria-labelledby="title-6"><p class="slide-number">原簡報 06 頁</p><h3 id="title-6">PICOT：讓研究問題可以回答</h3><p class=slide-lead>針對比較效果或關聯的問題，逐項補齊研究條件</p><div class="table-wrap" tabindex="0" role="region" aria-label="PICOT：讓研究問題可以回答表格"><table><thead><tr><th scope="col">元素</th><th scope="col">要回答的問題</th></tr></thead><tbody><tr><td>P　Population</td><td>研究哪些人？在哪個場域？</td></tr><tr><td>I／E　Intervention／Exposure</td><td>接受什麼介入，或處於何種暴露？</td></tr><tr><td>C　Comparison</td><td>與誰比較？比較組是否合理？</td></tr><tr><td>O　Outcome</td><td>以什麼結果判斷差異？</td></tr><tr><td>T　Time</td><td>從何時開始？觀察多久？</td></tr></tbody></table></div></article><article class="slide" id="slide-7" aria-labelledby="title-7"><p class="slide-number">原簡報 07 頁</p><h3 id="title-7">衛教案例的 PICOT</h3><p class=slide-lead>只取得本院資料時，問題與結論都需限定「院內」再住院</p><div class="table-wrap" tabindex="0" role="region" aria-label="衛教案例的 PICOT表格"><table><thead><tr><th scope="col">元素</th><th scope="col">本課的研究條件</th></tr></thead><tbody><tr><td>P</td><td>某院成人內科住院後返家的病人</td></tr><tr><td>I／E</td><td>出院前完成標準化強化衛教，並有執行紀錄</td></tr><tr><td>C</td><td>同一時期接受一般出院衛教的病人</td></tr><tr><td>O</td><td>首次院內非計畫性再住院</td></tr><tr><td>T</td><td>自出院起追蹤 30 天</td></tr></tbody></table></div></article><article class="slide" id="slide-8" aria-labelledby="title-8"><p class="slide-number">原簡報 08 頁</p><h3 id="title-8">一句完整的研究問題</h3><p class=slide-lead>研究目的：比較兩組 30 天再住院風險，並處理治療前差異</p><p>某院成人內科出院返家病人中，出院前接受強化衛教者，相較於同時期接受一般衛教者，其出院後 30 天院內非計畫性再住院風險是否不同？</p></article><article class="slide" id="slide-9" aria-labelledby="title-9"><p class="slide-number">原簡報 09 頁</p><h3 id="title-9">值得做，也需要做得到</h3><p class="slide-lead">先查文獻與盤點資料，再縮小研究範圍</p><dl class="fact-grid"><div><dt>臨床重要性</dt><dd>結果能否改善照護決策，或回答病人的需求？</dd></div><div><dt>知識缺口</dt><dd>文獻已知道什麼？哪些族群、場域或結果仍不清楚？</dd></div><div><dt>資料與規模</dt><dd>有足夠對象、事件與必要欄位嗎？</dd></div><div><dt>時間與倫理</dt><dd>人力、期限、資料權限與審查程序是否可行？</dd></div></dl></article><article class="slide" id="slide-10" aria-labelledby="title-10"><p class="slide-number">原簡報 10 頁</p><h3 id="title-10">資料能否回答這個問題？</h3><p class=slide-lead>本課案例：先確認衛教內容、執行日期及再住院資料能否連結</p><div class="table-wrap" tabindex="0" role="region" aria-label="資料能否回答這個問題？表格"><table><thead><tr><th scope="col">資料來源</th><th scope="col">可能取得</th><th scope="col">優先確認</th></tr></thead><tbody><tr><td>電子病歷</td><td>病況、檢驗、照護與日期</td><td>紀錄一致性、缺值、跨院事件</td></tr><tr><td>申報資料</td><td>就醫、處方與醫療利用</td><td>代碼定義、臨床細節與可用期間</td></tr><tr><td>登錄資料</td><td>疾病特徵與追蹤結果</td><td>收案範圍、更新與完整程度</td></tr><tr><td>問卷／<br>前瞻收集</td><td>功能、理解、生活品質</td><td>量表效度、填答與追蹤負擔</td></tr></tbody></table></div></article><article class="slide exercise-slide" id="slide-11" aria-labelledby="title-11"><p class="slide-number">原簡報 11 頁</p><h3 id="title-11">練習一：把臨床疑問寫成 PICOT</h3><div id="exercise-11"></div><noscript><p>可用自己的臨床疑問，也可帶入出院衛教案例。 依序寫出對象、介入或暴露、比較、結果和時間。 開啟 JavaScript 即可操作練習。</p></noscript></article></div></section><section class="chapter section" id="design" aria-labelledby="design-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 02 · 原簡報 12–21 頁</p><h2 id="design-title">選擇研究設計</h2><p class="lead">用選人方式和事件順序辨認設計。</p></header><article class="slide" id="slide-12" aria-labelledby="title-12"><p class="slide-number">原簡報 12 頁</p><h3 id="title-12">觀察性研究的特徵與時間方向</h3><div class="path-list"><div><strong>橫斷研究</strong><span>在同一時點測量暴露與結果。</span></div><div><strong>前瞻性世代</strong><span>現在界定群體與暴露，再觀察後續結果。</span></div><div><strong>回溯性世代</strong><span>用既有資料重建過去的暴露與其後結果。</span></div><div><strong>病例對照</strong><span>先選病例與同來源對照，再回查先前暴露。</span></div></div><p class="callout">世代研究觀察實際暴露，不由研究者分派。時間 0 是個人追蹤起點，需先定義事件、截止與設限規則。</p></article><article class="slide" id="slide-13" aria-labelledby="title-13"><p class="slide-number">原簡報 13 頁</p><h3 id="title-13">研究問題決定設計方向</h3><p class=slide-lead>若要理解經驗、看法與障礙，可考慮質性研究</p><div class="table-wrap" tabindex="0" role="region" aria-label="研究問題決定設計方向表格"><table><thead><tr><th scope="col">想知道什麼？</th><th scope="col">常見設計</th><th scope="col">例子</th></tr></thead><tbody><tr><td>某時點有多少人？</td><td>橫斷研究</td><td>出院時有多少人理解用藥？</td></tr><tr><td>暴露後發生什麼？</td><td>世代研究</td><td>兩組病人的後續再住院風險</td></tr><tr><td>罕見結果與<br>何種暴露相關？</td><td>病例對照研究</td><td>嚴重事件病例與對照的過去暴露</td></tr><tr><td>分派介入後效果如何？</td><td>隨機對照試驗</td><td>隨機分派兩種衛教策略</td></tr></tbody></table></div></article><article class="slide" id="slide-14" aria-labelledby="title-14"><p class="slide-number">原簡報 14 頁</p><h3 id="title-14">研究問題決定設計方向：時間軸圖解</h3><div class="path-list"><div><strong>橫斷研究</strong><span>抽取群體 → 同時測量暴露與結果</span></div><div><strong>世代研究</strong><span>界定來源群體 → 依實際暴露分組 → 比較後續結果</span></div><div><strong>病例對照</strong><span>依結果選病例和同來源對照 → 回查先前暴露</span></div><div><strong>隨機對照試驗</strong><span>符合條件者 → 隨機分派介入或對照 → 追蹤結果</span></div></div><p class="muted">回查是查閱過去資料，事件的時間順序沒有反轉。</p></article><article class="slide" id="slide-15" aria-labelledby="title-15"><p class="slide-number">原簡報 15 頁</p><h3 id="title-15">隨機試驗與世代研究</h3><p class=slide-lead>兩種設計都需要明確的對象、結果與追蹤規則</p><div class="table-wrap" tabindex="0" role="region" aria-label="隨機試驗與世代研究表格"><table><thead><tr><th scope="col">比較項目</th><th scope="col">隨機對照試驗</th><th scope="col">觀察性世代研究</th></tr></thead><tbody><tr><td>如何分組</td><td>研究採隨機方式分派策略</td><td>依實際介入或暴露形成組別</td></tr><tr><td>本課案例</td><td>隨機分派強化或一般衛教</td><td>觀察已接受不同衛教的病人</td></tr><tr><td>主要考量</td><td>可行性、依從性與追蹤</td><td>組間原有差異與測量品質</td></tr></tbody></table></div></article><article class="slide" id="slide-16" aria-labelledby="title-16"><p class="slide-number">原簡報 16 頁</p><h3 id="title-16">隨機試驗與世代研究的時間軸</h3><div class="path-list"><div><strong>隨機對照試驗</strong><span>符合條件者 → 隨機分派 → 介入組／對照組 → 觀察結果</span></div><div><strong>觀察性世代</strong><span>符合條件者 → 依實際暴露分組 → 暴露組／比較組 → 觀察結果</span></div></div><p class="muted">同一設計內，兩組使用一致的追蹤起點、結果定義與追蹤規則。</p></article><article class="slide" id="slide-17" aria-labelledby="title-17"><p class="slide-number">原簡報 17 頁</p><h3 id="title-17">世代與病例對照：選人的起點不同</h3><p class=slide-lead>「回溯性」描述資料時間，不能單憑它判定研究設計</p><div class="table-wrap" tabindex="0" role="region" aria-label="世代與病例對照：選人的起點不同表格"><table><thead><tr><th scope="col">比較項目</th><th scope="col">世代研究</th><th scope="col">病例對照研究</th></tr></thead><tbody><tr><td>先選誰</td><td>界定來源群體，再區分暴露</td><td>依結果選病例，再取合適對照</td></tr><tr><td>再比較什麼</td><td>後續結果的發生情形</td><td>之前的暴露情形</td></tr><tr><td>常見優點</td><td>可研究同一暴露的多種結果</td><td>罕見結果時通常較有效率</td></tr></tbody></table></div></article><article class="slide" id="slide-18" aria-labelledby="title-18"><p class="slide-number">原簡報 18 頁</p><h3 id="title-18">世代與病例對照的時間軸</h3><div class="path-list"><div><strong>世代：從暴露開始</strong><span>界定來源群體 → 依暴露分組 → 追蹤後續結果。</span></div><div><strong>病例對照：依結果選人</strong><span>選病例與同來源對照 → 回查兩組先前暴露。</span></div></div><p class="muted">對照也可能有暴露。回查資料不改變暴露在先、結果在後的事件順序。</p></article><article class="slide" id="slide-19" aria-labelledby="title-19"><p class="slide-number">原簡報 19 頁</p><h3 id="title-19">世代研究的前瞻與回溯</h3><p class=slide-lead>共同邏輯：界定群體與暴露，再比較其後的結果</p><p>資料已存在，仍須保留「暴露先於結果」的時間順序</p><div class="table-wrap" tabindex="0" role="region" aria-label="世代研究的前瞻與回溯表格"><table><thead><tr><th scope="col">設計</th><th scope="col">資料如何取得</th><th scope="col">規劃時需注意</th></tr></thead><tbody><tr><td>前瞻性世代</td><td>現在收案，之後追蹤</td><td>測量可先規劃<br>但需人力與等待</td></tr><tr><td>回溯性世代</td><td>從既有紀錄重建過去的追蹤</td><td>較快取得資料<br>但受既有紀錄限制</td></tr></tbody></table></div></article><article class="slide" id="slide-20" aria-labelledby="title-20"><p class="slide-number">原簡報 20 頁</p><h3 id="title-20">前瞻與回溯世代研究的時間軸</h3><div class="path-list"><div><strong>前瞻性世代</strong><span>現在啟動研究與收案，在個人時間 0 確定暴露，再追蹤未來結果。</span></div><div><strong>回溯性世代</strong><span>現在啟動研究，利用舊紀錄重建過去的時間 0、暴露與其後結果。</span></div></div><p class="muted">研究啟動日期與受試者追蹤起點是兩件事。</p></article><article class="slide exercise-slide" id="slide-21" aria-labelledby="title-21"><p class="slide-number">原簡報 21 頁</p><h3 id="title-21">練習二：這是哪一種研究設計？</h3><div id="exercise-21"></div><noscript><p>先看怎麼選人，再看何時測量。 判斷各情境先怎麼選人，再看測量的時間。 開啟 JavaScript 即可操作練習。</p></noscript></article></div></section><section class="chapter section" id="cohort" aria-labelledby="cohort-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 03 · 原簡報 22–28 頁</p><h2 id="cohort-title">規劃世代研究</h2><p class="lead">把對象、暴露、結果與追蹤規則說清楚。</p></header><article class="slide" id="slide-22" aria-labelledby="title-22"><p class="slide-number">原簡報 22 頁</p><h3 id="title-22">世代研究的六個設計問題</h3><p class="slide-lead">六個元素：對象、暴露、結果、起點、追蹤、混雜因素</p><dl class="fact-grid"><div><dt>研究對象</dt><dd>誰符合資格？兩組是否來自相同來源？</dd></div><div><dt>暴露與結果</dt><dd>如何定義衛教？如何判定再住院？</dd></div><div><dt>起點與追蹤</dt><dd>何時開始比較？何時停止觀察？</dd></div><div><dt>組間可比較性</dt><dd>哪些治療前差異，可能影響結果？</dd></div></dl></article><article class="slide" id="slide-23" aria-labelledby="title-23"><p class="slide-number">原簡報 23 頁</p><h3 id="title-23">研究對象與比較組</h3><p class=slide-lead>不因追蹤中「有沒有回診」或「是否存活」決定誰能納入</p><div class="table-wrap" tabindex="0" role="region" aria-label="研究對象與比較組表格"><table><thead><tr><th scope="col">項目</th><th scope="col">衛教案例的示範規則</th></tr></thead><tbody><tr><td>來源群體</td><td>同一醫院、同一期間的成人內科出院病人</td></tr><tr><td>納入條件</td><td>年滿 18 歲，出院返家，符合預先設定的照護條件</td></tr><tr><td>分析單位</td><td>每人研究期間內第一次符合資格的出院</td></tr><tr><td>比較組</td><td>同時期符合相同條件、接受一般衛教者</td></tr></tbody></table></div></article><article class="slide" id="slide-24" aria-labelledby="title-24"><p class="slide-number">原簡報 24 頁</p><h3 id="title-24">操作型定義：每個人都能照規則判定</h3><p class=slide-lead>「沒有紀錄」先標示為未知，再檢查原因與處理方式</p><div class="table-wrap" tabindex="0" role="region" aria-label="操作型定義：每個人都能照規則判定表格"><table><thead><tr><th scope="col">概念</th><th scope="col">操作型定義示範</th></tr></thead><tbody><tr><td>強化出院衛教</td><td>出院前完成指定內容、回述確認，且有日期與紀錄</td></tr><tr><td>一般出院衛教</td><td>有一般衛教紀錄，未接受強化方案</td></tr><tr><td>主要結果</td><td>出院後 30 天內，首次院內非計畫性再住院</td></tr><tr><td>基線因素</td><td>衛教開始前已知的病情、既往住院與照顧支持</td></tr></tbody></table></div></article><article class="slide" id="slide-25" aria-labelledby="title-25"><p class="slide-number">原簡報 25 頁</p><h3 id="title-25">追蹤起點：兩組從相同時點開始比較</h3><p class=slide-lead>本例的起點定為出院時，研究對象是已出院返家的病人</p><p>若問題改為「從開始衛教起的效果」，需重新設定資格與起點</p><div class="table-wrap" tabindex="0" role="region" aria-label="追蹤起點：兩組從相同時點開始比較表格"><table><thead><tr><th scope="col">出院之前</th><th scope="col">出院當下
+Time zero</th><th scope="col">出院之後</th></tr></thead><tbody><tr><td>取得衛教前的病況<br>記錄衛教內容與日期</td><td>確認納入資格<br>確認已接受的衛教組別<br>開始追蹤</td><td>追蹤 30 天<br>辨識首次再住院<br>記錄死亡與資料中斷</td></tr></tbody></table></div></article><article class="slide" id="slide-26" aria-labelledby="title-26"><p class="slide-number">原簡報 26 頁</p><h3 id="title-26">追蹤規則與資料可見範圍</h3><p class="slide-lead">短追蹤也需有完整規則；選定追蹤策略後才能規劃分析</p><dl class="fact-grid"><div><dt>追蹤期間</dt><dd>所有人採用相同起點與 30 天觀察窗</dd></div><div><dt>結果發生</dt><dd>記錄首次院內非計畫性再住院的日期</dd></div><div><dt>資料可見範圍</dt><dd>確認何時真正無法持續觀察，未回診不等於失訪</dd></div><div><dt>死亡</dt><dd>死亡會阻止之後再住院，需預先規劃競爭風險處理</dd></div></dl></article><article class="slide" id="slide-27" aria-labelledby="title-27"><p class="slide-number">原簡報 27 頁</p><h3 id="title-27">收資料前的小規模可行性檢查</h3><p class="slide-lead">試查仍須在適當授權與機構規範內進行</p><dl class="fact-grid"><div><dt>欄位存在嗎？</dt><dd>暴露、結果與日期能否由不同人一致判定？</dd></div><div><dt>缺漏集中在哪裡？</dt><dd>哪一組、哪個時期或哪種病人缺得較多？</dd></div><div><dt>事件夠嗎？</dt><dd>除了總人數，也要估計主要結果的事件數</dd></div><div><dt>取得資料合法嗎？</dt><dd>確認審查程序、資料授權與保管方式</dd></div></dl></article><article class="slide" id="slide-28" aria-labelledby="title-28"><p class="slide-number">原簡報 28 頁</p><h3 id="title-28">分析計畫先寫清楚要比較什麼</h3><p class="slide-lead">主要問題與主要結果先設定，再決定統計方法</p><dl class="fact-grid"><div><dt>主要比較</dt><dd>強化與一般衛教組的 30 天院內再住院風險</dd></div><div><dt>描述資料</dt><dd>兩組有多少人？基線特徵與資料缺漏如何？</dd></div><div><dt>處理混雜</dt><dd>預先列出衛教前的重要因素，選擇適當調整方法</dd></div><div><dt>呈現結果</dt><dd>效果大小、信賴區間，以及必要的敏感度分析</dd></div></dl></article></div></section><section class="chapter section" id="interpret" aria-labelledby="interpret-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 04 · 原簡報 29–33 頁</p><h2 id="interpret-title">偏差與結果解讀</h2><p class="lead">先檢查比較是否可信，再解讀差異。</p></header><article class="slide" id="slide-29" aria-labelledby="title-29"><p class="slide-number">原簡報 29 頁</p><h3 id="title-29">混雜：兩組在衛教前就可能不同</h3><p class="slide-lead">結果有差異時，先問：除了衛教，還有哪些可能解釋？</p><p class="callout">病況較複雜者，可能更常接受強化衛教，也可能原本就更容易再住院。</p><dl class="fact-grid"><div><dt>需要思考的因素</dt><dd>衛教前病情、既往住院、健康識能、照顧者支持</dd></div><div><dt>可以採取的方法</dt><dd>合適比較組、限制、分層、配對或迴歸調整</dd></div><div><dt>仍有的限制</dt><dd>未量測混雜與測量錯誤，不會因統計調整自動消失</dd></div></dl></article><article class="slide" id="slide-30" aria-labelledby="title-30"><p class="slide-number">原簡報 30 頁</p><h3 id="title-30">常見偏差與設計上的提醒</h3><p class=slide-lead>增加樣本數可提高精確度，仍需另外處理系統性偏差</p><div class="table-wrap" tabindex="0" role="region" aria-label="常見偏差與設計上的提醒表格"><table><thead><tr><th scope="col">問題</th><th scope="col">案例中的情境</th><th scope="col">設計提醒</th></tr></thead><tbody><tr><td>選擇偏差</td><td>只納入完成回診者</td><td>以起點時的規則納入</td></tr><tr><td>資訊偏差</td><td>兩組衛教紀錄詳細度不同</td><td>採一致定義並查核紀錄</td></tr><tr><td>失訪相關偏差</td><td>高風險病人較常失聯</td><td>記錄失訪原因與組間差異</td></tr></tbody></table></div></article><article class="slide" id="slide-31" aria-labelledby="title-31"><p class="slide-number">原簡報 31 頁</p><h3 id="title-31">分組在出院時確認，兩組從出院日追蹤</h3><div class="path-list"><div><strong>出院前</strong><span>確認病人接受標準化加強衛教，或一般出院衛教。</span></div><div><strong>出院日 · 時間 0</strong><span>兩組都從出院日開始追蹤。</span></div><div><strong>出院後第 30 天</strong><span>比較期間內首次本院非計畫性再住院。</span></div></div><p class="callout">例如：加強衛教組病人在第 3 天於本院非計畫性再住院，仍屬原組，這次事件照常計入。</p></article><article class="slide" id="slide-32" aria-labelledby="title-32"><p class="slide-number">原簡報 32 頁</p><h3 id="title-32">效果有多大：相對與絕對差異</h3><div class="table-wrap" tabindex="0" role="region" aria-label="相對與絕對差異表格"><table><thead><tr><th scope="col">教學假設</th><th scope="col">觀察人數</th><th scope="col">30 天再住院</th><th scope="col">風險</th></tr></thead><tbody><tr><td>加強衛教</td><td>100</td><td>10</td><td>10%</td></tr><tr><td>一般衛教</td><td>100</td><td>20</td><td>20%</td></tr></tbody></table></div><div class="stat-line"><div><strong>0.50</strong><span>相對風險 RR = 10% ÷ 20%</span></div><div><strong>−10 個百分點</strong><span>風險差 = 10% − 20%</span></div></div><p class="callout">假設每人皆完成 30 天觀察，且無競爭事件。這是教學數據；未調整的差異不能直接解讀為衛教造成的效果。</p></article><article class="slide" id="slide-33" aria-labelledby="title-33"><p class="slide-number">原簡報 33 頁</p><h3 id="title-33">結果解讀的三個問題</h3><p class="slide-lead">p 值不能告訴我們效果大小，也不能證明因果關係</p><dl class="fact-grid"><div><dt>效果多大？</dt><dd>同時看相對效果、絕對差異與臨床意義</dd></div><div><dt>估計多精確？</dt><dd>看信賴區間的寬度，以及涵蓋哪些可能效果</dd></div><div><dt>設計可信嗎？</dt><dd>檢查可比較性、時間順序、缺值與偏差</dd></div></dl></article></div></section><section class="chapter section" id="protocol" aria-labelledby="protocol-title"><div class="container"><header class="chapter-header"><p class="chapter-kicker">章節 05 · 原簡報 34–37 頁</p><h2 id="protocol-title">完成研究草案</h2><p class="lead">把問題、方法與可行性寫成一頁計畫。</p></header><article class="slide" id="slide-34" aria-labelledby="title-34"><p class="slide-number">原簡報 34 頁</p><h3 id="title-34">一頁研究計畫的基本內容</h3><p class=slide-lead>研究計畫先說明為何與如何做，分析計畫再細化統計規則</p><div class="table-wrap" tabindex="0" role="region" aria-label="一頁研究計畫的基本內容表格"><table><thead><tr><th scope="col">欄位</th><th scope="col">需要寫清楚的內容</th></tr></thead><tbody><tr><td>背景與問題</td><td>臨床重要性、文獻缺口、主要研究問題</td></tr><tr><td>設計與資料</td><td>設計類型、場域、期間、資料來源</td></tr><tr><td>研究定義</td><td>對象、暴露、比較組、主要結果</td></tr><tr><td>時間與分析</td><td>追蹤起點、追蹤規則、混雜與分析方向</td></tr><tr><td>執行與倫理</td><td>審查、資料權限、分工、時程與可行性</td></tr></tbody></table></div></article><article class="slide" id="slide-35" aria-labelledby="title-35"><p class="slide-number">原簡報 35 頁</p><h3 id="title-35">研究啟動前的基本準備</h3><p class="slide-lead">既有病歷研究的審查需求，應由機構程序判定</p><dl class="fact-grid"><div><dt>研究與資料審查</dt><dd>確認適用的倫理審查、同意程序及資料使用核准</dd></div><div><dt>資料保護</dt><dd>限用必要欄位，規劃去識別化、權限與保存方式</dd></div><div><dt>合作與分工</dt><dd>先與臨床、資料管理及方法夥伴確認可行性</dd></div></dl></article><article class="slide exercise-slide" id="slide-36" aria-labelledby="title-36"><p class="slide-number">原簡報 36 頁</p><h3 id="title-36">練習三：完成你的研究草案</h3><div id="exercise-36"></div><noscript><p>接續 PICOT，補齊能讓同事看懂的研究方法。 寫下設計與理由、資料來源、追蹤起點及主要結果，再說明偏差和因應做法。 開啟 JavaScript 即可操作練習。</p></noscript></article><article class="slide" id="slide-37" aria-labelledby="title-37"><p class="slide-number">原簡報 37 頁</p><h3 id="title-37">帶走一個問題，也帶走一份草案</h3><p class=slide-lead>課後任務：帶著一頁草案，與臨床及方法夥伴討論</p><p>問題清楚，才知道需要哪些資料</p><p>設計合適，才知道結果能回答什麼</p><p>比較可信，才有解釋差異的基礎</p><p>你的題目，下一步最需要確認什麼？</p></article></div></section><section class="section source-extra" aria-label="參考文獻與課程預告"><div class="container"><article class="slide" id="slide-38" aria-labelledby="title-38"><p class="slide-number">原簡報 38 頁</p><h3 id="title-38">參考文獻</h3><dl class="fact-grid"><div><dt>PICOT 與研究問題</dt><dd>Riva JJ, et al. J Can Chiropr Assoc. 2012;56:167–171. PMID: 22997465</dd></div><div><dt>研究設計</dt><dd>Jackson BR, Griffin PM. CDC Field Epidemiology Manual. 2024.</dd></div><div><dt>追蹤起點與不朽時間偏差</dt><dd>Hernán MA, et al. J Clin Epidemiol. 2016;79:70–75. PMID: 27237061</dd></div><div><dt>因果推論</dt><dd>Hernán MA, Robins JM. Causal Inference: What If. 2020.</dd></div><div><dt>P 值的解讀</dt><dd>Wasserstein RL, Lazar NA. Am Stat. 2016;70:129–133.</dd></div><div><dt>觀察性研究報告</dt><dd>STROBE Initiative. STROBE Statement. strobe-statement.org</dd></div><div><dt>研究參與者保護</dt><dd>ICMJE Recommendations. Protection of Research Participants.</dd></div><div><dt>HR 的解讀</dt><dd>Hernán MA. Epidemiology. 2010;21:13–15. PMID: 20010207</dd></div></dl><p class="muted">原課程教材：謝幸㚬（Miyuki Hsieh），高榮研究方法工作坊《Cohort Study》。</p></article><article class="slide" id="slide-39" aria-labelledby="title-39"><p class="slide-number">原簡報 39 頁</p><h3 id="title-39">2027 年研究實作課程預告</h3><p class="slide-lead">原簡報預告共 10 堂，實際安排以主辦通知為準。</p><div class="table-wrap" tabindex="0" role="region" aria-label="課程預告表格"><table><thead><tr><th scope="col">課程主題</th><th scope="col">內容重點</th><th scope="col">堂數</th></tr></thead><tbody><tr><td>AI 理論與實作</td><td>AI Agent 理論與應用、機器學習與深度學習<br>SHAP、valproic acid 案例示範</td><td>3</td></tr><tr><td>世代研究與研究計畫書</td><td>世代研究基礎、protocol 撰寫</td><td>4</td></tr><tr><td>醫院資料庫分析</td><td>資料擷取與案例分析</td><td>1</td></tr><tr><td>教學資料分析</td><td>教學資料應用與分析</td><td>1</td></tr><tr><td>論文寫作</td><td>研究成果整理與論文撰寫</td><td>1</td></tr></tbody></table></div></article></div></section></main>
+<footer class="site-footer"><div class="container footer-inner"><p class="footer-meta">從臨床問題到研究設計 · 醫療人員的研究入門</p><a href="#top">回到頂端 ↑</a></div></footer><script>/*qrcode-generator 2.0.4
+https://github.com/kazuhikoarase/qrcode-generator
+
+MIT License
+
+Copyright (c) 2009 Kazuhiko Arase
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+//---------------------------------------------------------------------
+//
+// QR Code Generator for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: http://www.d-project.com/
+//
+// Licensed under the MIT license:
+//  http://www.opensource.org/licenses/mit-license.php
+//
+// The word 'QR Code' is registered trademark of
+// DENSO WAVE INCORPORATED
+//  http://www.denso-wave.com/qrcode/faqpatent-e.html
+//
+//---------------------------------------------------------------------
+
+var qrcode = function() {
+
+  //---------------------------------------------------------------------
+  // qrcode
+  //---------------------------------------------------------------------
+
+  /**
+   * qrcode
+   * @param typeNumber 1 to 40
+   * @param errorCorrectionLevel 'L','M','Q','H'
+   */
+  var qrcode = function(typeNumber, errorCorrectionLevel) {
+
+    var PAD0 = 0xEC;
+    var PAD1 = 0x11;
+
+    var _typeNumber = typeNumber;
+    var _errorCorrectionLevel = QRErrorCorrectionLevel[errorCorrectionLevel];
+    var _modules = null;
+    var _moduleCount = 0;
+    var _dataCache = null;
+    var _dataList = [];
+
+    var _this = {};
+
+    var makeImpl = function(test, maskPattern) {
+
+      _moduleCount = _typeNumber * 4 + 17;
+      _modules = function(moduleCount) {
+        var modules = new Array(moduleCount);
+        for (var row = 0; row < moduleCount; row += 1) {
+          modules[row] = new Array(moduleCount);
+          for (var col = 0; col < moduleCount; col += 1) {
+            modules[row][col] = null;
+          }
+        }
+        return modules;
+      }(_moduleCount);
+
+      setupPositionProbePattern(0, 0);
+      setupPositionProbePattern(_moduleCount - 7, 0);
+      setupPositionProbePattern(0, _moduleCount - 7);
+      setupPositionAdjustPattern();
+      setupTimingPattern();
+      setupTypeInfo(test, maskPattern);
+
+      if (_typeNumber >= 7) {
+        setupTypeNumber(test);
+      }
+
+      if (_dataCache == null) {
+        _dataCache = createData(_typeNumber, _errorCorrectionLevel, _dataList);
+      }
+
+      mapData(_dataCache, maskPattern);
+    };
+
+    var setupPositionProbePattern = function(row, col) {
+
+      for (var r = -1; r <= 7; r += 1) {
+
+        if (row + r <= -1 || _moduleCount <= row + r) continue;
+
+        for (var c = -1; c <= 7; c += 1) {
+
+          if (col + c <= -1 || _moduleCount <= col + c) continue;
+
+          if ( (0 <= r && r <= 6 && (c == 0 || c == 6) )
+              || (0 <= c && c <= 6 && (r == 0 || r == 6) )
+              || (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+            _modules[row + r][col + c] = true;
+          } else {
+            _modules[row + r][col + c] = false;
+          }
+        }
+      }
+    };
+
+    var getBestMaskPattern = function() {
+
+      var minLostPoint = 0;
+      var pattern = 0;
+
+      for (var i = 0; i < 8; i += 1) {
+
+        makeImpl(true, i);
+
+        var lostPoint = QRUtil.getLostPoint(_this);
+
+        if (i == 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+        }
+      }
+
+      return pattern;
+    };
+
+    var setupTimingPattern = function() {
+
+      for (var r = 8; r < _moduleCount - 8; r += 1) {
+        if (_modules[r][6] != null) {
+          continue;
+        }
+        _modules[r][6] = (r % 2 == 0);
+      }
+
+      for (var c = 8; c < _moduleCount - 8; c += 1) {
+        if (_modules[6][c] != null) {
+          continue;
+        }
+        _modules[6][c] = (c % 2 == 0);
+      }
+    };
+
+    var setupPositionAdjustPattern = function() {
+
+      var pos = QRUtil.getPatternPosition(_typeNumber);
+
+      for (var i = 0; i < pos.length; i += 1) {
+
+        for (var j = 0; j < pos.length; j += 1) {
+
+          var row = pos[i];
+          var col = pos[j];
+
+          if (_modules[row][col] != null) {
+            continue;
+          }
+
+          for (var r = -2; r <= 2; r += 1) {
+
+            for (var c = -2; c <= 2; c += 1) {
+
+              if (r == -2 || r == 2 || c == -2 || c == 2
+                  || (r == 0 && c == 0) ) {
+                _modules[row + r][col + c] = true;
+              } else {
+                _modules[row + r][col + c] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+
+    var setupTypeNumber = function(test) {
+
+      var bits = QRUtil.getBCHTypeNumber(_typeNumber);
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
+      }
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    };
+
+    var setupTypeInfo = function(test, maskPattern) {
+
+      var data = (_errorCorrectionLevel << 3) | maskPattern;
+      var bits = QRUtil.getBCHTypeInfo(data);
+
+      // vertical
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 6) {
+          _modules[i][8] = mod;
+        } else if (i < 8) {
+          _modules[i + 1][8] = mod;
+        } else {
+          _modules[_moduleCount - 15 + i][8] = mod;
+        }
+      }
+
+      // horizontal
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 8) {
+          _modules[8][_moduleCount - i - 1] = mod;
+        } else if (i < 9) {
+          _modules[8][15 - i - 1 + 1] = mod;
+        } else {
+          _modules[8][15 - i - 1] = mod;
+        }
+      }
+
+      // fixed module
+      _modules[_moduleCount - 8][8] = (!test);
+    };
+
+    var mapData = function(data, maskPattern) {
+
+      var inc = -1;
+      var row = _moduleCount - 1;
+      var bitIndex = 7;
+      var byteIndex = 0;
+      var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
+      for (var col = _moduleCount - 1; col > 0; col -= 2) {
+
+        if (col == 6) col -= 1;
+
+        while (true) {
+
+          for (var c = 0; c < 2; c += 1) {
+
+            if (_modules[row][col - c] == null) {
+
+              var dark = false;
+
+              if (byteIndex < data.length) {
+                dark = ( ( (data[byteIndex] >>> bitIndex) & 1) == 1);
+              }
+
+              var mask = maskFunc(row, col - c);
+
+              if (mask) {
+                dark = !dark;
+              }
+
+              _modules[row][col - c] = dark;
+              bitIndex -= 1;
+
+              if (bitIndex == -1) {
+                byteIndex += 1;
+                bitIndex = 7;
+              }
+            }
+          }
+
+          row += inc;
+
+          if (row < 0 || _moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    };
+
+    var createBytes = function(buffer, rsBlocks) {
+
+      var offset = 0;
+
+      var maxDcCount = 0;
+      var maxEcCount = 0;
+
+      var dcdata = new Array(rsBlocks.length);
+      var ecdata = new Array(rsBlocks.length);
+
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+
+        var dcCount = rsBlocks[r].dataCount;
+        var ecCount = rsBlocks[r].totalCount - dcCount;
+
+        maxDcCount = Math.max(maxDcCount, dcCount);
+        maxEcCount = Math.max(maxEcCount, ecCount);
+
+        dcdata[r] = new Array(dcCount);
+
+        for (var i = 0; i < dcdata[r].length; i += 1) {
+          dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
+        }
+        offset += dcCount;
+
+        var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+        var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+        var modPoly = rawPoly.mod(rsPoly);
+        ecdata[r] = new Array(rsPoly.getLength() - 1);
+        for (var i = 0; i < ecdata[r].length; i += 1) {
+          var modIndex = i + modPoly.getLength() - ecdata[r].length;
+          ecdata[r][i] = (modIndex >= 0)? modPoly.getAt(modIndex) : 0;
+        }
+      }
+
+      var totalCodeCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalCodeCount += rsBlocks[i].totalCount;
+      }
+
+      var data = new Array(totalCodeCount);
+      var index = 0;
+
+      for (var i = 0; i < maxDcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < dcdata[r].length) {
+            data[index] = dcdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      for (var i = 0; i < maxEcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < ecdata[r].length) {
+            data[index] = ecdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      return data;
+    };
+
+    var createData = function(typeNumber, errorCorrectionLevel, dataList) {
+
+      var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectionLevel);
+
+      var buffer = qrBitBuffer();
+
+      for (var i = 0; i < dataList.length; i += 1) {
+        var data = dataList[i];
+        buffer.put(data.getMode(), 4);
+        buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+        data.write(buffer);
+      }
+
+      // calc num max data.
+      var totalDataCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalDataCount += rsBlocks[i].dataCount;
+      }
+
+      if (buffer.getLengthInBits() > totalDataCount * 8) {
+        throw 'code length overflow. ('
+          + buffer.getLengthInBits()
+          + '>'
+          + totalDataCount * 8
+          + ')';
+      }
+
+      // end code
+      if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+        buffer.put(0, 4);
+      }
+
+      // padding
+      while (buffer.getLengthInBits() % 8 != 0) {
+        buffer.putBit(false);
+      }
+
+      // padding
+      while (true) {
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD0, 8);
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD1, 8);
+      }
+
+      return createBytes(buffer, rsBlocks);
+    };
+
+    _this.addData = function(data, mode) {
+
+      mode = mode || 'Byte';
+
+      var newData = null;
+
+      switch(mode) {
+      case 'Numeric' :
+        newData = qrNumber(data);
+        break;
+      case 'Alphanumeric' :
+        newData = qrAlphaNum(data);
+        break;
+      case 'Byte' :
+        newData = qr8BitByte(data);
+        break;
+      case 'Kanji' :
+        newData = qrKanji(data);
+        break;
+      default :
+        throw 'mode:' + mode;
+      }
+
+      _dataList.push(newData);
+      _dataCache = null;
+    };
+
+    _this.isDark = function(row, col) {
+      if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
+        throw row + ',' + col;
+      }
+      return _modules[row][col];
+    };
+
+    _this.getModuleCount = function() {
+      return _moduleCount;
+    };
+
+    _this.make = function() {
+      if (_typeNumber < 1) {
+        var typeNumber = 1;
+
+        for (; typeNumber < 40; typeNumber++) {
+          var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, _errorCorrectionLevel);
+          var buffer = qrBitBuffer();
+
+          for (var i = 0; i < _dataList.length; i++) {
+            var data = _dataList[i];
+            buffer.put(data.getMode(), 4);
+            buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+            data.write(buffer);
+          }
+
+          var totalDataCount = 0;
+          for (var i = 0; i < rsBlocks.length; i++) {
+            totalDataCount += rsBlocks[i].dataCount;
+          }
+
+          if (buffer.getLengthInBits() <= totalDataCount * 8) {
+            break;
+          }
+        }
+
+        _typeNumber = typeNumber;
+      }
+
+      makeImpl(false, getBestMaskPattern() );
+    };
+
+    _this.createTableTag = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var qrHtml = '';
+
+      qrHtml += '<table style="';
+      qrHtml += ' border-width: 0px; border-style: none;';
+      qrHtml += ' border-collapse: collapse;';
+      qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
+      qrHtml += '">';
+      qrHtml += '<tbody>';
+
+      for (var r = 0; r < _this.getModuleCount(); r += 1) {
+
+        qrHtml += '<tr>';
+
+        for (var c = 0; c < _this.getModuleCount(); c += 1) {
+          qrHtml += '<td style="';
+          qrHtml += ' border-width: 0px; border-style: none;';
+          qrHtml += ' border-collapse: collapse;';
+          qrHtml += ' padding: 0px; margin: 0px;';
+          qrHtml += ' width: ' + cellSize + 'px;';
+          qrHtml += ' height: ' + cellSize + 'px;';
+          qrHtml += ' background-color: ';
+          qrHtml += _this.isDark(r, c)? '#000000' : '#ffffff';
+          qrHtml += ';';
+          qrHtml += '"/>';
+        }
+
+        qrHtml += '</tr>';
+      }
+
+      qrHtml += '</tbody>';
+      qrHtml += '</table>';
+
+      return qrHtml;
+    };
+
+    _this.createSvgTag = function(cellSize, margin, alt, title) {
+
+      var opts = {};
+      if (typeof arguments[0] == 'object') {
+        // Called by options.
+        opts = arguments[0];
+        // overwrite cellSize and margin.
+        cellSize = opts.cellSize;
+        margin = opts.margin;
+        alt = opts.alt;
+        title = opts.title;
+      }
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      // Compose alt property surrogate
+      alt = (typeof alt === 'string') ? {text: alt} : alt || {};
+      alt.text = alt.text || null;
+      alt.id = (alt.text) ? alt.id || 'qrcode-description' : null;
+
+      // Compose title property surrogate
+      title = (typeof title === 'string') ? {text: title} : title || {};
+      title.text = title.text || null;
+      title.id = (title.text) ? title.id || 'qrcode-title' : null;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var c, mc, r, mr, qrSvg='', rect;
+
+      rect = 'l' + cellSize + ',0 0,' + cellSize +
+        ' -' + cellSize + ',0 0,-' + cellSize + 'z ';
+
+      qrSvg += '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"';
+      qrSvg += !opts.scalable ? ' width="' + size + 'px" height="' + size + 'px"' : '';
+      qrSvg += ' viewBox="0 0 ' + size + ' ' + size + '" ';
+      qrSvg += ' preserveAspectRatio="xMinYMin meet"';
+      qrSvg += (title.text || alt.text) ? ' role="img" aria-labelledby="' +
+          escapeXml([title.id, alt.id].join(' ').trim() ) + '"' : '';
+      qrSvg += '>';
+      qrSvg += (title.text) ? '<title id="' + escapeXml(title.id) + '">' +
+          escapeXml(title.text) + '</title>' : '';
+      qrSvg += (alt.text) ? '<description id="' + escapeXml(alt.id) + '">' +
+          escapeXml(alt.text) + '</description>' : '';
+      qrSvg += '<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>';
+      qrSvg += '<path d="';
+
+      for (r = 0; r < _this.getModuleCount(); r += 1) {
+        mr = r * cellSize + margin;
+        for (c = 0; c < _this.getModuleCount(); c += 1) {
+          if (_this.isDark(r, c) ) {
+            mc = c*cellSize+margin;
+            qrSvg += 'M' + mc + ',' + mr + rect;
+          }
+        }
+      }
+
+      qrSvg += '" stroke="transparent" fill="black"/>';
+      qrSvg += '</svg>';
+
+      return qrSvg;
+    };
+
+    _this.createDataURL = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      return createDataURL(size, size, function(x, y) {
+        if (min <= x && x < max && min <= y && y < max) {
+          var c = Math.floor( (x - min) / cellSize);
+          var r = Math.floor( (y - min) / cellSize);
+          return _this.isDark(r, c)? 0 : 1;
+        } else {
+          return 1;
+        }
+      } );
+    };
+
+    _this.createImgTag = function(cellSize, margin, alt) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+
+      var img = '';
+      img += '<img';
+      img += '\u0020src="';
+      img += _this.createDataURL(cellSize, margin);
+      img += '"';
+      img += '\u0020width="';
+      img += size;
+      img += '"';
+      img += '\u0020height="';
+      img += size;
+      img += '"';
+      if (alt) {
+        img += '\u0020alt="';
+        img += escapeXml(alt);
+        img += '"';
+      }
+      img += '/>';
+
+      return img;
+    };
+
+    var escapeXml = function(s) {
+      var escaped = '';
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charAt(i);
+        switch(c) {
+        case '<': escaped += '&lt;'; break;
+        case '>': escaped += '&gt;'; break;
+        case '&': escaped += '&amp;'; break;
+        case '"': escaped += '&quot;'; break;
+        default : escaped += c; break;
+        }
+      }
+      return escaped;
+    };
+
+    var _createHalfASCII = function(margin) {
+      var cellSize = 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r1, r2, p;
+
+      var blocks = {
+        '██': '█',
+        '█ ': '▀',
+        ' █': '▄',
+        '  ': ' '
+      };
+
+      var blocksLastLineNoMargin = {
+        '██': '▀',
+        '█ ': '▀',
+        ' █': ' ',
+        '  ': ' '
+      };
+
+      var ascii = '';
+      for (y = 0; y < size; y += 2) {
+        r1 = Math.floor((y - min) / cellSize);
+        r2 = Math.floor((y + 1 - min) / cellSize);
+        for (x = 0; x < size; x += 1) {
+          p = '█';
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r1, Math.floor((x - min) / cellSize))) {
+            p = ' ';
+          }
+
+          if (min <= x && x < max && min <= y+1 && y+1 < max && _this.isDark(r2, Math.floor((x - min) / cellSize))) {
+            p += ' ';
+          }
+          else {
+            p += '█';
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          ascii += (margin < 1 && y+1 >= max) ? blocksLastLineNoMargin[p] : blocks[p];
+        }
+
+        ascii += '\n';
+      }
+
+      if (size % 2 && margin > 0) {
+        return ascii.substring(0, ascii.length - size - 1) + Array(size+1).join('▀');
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.createASCII = function(cellSize, margin) {
+      cellSize = cellSize || 1;
+
+      if (cellSize < 2) {
+        return _createHalfASCII(margin);
+      }
+
+      cellSize -= 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r, p;
+
+      var white = Array(cellSize+1).join('██');
+      var black = Array(cellSize+1).join('  ');
+
+      var ascii = '';
+      var line = '';
+      for (y = 0; y < size; y += 1) {
+        r = Math.floor( (y - min) / cellSize);
+        line = '';
+        for (x = 0; x < size; x += 1) {
+          p = 1;
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r, Math.floor((x - min) / cellSize))) {
+            p = 0;
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          line += p ? white : black;
+        }
+
+        for (r = 0; r < cellSize; r += 1) {
+          ascii += line + '\n';
+        }
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.renderTo2dContext = function(context, cellSize) {
+      cellSize = cellSize || 2;
+      var length = _this.getModuleCount();
+      for (var row = 0; row < length; row++) {
+        for (var col = 0; col < length; col++) {
+          context.fillStyle = _this.isDark(row, col) ? 'black' : 'white';
+          context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrcode.stringToBytes
+  //---------------------------------------------------------------------
+
+  qrcode.stringToBytesFuncs = {
+    'default' : function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        bytes.push(c & 0xff);
+      }
+      return bytes;
+    }
+  };
+
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['default'];
+
+  //---------------------------------------------------------------------
+  // qrcode.createStringToBytes
+  //---------------------------------------------------------------------
+
+  /**
+   * @param unicodeData base64 string of byte array.
+   * [16bit Unicode],[16bit Bytes], ...
+   * @param numChars
+   */
+  qrcode.createStringToBytes = function(unicodeData, numChars) {
+
+    // create conversion map.
+
+    var unicodeMap = function() {
+
+      var bin = base64DecodeInputStream(unicodeData);
+      var read = function() {
+        var b = bin.read();
+        if (b == -1) throw 'eof';
+        return b;
+      };
+
+      var count = 0;
+      var unicodeMap = {};
+      while (true) {
+        var b0 = bin.read();
+        if (b0 == -1) break;
+        var b1 = read();
+        var b2 = read();
+        var b3 = read();
+        var k = String.fromCharCode( (b0 << 8) | b1);
+        var v = (b2 << 8) | b3;
+        unicodeMap[k] = v;
+        count += 1;
+      }
+      if (count != numChars) {
+        throw count + ' != ' + numChars;
+      }
+
+      return unicodeMap;
+    }();
+
+    var unknownChar = '?'.charCodeAt(0);
+
+    return function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        if (c < 128) {
+          bytes.push(c);
+        } else {
+          var b = unicodeMap[s.charAt(i)];
+          if (typeof b == 'number') {
+            if ( (b & 0xff) == b) {
+              // 1byte
+              bytes.push(b);
+            } else {
+              // 2bytes
+              bytes.push(b >>> 8);
+              bytes.push(b & 0xff);
+            }
+          } else {
+            bytes.push(unknownChar);
+          }
+        }
+      }
+      return bytes;
+    };
+  };
+
+  //---------------------------------------------------------------------
+  // QRMode
+  //---------------------------------------------------------------------
+
+  var QRMode = {
+    MODE_NUMBER :    1 << 0,
+    MODE_ALPHA_NUM : 1 << 1,
+    MODE_8BIT_BYTE : 1 << 2,
+    MODE_KANJI :     1 << 3
+  };
+
+  //---------------------------------------------------------------------
+  // QRErrorCorrectionLevel
+  //---------------------------------------------------------------------
+
+  var QRErrorCorrectionLevel = {
+    L : 1,
+    M : 0,
+    Q : 3,
+    H : 2
+  };
+
+  //---------------------------------------------------------------------
+  // QRMaskPattern
+  //---------------------------------------------------------------------
+
+  var QRMaskPattern = {
+    PATTERN000 : 0,
+    PATTERN001 : 1,
+    PATTERN010 : 2,
+    PATTERN011 : 3,
+    PATTERN100 : 4,
+    PATTERN101 : 5,
+    PATTERN110 : 6,
+    PATTERN111 : 7
+  };
+
+  //---------------------------------------------------------------------
+  // QRUtil
+  //---------------------------------------------------------------------
+
+  var QRUtil = function() {
+
+    var PATTERN_POSITION_TABLE = [
+      [],
+      [6, 18],
+      [6, 22],
+      [6, 26],
+      [6, 30],
+      [6, 34],
+      [6, 22, 38],
+      [6, 24, 42],
+      [6, 26, 46],
+      [6, 28, 50],
+      [6, 30, 54],
+      [6, 32, 58],
+      [6, 34, 62],
+      [6, 26, 46, 66],
+      [6, 26, 48, 70],
+      [6, 26, 50, 74],
+      [6, 30, 54, 78],
+      [6, 30, 56, 82],
+      [6, 30, 58, 86],
+      [6, 34, 62, 90],
+      [6, 28, 50, 72, 94],
+      [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102],
+      [6, 28, 54, 80, 106],
+      [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114],
+      [6, 34, 62, 90, 118],
+      [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126],
+      [6, 26, 52, 78, 104, 130],
+      [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138],
+      [6, 30, 58, 86, 114, 142],
+      [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150],
+      [6, 24, 50, 76, 102, 128, 154],
+      [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162],
+      [6, 26, 54, 82, 110, 138, 166],
+      [6, 30, 58, 86, 114, 142, 170]
+    ];
+    var G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0);
+    var G18 = (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0);
+    var G15_MASK = (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1);
+
+    var _this = {};
+
+    var getBCHDigit = function(data) {
+      var digit = 0;
+      while (data != 0) {
+        digit += 1;
+        data >>>= 1;
+      }
+      return digit;
+    };
+
+    _this.getBCHTypeInfo = function(data) {
+      var d = data << 10;
+      while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
+        d ^= (G15 << (getBCHDigit(d) - getBCHDigit(G15) ) );
+      }
+      return ( (data << 10) | d) ^ G15_MASK;
+    };
+
+    _this.getBCHTypeNumber = function(data) {
+      var d = data << 12;
+      while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
+        d ^= (G18 << (getBCHDigit(d) - getBCHDigit(G18) ) );
+      }
+      return (data << 12) | d;
+    };
+
+    _this.getPatternPosition = function(typeNumber) {
+      return PATTERN_POSITION_TABLE[typeNumber - 1];
+    };
+
+    _this.getMaskFunction = function(maskPattern) {
+
+      switch (maskPattern) {
+
+      case QRMaskPattern.PATTERN000 :
+        return function(i, j) { return (i + j) % 2 == 0; };
+      case QRMaskPattern.PATTERN001 :
+        return function(i, j) { return i % 2 == 0; };
+      case QRMaskPattern.PATTERN010 :
+        return function(i, j) { return j % 3 == 0; };
+      case QRMaskPattern.PATTERN011 :
+        return function(i, j) { return (i + j) % 3 == 0; };
+      case QRMaskPattern.PATTERN100 :
+        return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 == 0; };
+      case QRMaskPattern.PATTERN101 :
+        return function(i, j) { return (i * j) % 2 + (i * j) % 3 == 0; };
+      case QRMaskPattern.PATTERN110 :
+        return function(i, j) { return ( (i * j) % 2 + (i * j) % 3) % 2 == 0; };
+      case QRMaskPattern.PATTERN111 :
+        return function(i, j) { return ( (i * j) % 3 + (i + j) % 2) % 2 == 0; };
+
+      default :
+        throw 'bad maskPattern:' + maskPattern;
+      }
+    };
+
+    _this.getErrorCorrectPolynomial = function(errorCorrectLength) {
+      var a = qrPolynomial([1], 0);
+      for (var i = 0; i < errorCorrectLength; i += 1) {
+        a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0) );
+      }
+      return a;
+    };
+
+    _this.getLengthInBits = function(mode, type) {
+
+      if (1 <= type && type < 10) {
+
+        // 1 - 9
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 10;
+        case QRMode.MODE_ALPHA_NUM : return 9;
+        case QRMode.MODE_8BIT_BYTE : return 8;
+        case QRMode.MODE_KANJI     : return 8;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 27) {
+
+        // 10 - 26
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 12;
+        case QRMode.MODE_ALPHA_NUM : return 11;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 10;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 41) {
+
+        // 27 - 40
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 14;
+        case QRMode.MODE_ALPHA_NUM : return 13;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 12;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else {
+        throw 'type:' + type;
+      }
+    };
+
+    _this.getLostPoint = function(qrcode) {
+
+      var moduleCount = qrcode.getModuleCount();
+
+      var lostPoint = 0;
+
+      // LEVEL1
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount; col += 1) {
+
+          var sameCount = 0;
+          var dark = qrcode.isDark(row, col);
+
+          for (var r = -1; r <= 1; r += 1) {
+
+            if (row + r < 0 || moduleCount <= row + r) {
+              continue;
+            }
+
+            for (var c = -1; c <= 1; c += 1) {
+
+              if (col + c < 0 || moduleCount <= col + c) {
+                continue;
+              }
+
+              if (r == 0 && c == 0) {
+                continue;
+              }
+
+              if (dark == qrcode.isDark(row + r, col + c) ) {
+                sameCount += 1;
+              }
+            }
+          }
+
+          if (sameCount > 5) {
+            lostPoint += (3 + sameCount - 5);
+          }
+        }
+      };
+
+      // LEVEL2
+
+      for (var row = 0; row < moduleCount - 1; row += 1) {
+        for (var col = 0; col < moduleCount - 1; col += 1) {
+          var count = 0;
+          if (qrcode.isDark(row, col) ) count += 1;
+          if (qrcode.isDark(row + 1, col) ) count += 1;
+          if (qrcode.isDark(row, col + 1) ) count += 1;
+          if (qrcode.isDark(row + 1, col + 1) ) count += 1;
+          if (count == 0 || count == 4) {
+            lostPoint += 3;
+          }
+        }
+      }
+
+      // LEVEL3
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount - 6; col += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row, col + 1)
+              &&  qrcode.isDark(row, col + 2)
+              &&  qrcode.isDark(row, col + 3)
+              &&  qrcode.isDark(row, col + 4)
+              && !qrcode.isDark(row, col + 5)
+              &&  qrcode.isDark(row, col + 6) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount - 6; row += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row + 1, col)
+              &&  qrcode.isDark(row + 2, col)
+              &&  qrcode.isDark(row + 3, col)
+              &&  qrcode.isDark(row + 4, col)
+              && !qrcode.isDark(row + 5, col)
+              &&  qrcode.isDark(row + 6, col) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      // LEVEL4
+
+      var darkCount = 0;
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount; row += 1) {
+          if (qrcode.isDark(row, col) ) {
+            darkCount += 1;
+          }
+        }
+      }
+
+      var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+      lostPoint += ratio * 10;
+
+      return lostPoint;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // QRMath
+  //---------------------------------------------------------------------
+
+  var QRMath = function() {
+
+    var EXP_TABLE = new Array(256);
+    var LOG_TABLE = new Array(256);
+
+    // initialize tables
+    for (var i = 0; i < 8; i += 1) {
+      EXP_TABLE[i] = 1 << i;
+    }
+    for (var i = 8; i < 256; i += 1) {
+      EXP_TABLE[i] = EXP_TABLE[i - 4]
+        ^ EXP_TABLE[i - 5]
+        ^ EXP_TABLE[i - 6]
+        ^ EXP_TABLE[i - 8];
+    }
+    for (var i = 0; i < 255; i += 1) {
+      LOG_TABLE[EXP_TABLE[i] ] = i;
+    }
+
+    var _this = {};
+
+    _this.glog = function(n) {
+
+      if (n < 1) {
+        throw 'glog(' + n + ')';
+      }
+
+      return LOG_TABLE[n];
+    };
+
+    _this.gexp = function(n) {
+
+      while (n < 0) {
+        n += 255;
+      }
+
+      while (n >= 256) {
+        n -= 255;
+      }
+
+      return EXP_TABLE[n];
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrPolynomial
+  //---------------------------------------------------------------------
+
+  function qrPolynomial(num, shift) {
+
+    if (typeof num.length == 'undefined') {
+      throw num.length + '/' + shift;
+    }
+
+    var _num = function() {
+      var offset = 0;
+      while (offset < num.length && num[offset] == 0) {
+        offset += 1;
+      }
+      var _num = new Array(num.length - offset + shift);
+      for (var i = 0; i < num.length - offset; i += 1) {
+        _num[i] = num[i + offset];
+      }
+      return _num;
+    }();
+
+    var _this = {};
+
+    _this.getAt = function(index) {
+      return _num[index];
+    };
+
+    _this.getLength = function() {
+      return _num.length;
+    };
+
+    _this.multiply = function(e) {
+
+      var num = new Array(_this.getLength() + e.getLength() - 1);
+
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        for (var j = 0; j < e.getLength(); j += 1) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i) ) + QRMath.glog(e.getAt(j) ) );
+        }
+      }
+
+      return qrPolynomial(num, 0);
+    };
+
+    _this.mod = function(e) {
+
+      if (_this.getLength() - e.getLength() < 0) {
+        return _this;
+      }
+
+      var ratio = QRMath.glog(_this.getAt(0) ) - QRMath.glog(e.getAt(0) );
+
+      var num = new Array(_this.getLength() );
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        num[i] = _this.getAt(i);
+      }
+
+      for (var i = 0; i < e.getLength(); i += 1) {
+        num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i) ) + ratio);
+      }
+
+      // recursive call
+      return qrPolynomial(num, 0).mod(e);
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // QRRSBlock
+  //---------------------------------------------------------------------
+
+  var QRRSBlock = function() {
+
+    var RS_BLOCK_TABLE = [
+
+      // L
+      // M
+      // Q
+      // H
+
+      // 1
+      [1, 26, 19],
+      [1, 26, 16],
+      [1, 26, 13],
+      [1, 26, 9],
+
+      // 2
+      [1, 44, 34],
+      [1, 44, 28],
+      [1, 44, 22],
+      [1, 44, 16],
+
+      // 3
+      [1, 70, 55],
+      [1, 70, 44],
+      [2, 35, 17],
+      [2, 35, 13],
+
+      // 4
+      [1, 100, 80],
+      [2, 50, 32],
+      [2, 50, 24],
+      [4, 25, 9],
+
+      // 5
+      [1, 134, 108],
+      [2, 67, 43],
+      [2, 33, 15, 2, 34, 16],
+      [2, 33, 11, 2, 34, 12],
+
+      // 6
+      [2, 86, 68],
+      [4, 43, 27],
+      [4, 43, 19],
+      [4, 43, 15],
+
+      // 7
+      [2, 98, 78],
+      [4, 49, 31],
+      [2, 32, 14, 4, 33, 15],
+      [4, 39, 13, 1, 40, 14],
+
+      // 8
+      [2, 121, 97],
+      [2, 60, 38, 2, 61, 39],
+      [4, 40, 18, 2, 41, 19],
+      [4, 40, 14, 2, 41, 15],
+
+      // 9
+      [2, 146, 116],
+      [3, 58, 36, 2, 59, 37],
+      [4, 36, 16, 4, 37, 17],
+      [4, 36, 12, 4, 37, 13],
+
+      // 10
+      [2, 86, 68, 2, 87, 69],
+      [4, 69, 43, 1, 70, 44],
+      [6, 43, 19, 2, 44, 20],
+      [6, 43, 15, 2, 44, 16],
+
+      // 11
+      [4, 101, 81],
+      [1, 80, 50, 4, 81, 51],
+      [4, 50, 22, 4, 51, 23],
+      [3, 36, 12, 8, 37, 13],
+
+      // 12
+      [2, 116, 92, 2, 117, 93],
+      [6, 58, 36, 2, 59, 37],
+      [4, 46, 20, 6, 47, 21],
+      [7, 42, 14, 4, 43, 15],
+
+      // 13
+      [4, 133, 107],
+      [8, 59, 37, 1, 60, 38],
+      [8, 44, 20, 4, 45, 21],
+      [12, 33, 11, 4, 34, 12],
+
+      // 14
+      [3, 145, 115, 1, 146, 116],
+      [4, 64, 40, 5, 65, 41],
+      [11, 36, 16, 5, 37, 17],
+      [11, 36, 12, 5, 37, 13],
+
+      // 15
+      [5, 109, 87, 1, 110, 88],
+      [5, 65, 41, 5, 66, 42],
+      [5, 54, 24, 7, 55, 25],
+      [11, 36, 12, 7, 37, 13],
+
+      // 16
+      [5, 122, 98, 1, 123, 99],
+      [7, 73, 45, 3, 74, 46],
+      [15, 43, 19, 2, 44, 20],
+      [3, 45, 15, 13, 46, 16],
+
+      // 17
+      [1, 135, 107, 5, 136, 108],
+      [10, 74, 46, 1, 75, 47],
+      [1, 50, 22, 15, 51, 23],
+      [2, 42, 14, 17, 43, 15],
+
+      // 18
+      [5, 150, 120, 1, 151, 121],
+      [9, 69, 43, 4, 70, 44],
+      [17, 50, 22, 1, 51, 23],
+      [2, 42, 14, 19, 43, 15],
+
+      // 19
+      [3, 141, 113, 4, 142, 114],
+      [3, 70, 44, 11, 71, 45],
+      [17, 47, 21, 4, 48, 22],
+      [9, 39, 13, 16, 40, 14],
+
+      // 20
+      [3, 135, 107, 5, 136, 108],
+      [3, 67, 41, 13, 68, 42],
+      [15, 54, 24, 5, 55, 25],
+      [15, 43, 15, 10, 44, 16],
+
+      // 21
+      [4, 144, 116, 4, 145, 117],
+      [17, 68, 42],
+      [17, 50, 22, 6, 51, 23],
+      [19, 46, 16, 6, 47, 17],
+
+      // 22
+      [2, 139, 111, 7, 140, 112],
+      [17, 74, 46],
+      [7, 54, 24, 16, 55, 25],
+      [34, 37, 13],
+
+      // 23
+      [4, 151, 121, 5, 152, 122],
+      [4, 75, 47, 14, 76, 48],
+      [11, 54, 24, 14, 55, 25],
+      [16, 45, 15, 14, 46, 16],
+
+      // 24
+      [6, 147, 117, 4, 148, 118],
+      [6, 73, 45, 14, 74, 46],
+      [11, 54, 24, 16, 55, 25],
+      [30, 46, 16, 2, 47, 17],
+
+      // 25
+      [8, 132, 106, 4, 133, 107],
+      [8, 75, 47, 13, 76, 48],
+      [7, 54, 24, 22, 55, 25],
+      [22, 45, 15, 13, 46, 16],
+
+      // 26
+      [10, 142, 114, 2, 143, 115],
+      [19, 74, 46, 4, 75, 47],
+      [28, 50, 22, 6, 51, 23],
+      [33, 46, 16, 4, 47, 17],
+
+      // 27
+      [8, 152, 122, 4, 153, 123],
+      [22, 73, 45, 3, 74, 46],
+      [8, 53, 23, 26, 54, 24],
+      [12, 45, 15, 28, 46, 16],
+
+      // 28
+      [3, 147, 117, 10, 148, 118],
+      [3, 73, 45, 23, 74, 46],
+      [4, 54, 24, 31, 55, 25],
+      [11, 45, 15, 31, 46, 16],
+
+      // 29
+      [7, 146, 116, 7, 147, 117],
+      [21, 73, 45, 7, 74, 46],
+      [1, 53, 23, 37, 54, 24],
+      [19, 45, 15, 26, 46, 16],
+
+      // 30
+      [5, 145, 115, 10, 146, 116],
+      [19, 75, 47, 10, 76, 48],
+      [15, 54, 24, 25, 55, 25],
+      [23, 45, 15, 25, 46, 16],
+
+      // 31
+      [13, 145, 115, 3, 146, 116],
+      [2, 74, 46, 29, 75, 47],
+      [42, 54, 24, 1, 55, 25],
+      [23, 45, 15, 28, 46, 16],
+
+      // 32
+      [17, 145, 115],
+      [10, 74, 46, 23, 75, 47],
+      [10, 54, 24, 35, 55, 25],
+      [19, 45, 15, 35, 46, 16],
+
+      // 33
+      [17, 145, 115, 1, 146, 116],
+      [14, 74, 46, 21, 75, 47],
+      [29, 54, 24, 19, 55, 25],
+      [11, 45, 15, 46, 46, 16],
+
+      // 34
+      [13, 145, 115, 6, 146, 116],
+      [14, 74, 46, 23, 75, 47],
+      [44, 54, 24, 7, 55, 25],
+      [59, 46, 16, 1, 47, 17],
+
+      // 35
+      [12, 151, 121, 7, 152, 122],
+      [12, 75, 47, 26, 76, 48],
+      [39, 54, 24, 14, 55, 25],
+      [22, 45, 15, 41, 46, 16],
+
+      // 36
+      [6, 151, 121, 14, 152, 122],
+      [6, 75, 47, 34, 76, 48],
+      [46, 54, 24, 10, 55, 25],
+      [2, 45, 15, 64, 46, 16],
+
+      // 37
+      [17, 152, 122, 4, 153, 123],
+      [29, 74, 46, 14, 75, 47],
+      [49, 54, 24, 10, 55, 25],
+      [24, 45, 15, 46, 46, 16],
+
+      // 38
+      [4, 152, 122, 18, 153, 123],
+      [13, 74, 46, 32, 75, 47],
+      [48, 54, 24, 14, 55, 25],
+      [42, 45, 15, 32, 46, 16],
+
+      // 39
+      [20, 147, 117, 4, 148, 118],
+      [40, 75, 47, 7, 76, 48],
+      [43, 54, 24, 22, 55, 25],
+      [10, 45, 15, 67, 46, 16],
+
+      // 40
+      [19, 148, 118, 6, 149, 119],
+      [18, 75, 47, 31, 76, 48],
+      [34, 54, 24, 34, 55, 25],
+      [20, 45, 15, 61, 46, 16]
+    ];
+
+    var qrRSBlock = function(totalCount, dataCount) {
+      var _this = {};
+      _this.totalCount = totalCount;
+      _this.dataCount = dataCount;
+      return _this;
+    };
+
+    var _this = {};
+
+    var getRsBlockTable = function(typeNumber, errorCorrectionLevel) {
+
+      switch(errorCorrectionLevel) {
+      case QRErrorCorrectionLevel.L :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectionLevel.M :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectionLevel.Q :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectionLevel.H :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default :
+        return undefined;
+      }
+    };
+
+    _this.getRSBlocks = function(typeNumber, errorCorrectionLevel) {
+
+      var rsBlock = getRsBlockTable(typeNumber, errorCorrectionLevel);
+
+      if (typeof rsBlock == 'undefined') {
+        throw 'bad rs block @ typeNumber:' + typeNumber +
+            '/errorCorrectionLevel:' + errorCorrectionLevel;
+      }
+
+      var length = rsBlock.length / 3;
+
+      var list = [];
+
+      for (var i = 0; i < length; i += 1) {
+
+        var count = rsBlock[i * 3 + 0];
+        var totalCount = rsBlock[i * 3 + 1];
+        var dataCount = rsBlock[i * 3 + 2];
+
+        for (var j = 0; j < count; j += 1) {
+          list.push(qrRSBlock(totalCount, dataCount) );
+        }
+      }
+
+      return list;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrBitBuffer
+  //---------------------------------------------------------------------
+
+  var qrBitBuffer = function() {
+
+    var _buffer = [];
+    var _length = 0;
+
+    var _this = {};
+
+    _this.getBuffer = function() {
+      return _buffer;
+    };
+
+    _this.getAt = function(index) {
+      var bufIndex = Math.floor(index / 8);
+      return ( (_buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+    };
+
+    _this.put = function(num, length) {
+      for (var i = 0; i < length; i += 1) {
+        _this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+      }
+    };
+
+    _this.getLengthInBits = function() {
+      return _length;
+    };
+
+    _this.putBit = function(bit) {
+
+      var bufIndex = Math.floor(_length / 8);
+      if (_buffer.length <= bufIndex) {
+        _buffer.push(0);
+      }
+
+      if (bit) {
+        _buffer[bufIndex] |= (0x80 >>> (_length % 8) );
+      }
+
+      _length += 1;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrNumber
+  //---------------------------------------------------------------------
+
+  var qrNumber = function(data) {
+
+    var _mode = QRMode.MODE_NUMBER;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _data;
+
+      var i = 0;
+
+      while (i + 2 < data.length) {
+        buffer.put(strToNum(data.substring(i, i + 3) ), 10);
+        i += 3;
+      }
+
+      if (i < data.length) {
+        if (data.length - i == 1) {
+          buffer.put(strToNum(data.substring(i, i + 1) ), 4);
+        } else if (data.length - i == 2) {
+          buffer.put(strToNum(data.substring(i, i + 2) ), 7);
+        }
+      }
+    };
+
+    var strToNum = function(s) {
+      var num = 0;
+      for (var i = 0; i < s.length; i += 1) {
+        num = num * 10 + chatToNum(s.charAt(i) );
+      }
+      return num;
+    };
+
+    var chatToNum = function(c) {
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      }
+      throw 'illegal char :' + c;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrAlphaNum
+  //---------------------------------------------------------------------
+
+  var qrAlphaNum = function(data) {
+
+    var _mode = QRMode.MODE_ALPHA_NUM;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var s = _data;
+
+      var i = 0;
+
+      while (i + 1 < s.length) {
+        buffer.put(
+          getCode(s.charAt(i) ) * 45 +
+          getCode(s.charAt(i + 1) ), 11);
+        i += 2;
+      }
+
+      if (i < s.length) {
+        buffer.put(getCode(s.charAt(i) ), 6);
+      }
+    };
+
+    var getCode = function(c) {
+
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      } else if ('A' <= c && c <= 'Z') {
+        return c.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+      } else {
+        switch (c) {
+        case ' ' : return 36;
+        case '$' : return 37;
+        case '%' : return 38;
+        case '*' : return 39;
+        case '+' : return 40;
+        case '-' : return 41;
+        case '.' : return 42;
+        case '/' : return 43;
+        case ':' : return 44;
+        default :
+          throw 'illegal char :' + c;
+        }
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qr8BitByte
+  //---------------------------------------------------------------------
+
+  var qr8BitByte = function(data) {
+
+    var _mode = QRMode.MODE_8BIT_BYTE;
+    var _data = data;
+    var _bytes = qrcode.stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _bytes.length;
+    };
+
+    _this.write = function(buffer) {
+      for (var i = 0; i < _bytes.length; i += 1) {
+        buffer.put(_bytes[i], 8);
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrKanji
+  //---------------------------------------------------------------------
+
+  var qrKanji = function(data) {
+
+    var _mode = QRMode.MODE_KANJI;
+    var _data = data;
+
+    var stringToBytes = qrcode.stringToBytesFuncs['SJIS'];
+    if (!stringToBytes) {
+      throw 'sjis not supported.';
+    }
+    !function(c, code) {
+      // self test for sjis support.
+      var test = stringToBytes(c);
+      if (test.length != 2 || ( (test[0] << 8) | test[1]) != code) {
+        throw 'sjis not supported.';
+      }
+    }('\u53cb', 0x9746);
+
+    var _bytes = stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return ~~(_bytes.length / 2);
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _bytes;
+
+      var i = 0;
+
+      while (i + 1 < data.length) {
+
+        var c = ( (0xff & data[i]) << 8) | (0xff & data[i + 1]);
+
+        if (0x8140 <= c && c <= 0x9FFC) {
+          c -= 0x8140;
+        } else if (0xE040 <= c && c <= 0xEBBF) {
+          c -= 0xC140;
+        } else {
+          throw 'illegal char at ' + (i + 1) + '/' + c;
+        }
+
+        c = ( (c >>> 8) & 0xff) * 0xC0 + (c & 0xff);
+
+        buffer.put(c, 13);
+
+        i += 2;
+      }
+
+      if (i < data.length) {
+        throw 'illegal char at ' + (i + 1);
+      }
+    };
+
+    return _this;
+  };
+
+  //=====================================================================
+  // GIF Support etc.
+  //
+
+  //---------------------------------------------------------------------
+  // byteArrayOutputStream
+  //---------------------------------------------------------------------
+
+  var byteArrayOutputStream = function() {
+
+    var _bytes = [];
+
+    var _this = {};
+
+    _this.writeByte = function(b) {
+      _bytes.push(b & 0xff);
+    };
+
+    _this.writeShort = function(i) {
+      _this.writeByte(i);
+      _this.writeByte(i >>> 8);
+    };
+
+    _this.writeBytes = function(b, off, len) {
+      off = off || 0;
+      len = len || b.length;
+      for (var i = 0; i < len; i += 1) {
+        _this.writeByte(b[i + off]);
+      }
+    };
+
+    _this.writeString = function(s) {
+      for (var i = 0; i < s.length; i += 1) {
+        _this.writeByte(s.charCodeAt(i) );
+      }
+    };
+
+    _this.toByteArray = function() {
+      return _bytes;
+    };
+
+    _this.toString = function() {
+      var s = '';
+      s += '[';
+      for (var i = 0; i < _bytes.length; i += 1) {
+        if (i > 0) {
+          s += ',';
+        }
+        s += _bytes[i];
+      }
+      s += ']';
+      return s;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64EncodeOutputStream
+  //---------------------------------------------------------------------
+
+  var base64EncodeOutputStream = function() {
+
+    var _buffer = 0;
+    var _buflen = 0;
+    var _length = 0;
+    var _base64 = '';
+
+    var _this = {};
+
+    var writeEncoded = function(b) {
+      _base64 += String.fromCharCode(encode(b & 0x3f) );
+    };
+
+    var encode = function(n) {
+      if (n < 0) {
+        // error.
+      } else if (n < 26) {
+        return 0x41 + n;
+      } else if (n < 52) {
+        return 0x61 + (n - 26);
+      } else if (n < 62) {
+        return 0x30 + (n - 52);
+      } else if (n == 62) {
+        return 0x2b;
+      } else if (n == 63) {
+        return 0x2f;
+      }
+      throw 'n:' + n;
+    };
+
+    _this.writeByte = function(n) {
+
+      _buffer = (_buffer << 8) | (n & 0xff);
+      _buflen += 8;
+      _length += 1;
+
+      while (_buflen >= 6) {
+        writeEncoded(_buffer >>> (_buflen - 6) );
+        _buflen -= 6;
+      }
+    };
+
+    _this.flush = function() {
+
+      if (_buflen > 0) {
+        writeEncoded(_buffer << (6 - _buflen) );
+        _buffer = 0;
+        _buflen = 0;
+      }
+
+      if (_length % 3 != 0) {
+        // padding
+        var padlen = 3 - _length % 3;
+        for (var i = 0; i < padlen; i += 1) {
+          _base64 += '=';
+        }
+      }
+    };
+
+    _this.toString = function() {
+      return _base64;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64DecodeInputStream
+  //---------------------------------------------------------------------
+
+  var base64DecodeInputStream = function(str) {
+
+    var _str = str;
+    var _pos = 0;
+    var _buffer = 0;
+    var _buflen = 0;
+
+    var _this = {};
+
+    _this.read = function() {
+
+      while (_buflen < 8) {
+
+        if (_pos >= _str.length) {
+          if (_buflen == 0) {
+            return -1;
+          }
+          throw 'unexpected end of file./' + _buflen;
+        }
+
+        var c = _str.charAt(_pos);
+        _pos += 1;
+
+        if (c == '=') {
+          _buflen = 0;
+          return -1;
+        } else if (c.match(/^\s$/) ) {
+          // ignore if whitespace.
+          continue;
+        }
+
+        _buffer = (_buffer << 6) | decode(c.charCodeAt(0) );
+        _buflen += 6;
+      }
+
+      var n = (_buffer >>> (_buflen - 8) ) & 0xff;
+      _buflen -= 8;
+      return n;
+    };
+
+    var decode = function(c) {
+      if (0x41 <= c && c <= 0x5a) {
+        return c - 0x41;
+      } else if (0x61 <= c && c <= 0x7a) {
+        return c - 0x61 + 26;
+      } else if (0x30 <= c && c <= 0x39) {
+        return c - 0x30 + 52;
+      } else if (c == 0x2b) {
+        return 62;
+      } else if (c == 0x2f) {
+        return 63;
+      } else {
+        throw 'c:' + c;
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // gifImage (B/W)
+  //---------------------------------------------------------------------
+
+  var gifImage = function(width, height) {
+
+    var _width = width;
+    var _height = height;
+    var _data = new Array(width * height);
+
+    var _this = {};
+
+    _this.setPixel = function(x, y, pixel) {
+      _data[y * _width + x] = pixel;
+    };
+
+    _this.write = function(out) {
+
+      //---------------------------------
+      // GIF Signature
+
+      out.writeString('GIF87a');
+
+      //---------------------------------
+      // Screen Descriptor
+
+      out.writeShort(_width);
+      out.writeShort(_height);
+
+      out.writeByte(0x80); // 2bit
+      out.writeByte(0);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Global Color Map
+
+      // black
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+
+      // white
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+
+      //---------------------------------
+      // Image Descriptor
+
+      out.writeString(',');
+      out.writeShort(0);
+      out.writeShort(0);
+      out.writeShort(_width);
+      out.writeShort(_height);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Local Color Map
+
+      //---------------------------------
+      // Raster Data
+
+      var lzwMinCodeSize = 2;
+      var raster = getLZWRaster(lzwMinCodeSize);
+
+      out.writeByte(lzwMinCodeSize);
+
+      var offset = 0;
+
+      while (raster.length - offset > 255) {
+        out.writeByte(255);
+        out.writeBytes(raster, offset, 255);
+        offset += 255;
+      }
+
+      out.writeByte(raster.length - offset);
+      out.writeBytes(raster, offset, raster.length - offset);
+      out.writeByte(0x00);
+
+      //---------------------------------
+      // GIF Terminator
+      out.writeString(';');
+    };
+
+    var bitOutputStream = function(out) {
+
+      var _out = out;
+      var _bitLength = 0;
+      var _bitBuffer = 0;
+
+      var _this = {};
+
+      _this.write = function(data, length) {
+
+        if ( (data >>> length) != 0) {
+          throw 'length over';
+        }
+
+        while (_bitLength + length >= 8) {
+          _out.writeByte(0xff & ( (data << _bitLength) | _bitBuffer) );
+          length -= (8 - _bitLength);
+          data >>>= (8 - _bitLength);
+          _bitBuffer = 0;
+          _bitLength = 0;
+        }
+
+        _bitBuffer = (data << _bitLength) | _bitBuffer;
+        _bitLength = _bitLength + length;
+      };
+
+      _this.flush = function() {
+        if (_bitLength > 0) {
+          _out.writeByte(_bitBuffer);
+        }
+      };
+
+      return _this;
+    };
+
+    var getLZWRaster = function(lzwMinCodeSize) {
+
+      var clearCode = 1 << lzwMinCodeSize;
+      var endCode = (1 << lzwMinCodeSize) + 1;
+      var bitLength = lzwMinCodeSize + 1;
+
+      // Setup LZWTable
+      var table = lzwTable();
+
+      for (var i = 0; i < clearCode; i += 1) {
+        table.add(String.fromCharCode(i) );
+      }
+      table.add(String.fromCharCode(clearCode) );
+      table.add(String.fromCharCode(endCode) );
+
+      var byteOut = byteArrayOutputStream();
+      var bitOut = bitOutputStream(byteOut);
+
+      // clear code
+      bitOut.write(clearCode, bitLength);
+
+      var dataIndex = 0;
+
+      var s = String.fromCharCode(_data[dataIndex]);
+      dataIndex += 1;
+
+      while (dataIndex < _data.length) {
+
+        var c = String.fromCharCode(_data[dataIndex]);
+        dataIndex += 1;
+
+        if (table.contains(s + c) ) {
+
+          s = s + c;
+
+        } else {
+
+          bitOut.write(table.indexOf(s), bitLength);
+
+          if (table.size() < 0xfff) {
+
+            if (table.size() == (1 << bitLength) ) {
+              bitLength += 1;
+            }
+
+            table.add(s + c);
+          }
+
+          s = c;
+        }
+      }
+
+      bitOut.write(table.indexOf(s), bitLength);
+
+      // end code
+      bitOut.write(endCode, bitLength);
+
+      bitOut.flush();
+
+      return byteOut.toByteArray();
+    };
+
+    var lzwTable = function() {
+
+      var _map = {};
+      var _size = 0;
+
+      var _this = {};
+
+      _this.add = function(key) {
+        if (_this.contains(key) ) {
+          throw 'dup key:' + key;
+        }
+        _map[key] = _size;
+        _size += 1;
+      };
+
+      _this.size = function() {
+        return _size;
+      };
+
+      _this.indexOf = function(key) {
+        return _map[key];
+      };
+
+      _this.contains = function(key) {
+        return typeof _map[key] != 'undefined';
+      };
+
+      return _this;
+    };
+
+    return _this;
+  };
+
+  var createDataURL = function(width, height, getPixel) {
+    var gif = gifImage(width, height);
+    for (var y = 0; y < height; y += 1) {
+      for (var x = 0; x < width; x += 1) {
+        gif.setPixel(x, y, getPixel(x, y) );
+      }
+    }
+
+    var b = byteArrayOutputStream();
+    gif.write(b);
+
+    var base64 = base64EncodeOutputStream();
+    var bytes = b.toByteArray();
+    for (var i = 0; i < bytes.length; i += 1) {
+      base64.writeByte(bytes[i]);
+    }
+    base64.flush();
+
+    return 'data:image/gif;base64,' + base64;
+  };
+
+  //---------------------------------------------------------------------
+  // returns qrcode function.
+
+  return qrcode;
+}();
+
+// multibyte support
+!function() {
+
+  qrcode.stringToBytesFuncs['UTF-8'] = function(s) {
+    // http://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
+    function toUTF8Array(str) {
+      var utf8 = [];
+      for (var i=0; i < str.length; i++) {
+        var charcode = str.charCodeAt(i);
+        if (charcode < 0x80) utf8.push(charcode);
+        else if (charcode < 0x800) {
+          utf8.push(0xc0 | (charcode >> 6),
+              0x80 | (charcode & 0x3f));
+        }
+        else if (charcode < 0xd800 || charcode >= 0xe000) {
+          utf8.push(0xe0 | (charcode >> 12),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+        // surrogate pair
+        else {
+          i++;
+          // UTF-16 encodes 0x10000-0x10FFFF by
+          // subtracting 0x10000 and splitting the
+          // 20 bits of 0x0-0xFFFFF into two halves
+          charcode = 0x10000 + (((charcode & 0x3ff)<<10)
+            | (str.charCodeAt(i) & 0x3ff));
+          utf8.push(0xf0 | (charcode >>18),
+              0x80 | ((charcode>>12) & 0x3f),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+      }
+      return utf8;
+    }
+    return toUTF8Array(s);
+  };
+
+}();
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+      define([], factory);
+  } else if (typeof exports === 'object') {
+      module.exports = factory();
+  }
+}(function () {
+    return qrcode;
+}));
+</script><script>(() => {
+  'use strict';
+  const NETLIFY = 'https://clinical-research-starter-jia.netlify.app';
+  const GITHUB = 'https://jialove70-ship-it.github.io';
+  const local = location.protocol === 'http:' && ['127.0.0.1','localhost'].includes(location.hostname);
+  const hosted = local || [NETLIFY, GITHUB].includes(location.origin);
+  const endpoint = (local ? location.origin : NETLIFY) + '/.netlify/functions/';
+  const validRoom = /^[A-Z2-9]{6}$/;
+  const validId = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+  const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const fieldLabels = {
+    11: ['P 研究對象','I／E 介入或暴露','C 比較','O 結果','T 時間'],
+    36: ['研究問題','研究設計','選擇理由','資料來源','追蹤起點','主要結果','偏差','因應做法'],
+  };
+  const names = {11:'PICOT 練習',21:'研究設計測驗',36:'研究草案'};
+  const designLabels = {'cross-sectional':'橫斷研究','retrospective-cohort':'回溯性世代','case-control':'病例對照'};
+  const ids = [11,21,36];
+  const el = (tag, attrs = {}, ...children) => {
+    const node = document.createElement(tag);
+    for (const [key,value] of Object.entries(attrs)) node.setAttribute(key, value);
+    node.append(...children);
+    return node;
+  };
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  let student = params.get('view') === 'student';
+  let room = '';
+  let generation = 0;
+  let lastSnapshot = '';
+  let timer, reader, voterId;
+  const controls = new Set();
+
+  function getVoterId() {
+    if (voterId) return voterId;
+    try { voterId = localStorage.getItem('research-classroom-voter-v1'); } catch {}
+    if (!validId.test(voterId || '')) voterId = crypto.randomUUID();
+    try { localStorage.setItem('research-classroom-voter-v1', voterId); } catch {}
+    return voterId;
+  }
+  function code() {
+    return Array.from(crypto.getRandomValues(new Uint8Array(6)), b => letters[b % letters.length]).join('');
+  }
+  async function request(path, options = {}) {
+    const response = await fetch(endpoint + path, {cache:'no-store', credentials:'omit', ...options});
+    if (!response.ok) {
+      const payload = await response.json().catch(() => null);
+      throw new Error(payload?.message || '暫時無法連上統計服務，請稍後重試。');
+    }
+    return response.json();
+  }
+  function rate(n, d) { return d ? `${Math.round(n / d * 100)}%` : '—'; }
+  function validCount(n) { return Number.isSafeInteger(n) && n >= 0; }
+  function pair(label, value) { return el('li', {}, el('span',{},label), el('strong',{},value)); }
+  function showStats(data) {
+    if (data.room !== room) throw new Error('場次資料不符');
+    const snapshot = JSON.stringify(data.exercises);
+    if (snapshot === lastSnapshot) {
+      $('stats-time').textContent = '上次更新 ' + new Date().toLocaleTimeString('zh-TW',{hour12:false});
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    for (const n of ids) {
+      const d = data.exercises?.[n];
+      if (!validCount(d?.total) || !validCount(d.complete) || d.complete > d.total) throw new Error('統計格式不符');
+      const list = el('ul',{class:'stat-list'});
+      let breakdown;
+      if (n === 21) {
+        if (!Array.isArray(d.correct) || d.correct.length !== 3 || !Array.isArray(d.answered) || d.answered.length !== 3 || !Array.isArray(d.choices) || d.choices.length !== 3) throw new Error('統計格式不符');
+        breakdown = el('details',{class:'stat-breakdown'}, el('summary',{},'查看各選項票數'));
+        for (const [i, label] of ['A','B','C'].entries()) {
+          const a = d.answered[i], c = d.correct[i];
+          if (!validCount(a) || !validCount(c) || c > a || a > d.total) throw new Error('統計格式不符');
+          list.append(pair(`題 ${label} 正答`,`${c}／${a} · ${rate(c,a)}`));
+          const row = Object.entries(designLabels).map(([key,name]) => {
+            const votes = d.choices[i]?.[key];
+            if (!validCount(votes)) throw new Error('統計格式不符');
+            return `${name} ${votes}`;
+          });
+          breakdown.append(el('p',{},`題 ${label}：${row.join('、')}`));
+        }
+      } else {
+        if (!Array.isArray(d.fields) || d.fields.length !== fieldLabels[n].length || !d.fields.every(v => validCount(v) && v <= d.total)) throw new Error('統計格式不符');
+        fieldLabels[n].forEach((label,i) => list.append(pair(label,`${d.fields[i]} 人`)));
+      }
+      fragment.append(el('section',{class:'stats-card',id:`stats-${n}`},
+        el('h3',{},`${n} · ${names[n]}`),
+        el('p',{},el('strong',{class:'stat-count'},String(d.total)),' 人已送出'),
+        el('p',{class:'field-help'},`${d.complete} 人${n === 21 ? '答完三題' : '完成所有欄位'} · ${rate(d.complete,d.total)}`),
+        list, ...(breakdown ? [breakdown] : [])));
+    }
+    // Keep an expanded choices list open when polling redraws its counts.
+    const wasOpen = $('classroom-stats').querySelector('details')?.open;
+    if (wasOpen) fragment.querySelector('details')?.setAttribute('open','');
+    $('classroom-stats').replaceChildren(fragment);
+    lastSnapshot = snapshot;
+    $('stats-time').textContent = '上次更新 ' + new Date().toLocaleTimeString('zh-TW',{hour12:false});
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (hosted && room && !student && !document.hidden) timer = setTimeout(refresh,3000);
+  }
+  async function refresh() {
+    if (!hosted || !room) return;
+    clearTimeout(timer);
+    reader?.abort();
+    const controller = new AbortController();
+    reader = controller;
+    const activeRoom = room;
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const data = await request('stats?room=' + encodeURIComponent(activeRoom), {signal:controller.signal});
+      if (reader !== controller || room !== activeRoom) return;
+      showStats(data);
+      $('classroom-status').textContent = student ? '已連線。送出後可查看同場統計。' : '已連線 · 自動更新';
+    } catch {
+      if (reader !== controller || room !== activeRoom) return;
+      $('classroom-status').textContent = '目前無法讀取統計，請稍後更新。若有上次結果，會繼續顯示。';
+    } finally {
+      clearTimeout(timeout);
+      if (reader === controller) { reader = null; schedule(); }
+    }
+  }
+  function syncSubmissionControls() {
+    for (const control of controls) {
+      control.button.disabled = !hosted || !room || control.pending;
+      control.status.textContent = !hosted ? '離線可練習；請開啟線上版使用全班統計。' : room ? '' : '請先加入場次。';
+    }
+  }
+  function setRoom(next, mode) {
+    room = next;
+    student = mode;
+    lastSnapshot = '';
+    generation++;
+    reader?.abort(); reader = null; clearTimeout(timer);
+    if (hosted) {
+      const url = new URL(location.href);
+      if (room) url.searchParams.set('room',room); else url.searchParams.delete('room');
+      if (student) url.searchParams.set('view','student'); else url.searchParams.delete('view');
+      history.replaceState(null,'',url);
+    }
+    $('current-room').textContent = room || '—';
+    $('join-room').value = room;
+    $('new-classroom').hidden = student;
+    $('classroom-share').hidden = student || !hosted || !room;
+    $('refresh-classroom').disabled = !hosted || !room;
+    $('classroom-stats').replaceChildren();
+    $('stats-time').textContent = '';
+    $('classroom-status').textContent = !hosted ? '離線模式。全班統計只在網站上提供。' : room ? '正在讀取場次統計…' : '請輸入有效的六位場次碼。';
+    if (room && hosted) {
+      const url = new URL(local ? location.origin : NETLIFY);
+      url.searchParams.set('room',room); url.searchParams.set('view','student');
+      url.hash='slide-11';
+      $('student-link').href=url.href;
+      $('student-link').textContent=url.href;
+      const qrHost = $('classroom-qr');
+      if (qrHost && typeof qrcode === 'function') {
+        const qr = qrcode(0,'M'); qr.addData(url.href); qr.make();
+        qrHost.innerHTML=qr.createSvgTag({cellSize:4,margin:16,scalable:true});
+      }
+    }
+    syncSubmissionControls();
+    if (room && hosted) refresh();
+  }
+  function makeSubmission(n, getValues) {
+    const button = el('button',{type:'button',class:'button'},'送出並更新全班統計');
+    const status = el('p',{class:'submission-status',role:'status'});
+    const control = {button,status,pending:false};
+    controls.add(control);
+    button.addEventListener('click',async () => {
+      if (!room || !hosted || control.pending) return;
+      const values = getValues();
+      if (!values.some(Boolean)) { status.textContent='請先完成至少一個欄位或選項。'; return; }
+      const active = generation;
+      control.pending=true; button.disabled=true; status.textContent='送出中…';
+      try {
+        const result = await request('submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({room,voterId:getVoterId(),exercise:n,values}),signal:AbortSignal.timeout(10000)});
+        if (!result.ok) throw new Error('送出未完成，請重試。');
+        if (active !== generation) return;
+        status.replaceChildren('已送出；再次送出會更新你在此場次的答案。 ',el('a',{href:'#classroom'},'查看全班統計 ↑'));
+        await refresh();
+      } catch(error) {
+        if (active === generation) status.textContent = error.name === 'TimeoutError' ? '送出逾時，請重試。' : (error.message || '暫時無法送出，請重試。');
+      } finally {
+        control.pending=false; button.disabled=!room || !hosted;
+      }
+    });
+    button.disabled=!hosted || !room;
+    if (!hosted) status.textContent='離線可練習；請開啟線上版使用全班統計。';
+    else if (!room) status.textContent='請先加入場次。';
+    return el('div',{class:'exercise-submit'},button,status);
+  }
+  window.researchClassroom = {makeSubmission};
+  if (!$('classroom')) return;
+  $('room-form').addEventListener('submit',event => {
+    event.preventDefault();
+    const entered = $('join-room').value.trim().toUpperCase();
+    if (!validRoom.test(entered)) { $('join-feedback').textContent='請輸入六位大寫英文字母或數字（2–9）。'; return; }
+    $('join-feedback').textContent=''; setRoom(entered, student);
+  });
+  $('new-classroom').addEventListener('click',() => { $('join-feedback').textContent=''; setRoom(code(),false); });
+  $('refresh-classroom').addEventListener('click',refresh);
+  $('copy-classroom').addEventListener('click',async () => {
+    try { await navigator.clipboard.writeText($('student-link').href); $('join-feedback').textContent='已複製學員連結。'; }
+    catch { $('join-feedback').textContent='可選取下方連結手動複製。'; }
+  });
+  document.addEventListener('visibilitychange',() => { if (!student && !document.hidden) refresh(); else clearTimeout(timer); });
+  if (!hosted) {
+    $('room-form').hidden = true;
+    $('offline-classroom').hidden = false;
+  }
+  const initial = (params.get('room') || '').trim().toUpperCase();
+  setRoom(hosted ? (validRoom.test(initial) ? initial : student || initial ? '' : code()) : '',student);
+})();
+</script><script>(() => {
+  "use strict";
+
+  function element(tag, attributes = {}, ...children) {
+    const node = document.createElement(tag);
+    for (const [name, value] of Object.entries(attributes)) {
+      node.setAttribute(name, value);
+    }
+    node.append(...children);
+    return node;
+  }
+
+  function mountExercise(slide, title, description, content) {
+    const host = document.getElementById(`exercise-${slide}`);
+    if (!host) return;
+
+    const existingTitle = document.getElementById(`title-${slide}`);
+    const titleId = existingTitle?.id ?? `exercise-${slide}-title`;
+    host.classList.add("exercise");
+    if (host.tagName === "DIV") host.setAttribute("role", "group");
+    host.setAttribute("aria-labelledby", titleId);
+    const { node, values } = content();
+    host.replaceChildren(
+      ...(existingTitle ? [] : [element("h3", { id: titleId }, title)]),
+      element("p", {}, description),
+      node,
+    );
+    const submission = window.researchClassroom?.makeSubmission?.(slide, values);
+    if (submission) host.append(submission);
+  }
+
+  const picotFields = [
+    { key: "p", label: "P｜研究對象", placeholder: "例如：某院成人內科出院返家病人", sample: "某院成人內科出院返家病人", empty: "＿＿病人" },
+    { key: "i", label: "I／E｜介入或暴露", placeholder: "例如：出院前完成標準化強化衛教", sample: "出院前完成標準化強化衛教者", empty: "＿＿" },
+    { key: "c", label: "C｜比較對象或方式", placeholder: "例如：同時期接受一般出院衛教", sample: "同時期接受一般出院衛教者", empty: "＿＿" },
+    { key: "o", label: "O｜要觀察的結果", placeholder: "例如：首次院內非計畫性再住院風險", sample: "首次院內非計畫性再住院風險", empty: "＿＿結果" },
+    { key: "t", label: "T｜觀察期間", placeholder: "例如：出院後 30 天（不用加「內」）", sample: "出院後 30 天", empty: "＿＿時間" },
+  ];
+  let latestPicot = null;
+
+  function buildPicot() {
+    const inputs = new Map();
+    const fields = element("div", { class: "form-grid" });
+    for (const definition of picotFields) {
+      const id = `picot-${definition.key}`;
+      const input = element("input", {
+        id,
+        type: "text",
+        placeholder: definition.placeholder,
+        maxlength: "140",
+      });
+      inputs.set(definition.key, input);
+      fields.append(element(
+        "div",
+        { class: "field" },
+        element("label", { for: id }, definition.label),
+        input,
+      ));
+    }
+
+    const preview = element("p", { role: "status", "aria-live": "polite", "aria-atomic": "true" });
+    const update = () => {
+      const values = {};
+      let filled = 0;
+      for (const definition of picotFields) {
+        const value = inputs.get(definition.key).value.trim();
+        if (value) filled++;
+        values[definition.key] = value || definition.empty;
+      }
+      const question = `在${values.p}中，${values.i}與${values.c}相比，${values.t}內的${values.o}是否不同？`;
+      preview.textContent = question;
+      latestPicot = filled ? { question, complete: filled === picotFields.length } : null;
+    };
+
+    const sample = element("button", { type: "button" }, "載入出院衛教範例");
+    sample.addEventListener("click", () => {
+      for (const definition of picotFields) inputs.get(definition.key).value = definition.sample;
+      update();
+    });
+    const clear = element("button", { type: "button", class: "button button-secondary" }, "清除重填");
+    clear.addEventListener("click", () => {
+      for (const input of inputs.values()) input.value = "";
+      update();
+    });
+
+    const privacy = element("p", { id: "picot-privacy", class: "field-help" }, "研究問題與欄位文字只留在這個瀏覽器頁面。按下課堂送出按鈕時，只會匿名傳送每個欄位是否已填寫。請勿填入可識別的病人資料。");
+    const form = element(
+      "form",
+      { class: "exercise-form", "aria-describedby": "picot-privacy", autocomplete: "off" },
+      fields,
+      element("div", { class: "form-actions" }, sample, clear),
+      privacy,
+    );
+    form.addEventListener("submit", (event) => event.preventDefault());
+    form.addEventListener("input", update);
+    update();
+
+    const node = element(
+      "div",
+      { class: "exercise-grid" },
+      form,
+      element(
+        "div",
+        { class: "exercise-result" },
+        element("h4", {}, "你的 PICOT 研究問題"),
+        preview,
+        element("p", { class: "help-text" }, "建議節奏：40 秒寫題、30 秒交換閱讀、20 秒指出一個還不夠明確的元素。"),
+      ),
+    );
+    return {
+      node,
+      values: () => picotFields.map(({ key }) => Boolean(inputs.get(key).value.trim())),
+    };
+  }
+
+  const designOptions = [
+    ["cross-sectional", "橫斷研究"],
+    ["retrospective-cohort", "回溯性世代研究"],
+    ["case-control", "病例對照研究"],
+  ];
+  const designCases = [
+    {
+      key: "a",
+      prompt: "今天調查所有出院病人的用藥理解程度。",
+      answer: "cross-sectional",
+      explanation: "在同一時間點測量出院病人的用藥理解程度，沒有追蹤後續結果。",
+    },
+    {
+      key: "b",
+      prompt: "依去年出院時的衛教紀錄分組，比較後續 30 天再住院情形。",
+      answer: "retrospective-cohort",
+      explanation: "先按過去的介入或暴露紀錄分組，再由既有資料比較之後的結果。",
+    },
+    {
+      key: "c",
+      prompt: "先選出嚴重事件病例與適當對照，再比較過去暴露。",
+      answer: "case-control",
+      explanation: "先依是否發生事件選人，再回頭比較病例與對照的過去暴露。",
+    },
+  ];
+
+  function buildDesignQuiz() {
+    const quiz = element("form", { class: "exercise-form", "aria-describedby": "design-privacy", autocomplete: "off" });
+    quiz.addEventListener("submit", (event) => event.preventDefault());
+    const resets = [];
+    const selections = [];
+    for (const studyCase of designCases) {
+      const caseLabel = studyCase.key.toUpperCase();
+      const inputId = `design-case-${studyCase.key}`;
+      const select = element(
+        "select",
+        { id: inputId },
+        element("option", { value: "" }, "請選擇研究設計"),
+        ...designOptions.map(([value, title]) => element("option", { value }, title)),
+      );
+      const feedback = element("p", {
+        class: "exercise-result",
+        role: "status",
+        "aria-live": "polite",
+        "aria-atomic": "true",
+      });
+      selections.push(select);
+      const render = () => {
+        const answerLabel = designOptions.find(([value]) => value === studyCase.answer)[1];
+        if (!select.value) {
+          feedback.setAttribute("data-state", "waiting");
+          feedback.textContent = "選擇後會顯示判斷依據。";
+        } else if (select.value === studyCase.answer) {
+          feedback.setAttribute("data-state", "success");
+          feedback.textContent = `答對了：${answerLabel}。${studyCase.explanation}`;
+        } else {
+          feedback.setAttribute("data-state", "error");
+          feedback.textContent = `這題是${answerLabel}。${studyCase.explanation}`;
+        }
+      };
+      select.addEventListener("change", render);
+      resets.push(() => { select.value = ""; render(); });
+      render();
+      quiz.append(element(
+        "fieldset",
+        { class: "card exercise-form" },
+        element("legend", {}, `案例 ${caseLabel}`),
+        element("p", {}, studyCase.prompt),
+        element("div", { class: "field" }, element("label", { for: inputId }, `案例 ${caseLabel} 的研究設計`), select),
+        feedback,
+      ));
+    }
+
+    const reset = element("button", { type: "button", class: "button button-secondary" }, "清除選擇");
+    reset.addEventListener("click", () => { for (const clear of resets) clear(); });
+    quiz.append(
+      element("div", { class: "form-actions" }, reset),
+      element("p", { id: "design-privacy", class: "field-help" }, "你可以先選擇並查看解析。只有按下課堂送出按鈕後，才會匿名傳送案例 A、B、C 的選項供全班統計。"),
+    );
+    return {
+      node: quiz,
+      values: () => selections.map((select) => select.value || null),
+    };
+  }
+
+  function buildStudyDraft() {
+    const form = element("form", { class: "exercise-form", "aria-describedby": "draft-privacy", autocomplete: "off" });
+    form.addEventListener("submit", (event) => event.preventDefault());
+    const fields = new Map();
+    const makeField = (key, label, placeholder, multiline = false) => {
+      const id = `draft-${key}`;
+      const control = element(multiline ? "textarea" : "input", {
+        id,
+        placeholder,
+        maxlength: multiline ? "800" : "180",
+        ...(multiline ? { rows: "3" } : { type: "text" }),
+      });
+      fields.set(key, control);
+      return element("div", { class: "field" }, element("label", { for: id }, label), control);
+    };
+    const carryStatus = element("p", { class: "field-help", role: "status" });
+    const carry = element("button", { type: "button", class: "button button-secondary" }, "帶入練習一的 PICOT");
+    const questionField = makeField("question", "PICOT 研究問題", "帶入前面的 PICOT，或在這裡寫下你的題目。", true);
+    const group = (legend, ...children) => element(
+      "fieldset", {},
+      element("legend", {}, legend),
+      element("div", { class: children.length > 1 ? "form-grid" : "exercise-form" }, ...children),
+    );
+
+    form.append(
+      questionField,
+      element("div", { class: "form-actions" }, carry),
+      carryStatus,
+      group(
+        "1｜研究設計與理由",
+        makeField("design", "研究設計", "例如：回溯性世代研究"),
+        makeField("reason", "選擇理由", "例如：既有紀錄可定義分組"),
+      ),
+      group("2｜資料來源", makeField("source", "資料來源", "例如：既有衛教紀錄與住院資料")),
+      group(
+        "3｜追蹤起點與主要結果",
+        makeField("start", "追蹤起點", "例如：出院日"),
+        makeField("outcome", "主要結果", "例如：出院後 30 天內再住院"),
+      ),
+      group(
+        "4｜偏差與因應",
+        makeField("bias", "最擔心的偏差", "例如：不同組別的病人起點不同"),
+        makeField("mitigation", "我會先怎麼做", "例如：比較兩組的基線特徵"),
+      ),
+      element("p", { id: "draft-privacy", class: "field-help" }, "草案文字只留在這個瀏覽器頁面，可自行複製或下載。按下課堂送出按鈕時，只會匿名傳送每個欄位是否已填寫。請勿填入可識別的病人資料。"),
+    );
+
+    const previewQuestion = element("p");
+    const previewDetails = Array.from({ length: 4 }, () => element("li"));
+    const preview = element(
+      "div", { "aria-live": "polite", "aria-atomic": "false" },
+      previewQuestion,
+      element("ol", {}, ...previewDetails),
+    );
+    const render = () => {
+      const value = (key) => fields.get(key).value.trim() || "＿＿";
+      const question = `PICOT：${value("question")}`;
+      const details = [
+        `我選擇的研究設計是${value("design")}，因為${value("reason")}。`,
+        `我的資料來源是${value("source")}。`,
+        `我的追蹤起點是${value("start")}，主要結果是${value("outcome")}。`,
+        `最擔心的偏差是${value("bias")}，我會先${value("mitigation")}。`,
+      ];
+      if (previewQuestion.textContent !== question) previewQuestion.textContent = question;
+      for (const [index, detail] of details.entries()) {
+        if (previewDetails[index].textContent !== detail) previewDetails[index].textContent = detail;
+      }
+      return ["我的研究草案", question, ...details.map((detail, index) => `${index + 1}. ${detail}`)].join("\n");
+    };
+
+    carry.addEventListener("click", () => {
+      if (!latestPicot) {
+        carryStatus.textContent = "練習一目前沒有內容，也可以直接輸入自己的問題。";
+        return;
+      }
+      fields.get("question").value = latestPicot.question;
+      carryStatus.textContent = latestPicot.complete ? "已帶入 PICOT，可以在這裡編輯。" : "已帶入目前的 PICOT，請補上空白的元素。";
+      render();
+    });
+    form.addEventListener("input", render);
+
+    const copyStatus = element("p", { class: "field-help", role: "status" });
+    const copy = element("button", { type: "button" }, "複製草案");
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(render());
+        copyStatus.textContent = "已複製草案。";
+      } catch {
+        copyStatus.textContent = "目前無法直接複製，可選取草案文字手動複製，或下載文字檔。";
+      }
+    });
+    const download = element("button", { type: "button", class: "button button-secondary" }, "下載文字檔");
+    download.addEventListener("click", () => {
+      const file = new Blob(["\ufeff", render()], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(file);
+      const link = element("a", { href: url, download: "我的研究草案.txt" });
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      copyStatus.textContent = "已啟動文字檔下載。";
+    });
+    render();
+
+    const node = element(
+      "div",
+      { class: "exercise-grid" },
+      form,
+      element(
+        "div",
+        { class: "exercise-result" },
+        element("h4", {}, "你的研究草案"),
+        preview,
+        element("div", { class: "exercise-actions" }, copy, download),
+        copyStatus,
+      ),
+    );
+    return {
+      node,
+      values: () => ["question", "design", "reason", "source", "start", "outcome", "bias", "mitigation"]
+        .map((key) => Boolean(fields.get(key).value.trim())),
+    };
+  }
+
+  function initialize() {
+    mountExercise(
+      11,
+      "練習一：把臨床疑問寫成 PICOT",
+      "請用自己的職類，完成這一句話：在＿＿病人中，＿＿與＿＿相比，＿＿時間內的＿＿結果是否不同？",
+      buildPicot,
+    );
+    mountExercise(21, "練習二：這是哪一種研究設計？", "先看怎麼選人，再看何時測量。", buildDesignQuiz);
+    mountExercise(
+      36,
+      "練習三：完成你的研究草案",
+      "接續剛才的 PICOT，再補上四件事。建議節奏：60 秒書寫、40 秒分享、20 秒回饋。",
+      buildStudyDraft,
+    );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize, { once: true });
+  } else {
+    initialize();
+  }
+})();
+</script></body></html>
